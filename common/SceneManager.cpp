@@ -235,3 +235,13 @@ void SceneManager::Render()
 		pSprite->Render(mOrthoProj);
 	}
 }
+
+void SceneManager::Update(float p_fDelta)
+{
+	ModelList::iterator it = m_lModelList.begin(), end = m_lModelList.end();
+	for (; it != end; ++it)
+	{
+		wolf::Model* pModel = static_cast<wolf::Model*>(*it);
+		pModel->Update(p_fDelta);
+	}
+}

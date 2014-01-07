@@ -74,7 +74,24 @@ bool ExampleGame2::Init()
 //------------------------------------------------------------------------------
 bool ExampleGame2::Update(float p_fDelta)
 {
-	m_pModel->Update(p_fDelta);
+	//m_pModel->Update(p_fDelta);
+	if (glfwGetKey(GLFW_KEY_LEFT) == GLFW_PRESS)
+	{
+		glm::vec3 currentPos = m_pSceneCamera->GetPos();
+		currentPos.x += 300*p_fDelta;
+		m_pSceneCamera->SetPos(currentPos);
+
+	}
+	else if (glfwGetKey(GLFW_KEY_RIGHT) == GLFW_PRESS)
+	{
+		glm::vec3 currentPos = m_pSceneCamera->GetPos();
+		currentPos.x -= 300*p_fDelta;
+		m_pSceneCamera->SetPos(currentPos);
+	}
+
+	Common::SceneManager::Instance()->Update(p_fDelta);
+
+
 	return true;
 }
 

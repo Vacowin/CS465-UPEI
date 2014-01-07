@@ -55,6 +55,8 @@ namespace Common
 
 		void Render();
 
+		void Update(float p_fDelta);
+
 	private:
 		//------------------------------------------------------------------------------
 		// Private methods.
