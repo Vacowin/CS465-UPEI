@@ -137,6 +137,7 @@
     </ClCompile>
     <ClCompile Include="ComponentRenderableSquare.cpp" />
     <ClCompile Include="Square.cpp" />
+    <ClCompile Include="ComponentCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -312,5 +313,6 @@
     </ClInclude>
     <ClInclude Include="ComponentRenderableSquare.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="ComponentCamera.h" />
   </ItemGroup>
 </Project>

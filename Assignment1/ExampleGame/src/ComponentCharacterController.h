@@ -33,6 +33,7 @@ namespace week2
 		virtual const std::string ComponentID(){ return std::string("GOC_CharacterController"); }
 		virtual void Update(float p_fDelta);
 
+		float getCharacterRotation() { return m_fRotation;}
 	private:
 		//------------------------------------------------------------------------------
 		// Private members.
@@ -41,6 +42,11 @@ namespace week2
 		// Keys buffer
 		bool m_bKeysDown[256];
 		bool m_bKeysDownLast[256];
+
+		bool m_bTurnBack;
+		bool m_bSKey;
+
+		float m_fRotation;
 	};
 }
 

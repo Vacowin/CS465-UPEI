@@ -26,6 +26,8 @@ ComponentCharacterController::ComponentCharacterController()
 {
 	memset(m_bKeysDown, 0, sizeof(bool) * 256);
 	memset(m_bKeysDownLast, 0, sizeof(bool) * 256);
+
+	m_fRotation = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -54,17 +56,50 @@ void ComponentCharacterController::Update(float p_fDelta)
 		m_bKeysDown[i] = (glfwGetKey(i) == GLFW_PRESS);
 	}
 
-	// Get the parent GameObject's Transform component.
 	Common::Transform& transform = this->GetGameObject()->GetTransform();
 
-	// Move left on 'a' key
+	ComponentAnimController* pAnimation = static_cast<ComponentAnimController*>(this->GetGameObject()->GetComponent("GOC_AnimController"));
+
+	if ((!m_bKeysDown['W'] || !m_bKeysDown['S'])&&(m_bKeysDownLast['W'] && !m_bKeysDown['W'] || m_bKeysDownLast['S'] && !m_bKeysDown['S']))
+	{
+        pAnimation->SetAnim("idle");
+		if (m_bTurnBack == false)
+		{
+			m_bTurnBack = true;
+		}
+	}
+    
 	if ((m_bKeysDown['a'] || m_bKeysDown['A']))
 	{
-		transform.Translate(glm::vec3(-10.0f * p_fDelta, 0.0f, 0.0f));
+		transform.Rotate(glm::vec3(0.0f,200.0f*p_fDelta,0.0f));
+		m_fRotation += 200.0f*p_fDelta;
 	}
-	// Move right on 'd' key
-	if ((m_bKeysDown['d'] || m_bKeysDown['D']))
+	else if ((m_bKeysDown['d'] || m_bKeysDown['D']))
 	{
-		transform.Translate(glm::vec3(10.0f * p_fDelta, 0.0f, 0.0f));
+		transform.Rotate(glm::vec3(0.0f,-200.0f*p_fDelta,0.0f));
+		m_fRotation -= 200.0f*p_fDelta;
+	}
+
+	float z1 = 9*cos((m_fRotation - 40) * PI / 180) - 9*sin((m_fRotation - 40) * PI / 180);
+	float x1 = 9*sin((m_fRotation - 40) * PI / 180) + 9*cos((m_fRotation - 40) * PI / 180);
+
+	if (glfwGetKey('W'))
+	{
+		transform.Translate(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta));
+        if (m_bKeysDown['W'] != m_bKeysDownLast['W'])
+		    pAnimation->SetAnim("run");
+	}
+    else if (glfwGetKey('S') )
+	{
+		if (m_bTurnBack)
+		{
+			transform.Rotate(glm::vec3(0.0f,180,0.0f));
+			m_fRotation += 180;
+			m_bTurnBack = false;
+		}
+
+		transform.Translate(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta));
+        if (m_bKeysDown['S'] != m_bKeysDownLast['S'])
+		    pAnimation->SetAnim("run");
 	}
 }

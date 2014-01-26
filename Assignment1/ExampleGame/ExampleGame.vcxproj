@@ -124,6 +124,7 @@
     <ClCompile Include="..\..\wolf\W_TextureManager.cpp" />
     <ClCompile Include="..\..\wolf\W_VertexBuffer.cpp" />
     <ClCompile Include="..\..\wolf\W_VertexDeclaration.cpp" />
+    <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentRenderableSquare.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="src\ComponentAnimController.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="..\..\wolf\W_Types.h" />
     <ClInclude Include="..\..\wolf\W_VertexBuffer.h" />
     <ClInclude Include="..\..\wolf\W_VertexDeclaration.h" />
+    <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentRenderableSquare.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="src\ComponentAnimController.h" />

@@ -15,6 +15,7 @@
 #include "SceneManager.h"
 #include "W_Model.h"
 #include "Assignment1/ExampleGame/ComponentRenderableSquare.h"
+#include "Assignment1/ExampleGame/ComponentCamera.h"
 
 using namespace week2;
 
@@ -69,7 +70,7 @@ bool ExampleGame::Init()
 	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject();
 	m_pGameObjectManager->SetGameObjectGUID(pCharacter, "character");
 	pCharacter->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
-	pCharacter->GetTransform().SetTranslation(glm::vec3(-3.0f, 0.0, 0.0f));
+	pCharacter->GetTransform().SetTranslation(glm::vec3(3.0f, 0.0, 0.0f));
 	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,40.0f,0.0f));
 
 	// Create a renderable component for it
@@ -89,11 +90,23 @@ bool ExampleGame::Init()
 	pCharacter->AddComponent(pCharacterControllerComponent);
 
 	// create a camara compoent for character;
-	/*
 	ComponentCamera* pPlayerCamera = new ComponentCamera();
 	pPlayerCamera->SetCamera(m_pSceneCamera);
     pCharacter->AddComponent(pPlayerCamera);
-	*/
+	
+	// lamp post
+    Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject();
+    m_pGameObjectManager->SetGameObjectGUID(pLamp, "lamp");
+	pLamp->GetTransform().Scale(glm::vec3(0.4f, 0.4, 0.4f));
+
+    ComponentRenderableMesh* pRenderableComponentLamp = new ComponentRenderableMesh();
+	pRenderableComponentLamp->Init("Assignment1/ExampleGame/data/props/lamp.pod", "Assignment1/ExampleGame/data/props/", "Assignment1/ExampleGame/data/shaders/textured.vsh", "Assignment1/ExampleGame/data/shaders/textured.fsh");
+	pLamp->AddComponent(pRenderableComponentLamp);
+
+	// create a camara compoent for lamp;
+	ComponentCamera* pLampCamera = new ComponentCamera();	
+	pLampCamera->GetCamera()->SetPos(glm::vec3(0.0f,25.0f,0.0f));
+	pLamp->AddComponent(pLampCamera);
 
 	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject();
     ComponentRenderableSquare* pRenderableSquare = new ComponentRenderableSquare();
@@ -116,6 +129,27 @@ bool ExampleGame::Init()
 bool ExampleGame::Update(float p_fDelta)
 {
 	m_pGameObjectManager->Update(p_fDelta);
+
+	if (glfwGetKey('C') == GLFW_PRESS && !m_bToggleCamera)
+    {
+		m_b3PCamera = !m_b3PCamera;
+        m_bToggleCamera = true;
+    }
+    else if (glfwGetKey('C') == GLFW_RELEASE)
+        m_bToggleCamera = false;
+
+	Common::SceneCamera* pCamera;
+	if (m_b3PCamera)
+    {
+        pCamera = static_cast<ComponentCamera*>(m_pGameObjectManager->
+            GetGameObject("character")->GetComponent("GOC_Camera"))->GetCamera();
+    }
+    else
+        pCamera = static_cast<ComponentCamera*>(m_pGameObjectManager->
+            GetGameObject("lamp")->GetComponent("GOC_Camera"))->GetCamera();
+  
+	Common::SceneManager::Instance()->AttachCamera(pCamera);
+
 	return true;
 }
 
