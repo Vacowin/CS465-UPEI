@@ -13,6 +13,7 @@
 #include "W_Model.h"
 #include "W_Sprite.h"
 #include "SceneCamera.h"
+#include "Assignment1\ExampleGame\Square.h"
 
 namespace Common
 {
@@ -21,6 +22,7 @@ namespace Common
 		// Typedef for convenience
 		typedef std::vector<wolf::Model*> ModelList;
 		typedef std::vector<wolf::Sprite*> SpriteList;
+		typedef std::vector<Square*> SquareTextureList;
 	
 		// A directional light
 		struct DirectionalLight
@@ -43,6 +45,10 @@ namespace Common
 		void AddModel(wolf::Model* p_pModel);
 		void RemoveModel(wolf::Model* p_pModel);
 		void Clear();
+
+		void AddSquareTexture(Square* p_pSquare);
+		void RemoveSquareTexture(Square* p_oSquare);
+		void ClearSquareTexure();
 
 		void AddSprite(wolf::Sprite* p_pSprite);
 		void RemoveSprite(wolf::Sprite* p_pSprite);
@@ -76,6 +82,9 @@ namespace Common
 
 		// A list of models to render
 		ModelList m_lModelList;
+
+		// A list of squares/quads
+		SquareTextureList m_lSquareList;
 
 		// A list of sprites to render
 		SpriteList m_lSpriteList;

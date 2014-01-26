@@ -98,6 +98,12 @@ void SceneManager::AddModel(wolf::Model* p_pModel)
 	m_lModelList.push_back(p_pModel);
 }
 
+
+void SceneManager::AddSquareTexture(Square* p_pSquare)
+{
+	m_lSquareList.push_back(p_pSquare);
+}
+
 //------------------------------------------------------------------------------
 // Method:    RemoveModel
 // Parameter: wolf::Model * p_pModel
@@ -114,6 +120,20 @@ void SceneManager::RemoveModel(wolf::Model* p_pModel)
 	}	
 }
 
+
+void SceneManager::RemoveSquareTexture(Square* p_pSquare)
+{
+	SquareTextureList::iterator it = std::find(m_lSquareList.begin(), m_lSquareList.end(), p_pSquare);
+	if (it != m_lSquareList.end())
+	{
+		m_lSquareList.erase(it);
+	}	
+}
+
+void SceneManager::ClearSquareTexure()
+{
+	m_lSquareList.clear();
+}
 //------------------------------------------------------------------------------
 // Method:    Clear
 // Returns:   void
@@ -213,20 +233,27 @@ void SceneManager::Render()
 		wolf::Model* pModel = static_cast<wolf::Model*>(*it);
 
 		// Set the light parameters
+		
 		pModel->GetMaterial()->SetUniform("ViewDir", glm::normalize(m_pCamera->GetPos() - m_pCamera->GetTarget()));
 		pModel->GetMaterial()->SetUniform("LightAmbient", m_pLight->m_ambient);
 		pModel->GetMaterial()->SetUniform("LightDiffuse", m_pLight->m_diffuse);
 		pModel->GetMaterial()->SetUniform("LightSpecular", m_pLight->m_specular);
 		pModel->GetMaterial()->SetUniform("LightDir", m_pLight->m_vDirection);
-
+		
 		pModel->Render(mView, mProj);
 	}
 
 
+	SquareTextureList::iterator it1 = m_lSquareList.begin(), end1 = m_lSquareList.end();
+	for (; it1 != end1; ++it1)
+	{
+		Square* pSquare = static_cast<Square*>(*it1);
+		pSquare->Render(mView, mProj);
+	}
+
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// Render the sprite list with an ortho camera. 
 	// TODO: We should really add the camera separately rather than hard code it.
-
 	const glm::mat4 mOrthoProj = glm::ortho(0.0f,1280.0f,720.0f,0.0f,0.0f,1000.0f);
 	SpriteList::iterator sIt = m_lSpriteList.begin(), sEnd = m_lSpriteList.end();
 	for (; sIt != sEnd; ++sIt)
@@ -244,4 +271,5 @@ void SceneManager::Update(float p_fDelta)
 		wolf::Model* pModel = static_cast<wolf::Model*>(*it);
 		pModel->Update(p_fDelta);
 	}
+
 }

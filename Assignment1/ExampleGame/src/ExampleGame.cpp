@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "SceneManager.h"
 #include "W_Model.h"
+#include "Assignment1/ExampleGame/ComponentRenderableSquare.h"
 
 using namespace week2;
 
@@ -66,22 +67,38 @@ bool ExampleGame::Init()
 
 	// Create an empty GameObject
 	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject();
+	m_pGameObjectManager->SetGameObjectGUID(pCharacter, "character");
 	pCharacter->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
+	pCharacter->GetTransform().SetTranslation(glm::vec3(-3.0f, 0.0, 0.0f));
+	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,40.0f,0.0f));
 
 	// Create a renderable component for it
 	ComponentRenderableMesh* pRenderableComponent = new ComponentRenderableMesh();
-	pRenderableComponent->Init("week2/ExampleGame/data/character/vincent.pod", "week2/ExampleGame/data/character/", "week2/ExampleGame/data/skinned.vsh", "week2/ExampleGame/data/skinned.fsh");
+	pRenderableComponent->Init("Assignment1/ExampleGame/data/character/vincent.pod", "Assignment1/ExampleGame/data/character/", "Assignment1/ExampleGame/data/skinned.vsh", "Assignment1/ExampleGame/data/skinned.fsh");
 	pCharacter->AddComponent(pRenderableComponent);
 
 	// Create an animation controller component for it
 	ComponentAnimController* pAnimControllerComponent = new ComponentAnimController();
 	pAnimControllerComponent->AddAnim("idle", 1, 120, true);
+	pAnimControllerComponent->AddAnim("run", 252, 276, true);
 	pAnimControllerComponent->SetAnim("idle");
 	pCharacter->AddComponent(pAnimControllerComponent); 
 
 	// Create a controller component for it
 	ComponentCharacterController* pCharacterControllerComponent = new ComponentCharacterController();
 	pCharacter->AddComponent(pCharacterControllerComponent);
+
+	// create a camara compoent for character;
+	/*
+	ComponentCamera* pPlayerCamera = new ComponentCamera();
+	pPlayerCamera->SetCamera(m_pSceneCamera);
+    pCharacter->AddComponent(pPlayerCamera);
+	*/
+
+	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject();
+    ComponentRenderableSquare* pRenderableSquare = new ComponentRenderableSquare();
+    pRenderableSquare->Init("Assignment1/ExampleGame/data/textures/ground.tga", "Assignment1/ExampleGame/data/shaders/textured.vsh", "Assignment1/ExampleGame/data/shaders/textured.fsh",500.0f, 0.0, 500.0f);
+	pGround->AddComponent(pRenderableSquare);
 
 	// Everything initialized OK.
 	return true;
