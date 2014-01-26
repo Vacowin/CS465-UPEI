@@ -105,6 +105,9 @@
     <ClCompile Include="..\..\common\SceneCamera.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\wolf\W_Sprite.cpp">
+      <Filter>wolf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="..\..\common\SceneCamera.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\wolf\W_Sprite.h">
+      <Filter>wolf</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

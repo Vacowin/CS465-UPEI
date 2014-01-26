@@ -110,6 +110,7 @@
     <ClCompile Include="..\..\wolf\W_Model.cpp" />
     <ClCompile Include="..\..\wolf\W_Program.cpp" />
     <ClCompile Include="..\..\wolf\W_ProgramManager.cpp" />
+    <ClCompile Include="..\..\wolf\W_Sprite.cpp" />
     <ClCompile Include="..\..\wolf\W_Texture.cpp" />
     <ClCompile Include="..\..\wolf\W_TextureManager.cpp" />
     <ClCompile Include="..\..\wolf\W_VertexBuffer.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\..\wolf\W_Model.h" />
     <ClInclude Include="..\..\wolf\W_Program.h" />
     <ClInclude Include="..\..\wolf\W_ProgramManager.h" />
+    <ClInclude Include="..\..\wolf\W_Sprite.h" />
     <ClInclude Include="..\..\wolf\W_Texture.h" />
     <ClInclude Include="..\..\wolf\W_TextureManager.h" />
     <ClInclude Include="..\..\wolf\W_Types.h" />
