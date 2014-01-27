@@ -184,6 +184,25 @@ void SceneManager::ClearSprites()
 	m_lSpriteList.clear();
 }
 
+
+void SceneManager::AddPointLight(PointLight* p_pPointLight)
+{
+	m_lPointLightList.push_back(p_pPointLight);
+}
+
+void SceneManager::RemovePointLight(PointLight* p_pPointLight)
+{
+	PointLightList::iterator it = std::find(m_lPointLightList.begin(), m_lPointLightList.end(), p_pPointLight);
+	if (it != m_lPointLightList.end())
+	{
+		m_lPointLightList.erase(it);
+	}	
+}
+
+void SceneManager::ClearPointLights()
+{
+	m_lPointLightList.clear();
+}
 //------------------------------------------------------------------------------
 // Method:    AttachCamera
 // Parameter: SceneCamera * p_pCamera
@@ -226,20 +245,49 @@ void SceneManager::Render()
 	const glm::mat4& mProj = m_pCamera->GetProjectionMatrix();
 	const glm::mat4& mView = m_pCamera->GetViewMatrix();
 
+	PointLight* pPointLight1 = NULL;
+	PointLight* pPointLight2 = NULL;
+	if (m_lPointLightList.size() > 1)
+		pPointLight1 = m_lPointLightList.at(0);
+	if (m_lPointLightList.size() > 2)
+		pPointLight2 = m_lPointLightList.at(1);
+
 	// Iterate over the list of models and render them
 	ModelList::iterator it = m_lModelList.begin(), end = m_lModelList.end();
 	for (; it != end; ++it)
 	{
 		wolf::Model* pModel = static_cast<wolf::Model*>(*it);
 
-		// Set the light parameters
-		
+		// Set the light parameters	
+		/*
 		pModel->GetMaterial()->SetUniform("ViewDir", glm::normalize(m_pCamera->GetPos() - m_pCamera->GetTarget()));
 		pModel->GetMaterial()->SetUniform("LightAmbient", m_pLight->m_ambient);
 		pModel->GetMaterial()->SetUniform("LightDiffuse", m_pLight->m_diffuse);
 		pModel->GetMaterial()->SetUniform("LightSpecular", m_pLight->m_specular);
 		pModel->GetMaterial()->SetUniform("LightDir", m_pLight->m_vDirection);
-		
+		*/
+		pModel->GetMaterial()->SetUniform("LightAmbient", wolf::Color4(0.4f,0.4f,0.4f,1.0f));
+
+		//pModel->GetMaterial()->SetUniform("worldIT", glm::transpose(glm::inverse(pModel->GetTransform())));
+
+		if (m_lPointLightList.size() > 0)
+		{
+			pModel->GetMaterial()->SetUniform("LightPos1", m_lPointLightList.at(0)->m_vPosition);
+			pModel->GetMaterial()->SetUniform("LightAttenuation1", m_lPointLightList.at(0)->m_vAttenuation);
+			pModel->GetMaterial()->SetUniform("LightDiffuse1", m_lPointLightList.at(0)->m_diffuse);
+			pModel->GetMaterial()->SetUniform("LightSpecular1", m_lPointLightList.at(0)->m_specular);
+			pModel->GetMaterial()->SetUniform("LightRange1", m_lPointLightList.at(0)->m_fRange);
+		}
+
+		if (m_lPointLightList.size() > 1)
+		{
+			pModel->GetMaterial()->SetUniform("LightPos2", m_lPointLightList.at(1)->m_vPosition);
+			pModel->GetMaterial()->SetUniform("LightAttenuation2", m_lPointLightList.at(1)->m_vAttenuation);
+			pModel->GetMaterial()->SetUniform("LightDiffuse2", m_lPointLightList.at(1)->m_diffuse);
+			pModel->GetMaterial()->SetUniform("LightSpecular2", m_lPointLightList.at(1)->m_specular);
+			pModel->GetMaterial()->SetUniform("LightRange2", m_lPointLightList.at(1)->m_fRange);
+		}
+
 		pModel->Render(mView, mProj);
 	}
 
@@ -248,6 +296,27 @@ void SceneManager::Render()
 	for (; it1 != end1; ++it1)
 	{
 		Square* pSquare = static_cast<Square*>(*it1);
+
+		pSquare->GetMaterial()->SetUniform("LightAmbient", wolf::Color4(0.2f,0.2f,0.2f,1.0f));
+
+		if (m_lPointLightList.size() > 0)
+		{
+			pSquare->GetMaterial()->SetUniform("LightPos1", m_lPointLightList.at(0)->m_vPosition);
+			pSquare->GetMaterial()->SetUniform("LightAttenuation1", m_lPointLightList.at(0)->m_vAttenuation);
+			pSquare->GetMaterial()->SetUniform("LightDiffuse1", m_lPointLightList.at(0)->m_diffuse);
+			pSquare->GetMaterial()->SetUniform("LightSpecular1", m_lPointLightList.at(0)->m_specular);
+			pSquare->GetMaterial()->SetUniform("LightRange1", m_lPointLightList.at(0)->m_fRange);
+		}
+
+		if (m_lPointLightList.size() > 1)
+		{
+			pSquare->GetMaterial()->SetUniform("LightPos2", m_lPointLightList.at(1)->m_vPosition);
+			pSquare->GetMaterial()->SetUniform("LightAttenuation2", m_lPointLightList.at(1)->m_vAttenuation);
+			pSquare->GetMaterial()->SetUniform("LightDiffuse2", m_lPointLightList.at(1)->m_diffuse);
+			pSquare->GetMaterial()->SetUniform("LightSpecular2", m_lPointLightList.at(1)->m_specular);
+			pSquare->GetMaterial()->SetUniform("LightRange2", m_lPointLightList.at(1)->m_fRange);
+		}
+
 		pSquare->Render(mView, mProj);
 	}
 

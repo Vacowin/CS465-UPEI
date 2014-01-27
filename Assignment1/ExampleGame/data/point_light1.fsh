@@ -61,7 +61,7 @@ void main()
 	PixelColor += texture(texture1, v_uv1) * vec4( light1.rgb, 1.0);
 	}
 
-
+	
 	vec3 LightDir2 = LightPos2 - v_pos.xyz;
 	float distance2 = length(LightDir2);
 
@@ -92,4 +92,5 @@ void main()
 	
 	PixelColor += texture(texture1, v_uv1) * vec4( light2.rgb, 1.0);
 	}
+	
 }

@@ -12,6 +12,13 @@ uniform vec4 LightSpecular;
 uniform vec4 LightDiffuse;
 uniform vec3 LightDir;
 
+// Point Light
+uniform vec4 LightSpecular1;
+uniform vec4 LightDiffuse1;
+uniform vec3 LightAttenuation1;
+uniform float LightRange1;
+uniform vec3 LightPos1;
+
 in vec2 v_uv1;
 in vec3 v_normal;
 out vec4 PixelColor;

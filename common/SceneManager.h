@@ -14,6 +14,7 @@
 #include "W_Sprite.h"
 #include "SceneCamera.h"
 #include "Assignment1\ExampleGame\Square.h"
+#include "Assignment1\ExampleGame\ComponentPointLight.h"
 
 namespace Common
 {
@@ -23,7 +24,8 @@ namespace Common
 		typedef std::vector<wolf::Model*> ModelList;
 		typedef std::vector<wolf::Sprite*> SpriteList;
 		typedef std::vector<Square*> SquareTextureList;
-	
+		typedef std::vector<PointLight*> PointLightList;
+
 		// A directional light
 		struct DirectionalLight
 		{
@@ -54,7 +56,12 @@ namespace Common
 		void RemoveSprite(wolf::Sprite* p_pSprite);
 		void ClearSprites();
 
+		void AddPointLight(PointLight* p_pPointLight);
+		void RemovePointLight(PointLight* p_pPointLight);
+		void ClearPointLights();
+
 		void AttachCamera(SceneCamera* p_pCamera);
+
 		SceneCamera* GetCamera();
 
 		DirectionalLight* GetDefaultLight() { return m_pLight; }
@@ -88,6 +95,9 @@ namespace Common
 
 		// A list of sprites to render
 		SpriteList m_lSpriteList;
+
+		// A list of point lights
+		PointLightList m_lPointLightList;
 
 		// A camera to view the scene
 		SceneCamera* m_pCamera;
