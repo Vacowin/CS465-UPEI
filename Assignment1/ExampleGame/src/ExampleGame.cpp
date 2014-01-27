@@ -16,6 +16,7 @@
 #include "W_Model.h"
 #include "Assignment1/ExampleGame/ComponentRenderableSquare.h"
 #include "Assignment1/ExampleGame/ComponentCamera.h"
+#include "Assignment1/ExampleGame/ComponentCameraFollow.h"
 #include "Assignment1/ExampleGame/ComponentPointLight.h"
 
 using namespace week2;
@@ -91,15 +92,15 @@ bool ExampleGame::Init()
 	pCharacter->AddComponent(pCharacterControllerComponent);
 
 	// create a camara compoent for character;
-	ComponentCamera* pPlayerCamera = new ComponentCamera();
-	pPlayerCamera->SetCamera(m_pSceneCamera);
+	ComponentCameraFollow* pPlayerCamera = new ComponentCameraFollow(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 5.0f, 15.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));
+	//pPlayerCamera->SetCamera(m_pSceneCamera);
     pCharacter->AddComponent(pPlayerCamera);
 
 	// Create a point light component for character;
 	
 	Common::ComponentPointLight* pPointLightCharacter = new Common::ComponentPointLight();
 	pPointLightCharacter->GetPointLight()->m_vAttenuation = glm::vec3(0.0, 0.04, 0.0);
-    pPointLightCharacter->GetPointLight()->m_fRange = 20.0f;
+    pPointLightCharacter->GetPointLight()->m_fRange = 25.0f;
 	pPointLightCharacter->GetPointLight()->m_diffuse = wolf::Color4(0,0,1,1);
     pCharacter->AddComponent(pPointLightCharacter);
 	
@@ -116,21 +117,20 @@ bool ExampleGame::Init()
 
 	// Create a point light component for lamp;
 	Common::ComponentPointLight* pPointLightLamp = new Common::ComponentPointLight();
-	pPointLightLamp->GetPointLight()->m_vAttenuation = glm::vec3(0.0, 0.05, 0.0);
-    pPointLightLamp->GetPointLight()->m_fRange = 200.0f;
+	pPointLightLamp->GetPointLight()->m_vAttenuation = glm::vec3(0.0, 0.03, 0.0);
+    pPointLightLamp->GetPointLight()->m_fRange = 300.0f;
 	pPointLightLamp->GetPointLight()->m_diffuse = wolf::Color4(1,1,0,1);
 	pPointLightLamp->GetPointLight()->m_vPosition = glm::vec3(0, 7, 0);
     pLamp->AddComponent(pPointLightLamp);
 
 	// create a camara component for lamp;
-	ComponentCamera* pLampCamera = new ComponentCamera();	
-	pLampCamera->GetCamera()->SetPos(glm::vec3(0.0f,25.0f,0.0f));
+	ComponentCamera* pLampCamera = new ComponentCamera(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 25.0f, 0.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));	
 	pLamp->AddComponent(pLampCamera);
 
 	
 	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject();
     ComponentRenderableSquare* pRenderableSquare = new ComponentRenderableSquare();
-    pRenderableSquare->Init("Assignment1/ExampleGame/data/textures/ground.tga", "Assignment1/ExampleGame/data/textured.vsh", "Assignment1/ExampleGame/data/point_light1.fsh",500.0f, 0.0, 500.0f);
+    pRenderableSquare->Init("Assignment1/ExampleGame/data/textures/ground.tga", "Assignment1/ExampleGame/data/textured.vsh", "Assignment1/ExampleGame/data/point_light1.fsh",500.0f, -0.5, 500.0f);
 	pGround->AddComponent(pRenderableSquare);
 
 	// Everything initialized OK.
@@ -149,29 +149,6 @@ bool ExampleGame::Init()
 bool ExampleGame::Update(float p_fDelta)
 {
 	m_pGameObjectManager->Update(p_fDelta);
-
-	if (glfwGetKey('C') == GLFW_PRESS && !m_bToggleCamera)
-    {
-		m_b3PCamera = !m_b3PCamera;
-        m_bToggleCamera = true;
-    }
-    else if (glfwGetKey('C') == GLFW_RELEASE)
-        m_bToggleCamera = false;
-
-	Common::SceneCamera* pCamera;
-	if (m_b3PCamera)
-    {
-        pCamera = static_cast<ComponentCamera*>(m_pGameObjectManager->
-            GetGameObject("character")->GetComponent("GOC_Camera"))->GetCamera();
-    }
-    else
-        pCamera = static_cast<ComponentCamera*>(m_pGameObjectManager->
-            GetGameObject("lamp")->GetComponent("GOC_Camera"))->GetCamera();
-  
-	Common::SceneManager::Instance()->AttachCamera(pCamera);
-
-	Common::PointLight *pLightCharacter = static_cast<Common::ComponentPointLight*>(m_pGameObjectManager->GetGameObject("character")->GetComponent("GOC_PointLight"))->GetPointLight();
-	pLightCharacter->m_vPosition = m_pGameObjectManager->GetGameObject("character")->GetTransform().GetTranslation() + glm::vec3(0, 3, 0);
 
 	return true;
 }

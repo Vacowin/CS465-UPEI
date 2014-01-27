@@ -18,5 +18,6 @@ ComponentPointLight::~ComponentPointLight(void)
 void ComponentPointLight::SyncTransform()
 {
 	m_pPointLight->m_vPosition = this->GetGameObject()->GetTransform().GetTranslation();
+
 }
 }

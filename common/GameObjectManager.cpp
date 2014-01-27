@@ -9,6 +9,7 @@
 
 #include "GameObjectManager.h"
 #include "ComponentRenderable.h"
+#include "Assignment1\ExampleGame\ComponentPointLight.h"
 
 using namespace Common;
 
@@ -245,6 +246,13 @@ void GameObjectManager::SyncTransforms()
 		{
 			ComponentRenderable* pRenderable = static_cast<ComponentRenderable*>(pComponent);
 			pRenderable->SyncTransform();
+		}
+
+		pComponent = pGO->GetComponent("GOC_PointLight");
+		if (pComponent)
+		{
+			ComponentPointLight* pPointLight = static_cast<ComponentPointLight*>(pComponent);
+			pPointLight->SyncTransform();
 		}
 	}
 }

@@ -46,7 +46,12 @@ namespace week2
 		bool m_bTurnBack;
 		bool m_bSKey;
 
+		bool m_bToggleCamera;
+		bool m_b3PCamera;
+
 		float m_fRotation;
+		float m_fRotateSpeed;
+		float m_fSpeed;
 	};
 }
 

@@ -13,6 +13,8 @@
 #include "ComponentCharacterController.h"
 #include "ComponentRenderableMesh.h"
 #include "GameObject.h"
+#include "Assignment1\ExampleGame\ComponentCamera.h"
+#include "SceneManager.h"
 
 using namespace week2;
 
@@ -28,6 +30,8 @@ ComponentCharacterController::ComponentCharacterController()
 	memset(m_bKeysDownLast, 0, sizeof(bool) * 256);
 
 	m_fRotation = 0;
+	m_fRotateSpeed = 200;
+	m_fSpeed = 9;
 }
 
 //------------------------------------------------------------------------------
@@ -71,17 +75,17 @@ void ComponentCharacterController::Update(float p_fDelta)
     
 	if ((m_bKeysDown['a'] || m_bKeysDown['A']))
 	{
-		transform.Rotate(glm::vec3(0.0f,200.0f*p_fDelta,0.0f));
-		m_fRotation += 200.0f*p_fDelta;
+		transform.Rotate(glm::vec3(0.0f,m_fRotateSpeed*p_fDelta,0.0f));
+		m_fRotation += m_fRotateSpeed*p_fDelta;
 	}
 	else if ((m_bKeysDown['d'] || m_bKeysDown['D']))
 	{
-		transform.Rotate(glm::vec3(0.0f,-200.0f*p_fDelta,0.0f));
-		m_fRotation -= 200.0f*p_fDelta;
+		transform.Rotate(glm::vec3(0.0f,-m_fRotateSpeed*p_fDelta,0.0f));
+		m_fRotation -= m_fRotateSpeed*p_fDelta;
 	}
 
-	float z1 = 9*cos((m_fRotation - 40) * PI / 180) - 9*sin((m_fRotation - 40) * PI / 180);
-	float x1 = 9*sin((m_fRotation - 40) * PI / 180) + 9*cos((m_fRotation - 40) * PI / 180);
+	float z1 = m_fSpeed*cos((m_fRotation - 40) * PI / 180) - m_fSpeed*sin((m_fRotation - 40) * PI / 180);
+	float x1 = m_fSpeed*sin((m_fRotation - 40) * PI / 180) + m_fSpeed*cos((m_fRotation - 40) * PI / 180);
 
 	if (glfwGetKey('W'))
 	{
@@ -102,4 +106,23 @@ void ComponentCharacterController::Update(float p_fDelta)
         if (m_bKeysDown['S'] != m_bKeysDownLast['S'])
 		    pAnimation->SetAnim("run");
 	}
+
+	// Switch camera
+	if (glfwGetKey('C') == GLFW_PRESS && !m_bToggleCamera)
+    {
+		m_b3PCamera = !m_b3PCamera;
+        m_bToggleCamera = true;
+    }
+    else if (glfwGetKey('C') == GLFW_RELEASE)
+        m_bToggleCamera = false;
+
+	Common::SceneCamera* pCamera;
+	if (m_b3PCamera)
+    {
+		pCamera = static_cast<ComponentCamera*>(GetGameObject()->GetComponent("GOC_CameraFollow"))->GetCamera();
+    }
+    else
+		pCamera = static_cast<ComponentCamera*>(GetGameObject()->GetManager()->GetGameObject("lamp")->GetComponent("GOC_Camera"))->GetCamera();
+  
+	Common::SceneManager::Instance()->AttachCamera(pCamera);
 }

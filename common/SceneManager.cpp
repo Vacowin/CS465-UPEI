@@ -245,27 +245,12 @@ void SceneManager::Render()
 	const glm::mat4& mProj = m_pCamera->GetProjectionMatrix();
 	const glm::mat4& mView = m_pCamera->GetViewMatrix();
 
-	PointLight* pPointLight1 = NULL;
-	PointLight* pPointLight2 = NULL;
-	if (m_lPointLightList.size() > 1)
-		pPointLight1 = m_lPointLightList.at(0);
-	if (m_lPointLightList.size() > 2)
-		pPointLight2 = m_lPointLightList.at(1);
-
 	// Iterate over the list of models and render them
 	ModelList::iterator it = m_lModelList.begin(), end = m_lModelList.end();
 	for (; it != end; ++it)
 	{
 		wolf::Model* pModel = static_cast<wolf::Model*>(*it);
 
-		// Set the light parameters	
-		/*
-		pModel->GetMaterial()->SetUniform("ViewDir", glm::normalize(m_pCamera->GetPos() - m_pCamera->GetTarget()));
-		pModel->GetMaterial()->SetUniform("LightAmbient", m_pLight->m_ambient);
-		pModel->GetMaterial()->SetUniform("LightDiffuse", m_pLight->m_diffuse);
-		pModel->GetMaterial()->SetUniform("LightSpecular", m_pLight->m_specular);
-		pModel->GetMaterial()->SetUniform("LightDir", m_pLight->m_vDirection);
-		*/
 		pModel->GetMaterial()->SetUniform("LightAmbient", wolf::Color4(0.4f,0.4f,0.4f,1.0f));
 
 		//pModel->GetMaterial()->SetUniform("worldIT", glm::transpose(glm::inverse(pModel->GetTransform())));

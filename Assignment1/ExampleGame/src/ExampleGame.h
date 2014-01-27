@@ -43,8 +43,6 @@ namespace week2
 
 		// A camera for the scene
 		Common::SceneCamera* m_pSceneCamera;
-		bool m_bToggleCamera;
-		bool m_b3PCamera;
 
 		// Game Object Manager
 		Common::GameObjectManager* m_pGameObjectManager;
