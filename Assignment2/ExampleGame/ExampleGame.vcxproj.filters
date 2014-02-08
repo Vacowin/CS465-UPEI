@@ -140,6 +140,7 @@
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentPointLight.cpp" />
     <ClCompile Include="ComponentCameraFollow.cpp" />
+    <ClCompile Include="EventManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -318,5 +319,7 @@
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentPointLight.h" />
     <ClInclude Include="ComponentCameraFollow.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="BaseEvent.h" />
   </ItemGroup>
 </Project>
