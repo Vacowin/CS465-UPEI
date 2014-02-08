@@ -193,7 +193,11 @@
     <ClInclude Include="ComponentCameraFollow.h" />
     <ClInclude Include="ComponentPointLight.h" />
     <ClInclude Include="ComponentRenderableSquare.h" />
+    <ClInclude Include="EventCoinCollected.h" />
+    <ClInclude Include="EventCoinDisappeared.h" />
+    <ClInclude Include="EventCoinSpawned.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="EventObjectCollision.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="src\ComponentAnimController.h" />
     <ClInclude Include="src\ComponentCharacterController.h" />

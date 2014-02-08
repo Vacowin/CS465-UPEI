@@ -321,5 +321,9 @@
     <ClInclude Include="ComponentCameraFollow.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="BaseEvent.h" />
+    <ClInclude Include="EventCoinCollected.h" />
+    <ClInclude Include="EventCoinDisappeared.h" />
+    <ClInclude Include="EventCoinSpawned.h" />
+    <ClInclude Include="EventObjectCollision.h" />
   </ItemGroup>
 </Project>

@@ -48,6 +48,64 @@ ComponentAnimController::~ComponentAnimController()
 	m_animMap.clear();
 }
 
+
+Common::ComponentBase* ComponentAnimController::CreateComponent(TiXmlNode* p_pNode)
+{
+	assert(strcmp(p_pNode->Value(), "GOC_AnimController") == 0);
+	ComponentAnimController* pAnimControllerComponent = new ComponentAnimController();
+
+	// Iterate Anim elements in the XML
+	TiXmlNode* pChildNode = p_pNode->FirstChild();
+	while (pChildNode != NULL)
+	{
+		const char* szNodeName = pChildNode->Value();
+		if (strcmp(szNodeName, "Anim") == 0)
+		{
+			// Parse attributes
+			TiXmlElement* pElement = pChildNode->ToElement();
+
+			// Name
+			const char* szName = pElement->Attribute("name");
+			if (szName == NULL)
+			{
+				delete pAnimControllerComponent;
+				return NULL;
+			}
+
+			// Start Frame
+			int iStartFrame;
+			if (pElement->QueryIntAttribute("start", &iStartFrame) != TIXML_SUCCESS)
+			{
+				delete pAnimControllerComponent;
+				return NULL;
+			}
+
+			// End Frame
+			int iEndFrame;
+			if (pElement->QueryIntAttribute("end", &iEndFrame) != TIXML_SUCCESS)
+			{
+				delete pAnimControllerComponent;
+				return NULL;
+			}
+
+			// Loop
+			bool bLoop;
+			if (pElement->QueryBoolAttribute("loop", &bLoop) != TIXML_SUCCESS)
+			{
+				delete pAnimControllerComponent;
+				return NULL;
+			}
+
+			// Add the animation
+			pAnimControllerComponent->AddAnim(szName, iStartFrame, iEndFrame, bLoop);
+		}
+
+		pChildNode = pChildNode->NextSibling();
+	}
+
+	return pAnimControllerComponent;
+}
+
 //------------------------------------------------------------------------------
 // Method:    Update
 // Parameter: float p_fDelta

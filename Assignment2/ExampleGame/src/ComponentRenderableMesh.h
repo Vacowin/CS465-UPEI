@@ -12,6 +12,7 @@
 
 #include "W_Model.h"
 #include "ComponentRenderable.h"
+#include "tinyxml\tinyxml.h"
 
 namespace week2
 {
@@ -30,6 +31,9 @@ namespace week2
 		//------------------------------------------------------------------------------
 		// Public methods for "GOC_Renderable" family of components
 		//------------------------------------------------------------------------------
+
+		static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
+
 		virtual void Init(const std::string& p_strPath, const std::string &p_strTexturePath, const std::string &p_strVertexProgramPath, const std::string &p_strFragmentProgramPath);
 		virtual void SyncTransform();
 		wolf::Model* GetModel() { return m_pModel; }

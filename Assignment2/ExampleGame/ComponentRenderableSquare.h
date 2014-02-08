@@ -1,6 +1,7 @@
 #include "ComponentRenderable.h"
 #include "SceneManager.h"
 #include "Square.h"
+#include "tinyxml\tinyxml.h"
 
 class ComponentRenderableSquare : public Common::ComponentRenderable
 {
@@ -14,6 +15,7 @@ public:
 
 	Common::Square* GetSquare() {return m_pSquare;};
 
+	static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
 private:
     Common::Square* m_pSquare;
 };

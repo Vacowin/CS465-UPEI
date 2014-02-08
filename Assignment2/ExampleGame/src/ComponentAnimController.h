@@ -14,6 +14,7 @@
 
 #include "ComponentBase.h"
 #include <map>
+#include "tinyxml\tinyxml.h"
 
 namespace week2
 {
@@ -48,6 +49,7 @@ namespace week2
 		virtual const std::string ComponentID(){ return std::string("GOC_AnimController"); }
 		virtual void Update(float p_fDelta);
 
+		static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
 	public:
 		//------------------------------------------------------------------------------
 		// Public methods for "GOC_AnimController" family of components

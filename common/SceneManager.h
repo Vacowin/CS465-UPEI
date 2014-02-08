@@ -13,8 +13,8 @@
 #include "W_Model.h"
 #include "W_Sprite.h"
 #include "SceneCamera.h"
-#include "Assignment1\ExampleGame\Square.h"
-#include "Assignment1\ExampleGame\ComponentPointLight.h"
+#include "Assignment2\ExampleGame\Square.h"
+#include "Assignment2\ExampleGame\ComponentPointLight.h"
 
 namespace Common
 {

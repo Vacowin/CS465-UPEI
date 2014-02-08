@@ -45,6 +45,78 @@ ComponentRenderableMesh::~ComponentRenderableMesh()
 	}
 }
 
+
+Common::ComponentBase* ComponentRenderableMesh::CreateComponent(TiXmlNode* p_pNode)
+{
+	assert(strcmp(p_pNode->Value(), "GOC_RenderableMesh") == 0);
+	ComponentRenderableMesh* pMeshComponent = new ComponentRenderableMesh();
+
+	std::string strModel, strTexture, strVertex, strFragment;
+
+	// Iterate Anim elements in the XML
+	TiXmlNode* pChildNode = p_pNode->FirstChild();
+	while (pChildNode != NULL)
+	{
+		const char* szNodeName = pChildNode->Value();
+		if (strcmp(szNodeName, "Model") == 0)
+		{
+			// Parse attributes
+			TiXmlElement* pElement = pChildNode->ToElement();
+
+			// Name
+			const char* szPath = pElement->Attribute("path");
+			if (szPath == NULL)
+			{
+				delete pMeshComponent;
+				return NULL;
+			}
+			strModel = std::string(szPath);
+		}
+
+		if (strcmp(szNodeName, "Textures") == 0)
+		{
+			TiXmlElement* pElement = pChildNode->ToElement();
+			const char* szPath = pElement->Attribute("path");
+			if (szPath == NULL)
+			{
+				delete pMeshComponent;
+				return NULL;
+			}
+			strTexture = std::string(szPath);
+		}
+
+		if (strcmp(szNodeName, "VertexProgram") == 0)
+		{
+			TiXmlElement* pElement = pChildNode->ToElement();
+			const char* szPath = pElement->Attribute("path");
+			if (szPath == NULL)
+			{
+				delete pMeshComponent;
+				return NULL;
+			}
+			strVertex = std::string(szPath);
+		}
+
+		if (strcmp(szNodeName, "FragmentProgram") == 0)
+		{
+			TiXmlElement* pElement = pChildNode->ToElement();
+			const char* szPath = pElement->Attribute("path");
+			if (szPath == NULL)
+			{
+				delete pMeshComponent;
+				return NULL;
+			}
+			strFragment = std::string(szPath);
+		}
+
+		pChildNode = pChildNode->NextSibling();
+	}
+
+	pMeshComponent->Init(strModel, strTexture, strVertex, strFragment);
+
+	return pMeshComponent;
+}
+
 //------------------------------------------------------------------------------
 // Method:    Init
 // Parameter: const std::string & p_strPath

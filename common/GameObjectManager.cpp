@@ -9,7 +9,7 @@
 
 #include "GameObjectManager.h"
 #include "ComponentRenderable.h"
-#include "Assignment1\ExampleGame\ComponentPointLight.h"
+#include "Assignment2\ExampleGame\ComponentPointLight.h"
 
 using namespace Common;
 

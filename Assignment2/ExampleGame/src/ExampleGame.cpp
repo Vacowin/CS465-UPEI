@@ -14,10 +14,9 @@
 #include "GameObject.h"
 #include "SceneManager.h"
 #include "W_Model.h"
-#include "Assignment1/ExampleGame/ComponentRenderableSquare.h"
-#include "Assignment1/ExampleGame/ComponentCamera.h"
-#include "Assignment1/ExampleGame/ComponentCameraFollow.h"
-#include "Assignment1/ExampleGame/ComponentPointLight.h"
+#include "Assignment2/ExampleGame/ComponentRenderableSquare.h"
+#include "Assignment2/ExampleGame/ComponentCamera.h"
+#include "Assignment2/ExampleGame/ComponentCameraFollow.h"
 
 using namespace week2;
 
@@ -68,72 +67,35 @@ bool ExampleGame::Init()
 	// Initialize our GameObjectManager
 	m_pGameObjectManager = new Common::GameObjectManager();
 
-	// Create an empty GameObject
-	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject();
+	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableMesh", ComponentRenderableMesh::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_AnimController", ComponentAnimController::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_CharacterController", ComponentCharacterController::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableSquare", ComponentRenderableSquare::CreateComponent);
+
+	// Create a Character GameObject
+	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/character.xml");
 	m_pGameObjectManager->SetGameObjectGUID(pCharacter, "character");
 	pCharacter->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
 	pCharacter->GetTransform().SetTranslation(glm::vec3(3.0f, 0.0, 0.0f));
 	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,40.0f,0.0f));
 
-	// Create a renderable component for it
-	ComponentRenderableMesh* pRenderableComponent = new ComponentRenderableMesh();
-	pRenderableComponent->Init("Assignment1/ExampleGame/data/character/vincent.pod", "Assignment1/ExampleGame/data/character/", "Assignment1/ExampleGame/data/skinned.vsh", "Assignment1/ExampleGame/data/skinned.fsh");
-	pCharacter->AddComponent(pRenderableComponent);
-
-	// Create an animation controller component for it
-	ComponentAnimController* pAnimControllerComponent = new ComponentAnimController();
-	pAnimControllerComponent->AddAnim("idle", 1, 120, true);
-	pAnimControllerComponent->AddAnim("run", 252, 276, true);
-	pAnimControllerComponent->SetAnim("idle");
-	pCharacter->AddComponent(pAnimControllerComponent); 
-
-	// Create a controller component for it
-	ComponentCharacterController* pCharacterControllerComponent = new ComponentCharacterController();
-	pCharacter->AddComponent(pCharacterControllerComponent);
-
 	// create a camara compoent for character;
 	ComponentCameraFollow* pPlayerCamera = new ComponentCameraFollow(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 5.0f, 15.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));
-	//pPlayerCamera->SetCamera(m_pSceneCamera);
     pCharacter->AddComponent(pPlayerCamera);
 
-	// Create a point light component for character;
-	/*
-	Common::ComponentPointLight* pPointLightCharacter = new Common::ComponentPointLight();
-	pPointLightCharacter->GetPointLight()->m_vAttenuation = glm::vec3(0.0, 0.04, 0.0);
-    pPointLightCharacter->GetPointLight()->m_fRange = 25.0f;
-	pPointLightCharacter->GetPointLight()->m_diffuse = wolf::Color4(0,0,1,1);
-    pCharacter->AddComponent(pPointLightCharacter);
-	*/
+
 	
 	// lamp post
-    Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject();
+	Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/lamp.xml");
     m_pGameObjectManager->SetGameObjectGUID(pLamp, "lamp");
 	pLamp->GetTransform().Scale(glm::vec3(0.4f, 0.4, 0.4f));
-
-	// Create a renderable component for lamp
-    ComponentRenderableMesh* pRenderableComponentLamp = new ComponentRenderableMesh();
-	pRenderableComponentLamp->Init("Assignment1/ExampleGame/data/props/lamp.pod", "Assignment1/ExampleGame/data/props/", "Assignment1/ExampleGame/data/shaders/textured.vsh", "Assignment1/ExampleGame/data/shaders/textured.fsh");
-	pLamp->AddComponent(pRenderableComponentLamp);
-
-	// Create a point light component for lamp;
-	/**
-	Common::ComponentPointLight* pPointLightLamp = new Common::ComponentPointLight();
-	pPointLightLamp->GetPointLight()->m_vAttenuation = glm::vec3(0.0, 0.03, 0.0);
-    pPointLightLamp->GetPointLight()->m_fRange = 300.0f;
-	pPointLightLamp->GetPointLight()->m_diffuse = wolf::Color4(1,1,0,1);
-	pPointLightLamp->GetPointLight()->m_vPosition = glm::vec3(0, 7, 0);
-    pLamp->AddComponent(pPointLightLamp);
-	*/
 
 	// create a camara component for lamp;
 	ComponentCamera* pLampCamera = new ComponentCamera(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 25.0f, 0.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));	
 	pLamp->AddComponent(pLampCamera);
 
-	
-	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject();
-    ComponentRenderableSquare* pRenderableSquare = new ComponentRenderableSquare();
-    pRenderableSquare->Init("Assignment1/ExampleGame/data/textures/ground.tga", "Assignment1/ExampleGame/data/textured.vsh", "Assignment1/ExampleGame/data/textured.fsh",500.0f, -0.5, 500.0f);
-	pGround->AddComponent(pRenderableSquare);
+	// Create ground
+	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/ground.xml");
 
 	// Everything initialized OK.
 	return true;

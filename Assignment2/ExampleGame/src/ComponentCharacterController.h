@@ -12,6 +12,7 @@
 #define COMPNENTCHARACTERCONTROLLER_H
 
 #include "ComponentBase.h"
+#include "tinyxml\tinyxml.h"
 
 namespace week2
 {
@@ -34,6 +35,7 @@ namespace week2
 		virtual void Update(float p_fDelta);
 
 		float getCharacterRotation() { return m_fRotation;}
+		static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
 	private:
 		//------------------------------------------------------------------------------
 		// Private members.

@@ -13,7 +13,7 @@
 #include "ComponentCharacterController.h"
 #include "ComponentRenderableMesh.h"
 #include "GameObject.h"
-#include "Assignment1\ExampleGame\ComponentCamera.h"
+#include "Assignment2\ExampleGame\ComponentCamera.h"
 #include "SceneManager.h"
 
 using namespace week2;
@@ -42,6 +42,15 @@ ComponentCharacterController::ComponentCharacterController()
 //------------------------------------------------------------------------------
 ComponentCharacterController::~ComponentCharacterController()
 {
+}
+
+
+Common::ComponentBase* ComponentCharacterController::CreateComponent(TiXmlNode* p_pNode)
+{
+	assert(strcmp(p_pNode->Value(), "GOC_CharacterController") == 0);
+	ComponentCharacterController* pCharacterControllerComponent = new ComponentCharacterController();
+
+	return pCharacterControllerComponent;
 }
 
 //------------------------------------------------------------------------------
