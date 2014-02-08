@@ -251,10 +251,11 @@ void SceneManager::Render()
 	{
 		wolf::Model* pModel = static_cast<wolf::Model*>(*it);
 
-		pModel->GetMaterial()->SetUniform("LightAmbient", wolf::Color4(0.4f,0.4f,0.4f,1.0f));
+		pModel->GetMaterial()->SetUniform("LightAmbient", wolf::Color4(0.6f,0.6f,0.4f,1.0f));
 
 		//pModel->GetMaterial()->SetUniform("worldIT", glm::transpose(glm::inverse(pModel->GetTransform())));
 
+		/*
 		if (m_lPointLightList.size() > 0)
 		{
 			pModel->GetMaterial()->SetUniform("LightPos1", m_lPointLightList.at(0)->m_vPosition);
@@ -272,6 +273,7 @@ void SceneManager::Render()
 			pModel->GetMaterial()->SetUniform("LightSpecular2", m_lPointLightList.at(1)->m_specular);
 			pModel->GetMaterial()->SetUniform("LightRange2", m_lPointLightList.at(1)->m_fRange);
 		}
+		*/
 
 		pModel->Render(mView, mProj);
 	}
