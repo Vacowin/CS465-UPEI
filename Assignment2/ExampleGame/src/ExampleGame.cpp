@@ -17,6 +17,11 @@
 #include "Assignment2/ExampleGame/ComponentRenderableSquare.h"
 #include "Assignment2/ExampleGame/ComponentCamera.h"
 #include "Assignment2/ExampleGame/ComponentCameraFollow.h"
+#include "Assignment2/ExampleGame/ComponentCoinScore.h"
+#include "Assignment2/ExampleGame/ComponentCoinLife.h"
+#include "Assignment2/ExampleGame/ComponentCoinMovement.h"
+#include "Assignment2/ExampleGame/ComponentCollision.h"
+#include "Assignment2/ExampleGame/EventManager.h"
 
 using namespace week2;
 
@@ -67,10 +72,16 @@ bool ExampleGame::Init()
 	// Initialize our GameObjectManager
 	m_pGameObjectManager = new Common::GameObjectManager();
 
+	EventManager::CreateInstance();
+
 	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableMesh", ComponentRenderableMesh::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_AnimController", ComponentAnimController::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CharacterController", ComponentCharacterController::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableSquare", ComponentRenderableSquare::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_CoinScore", ComponentCoinScore::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_LifeSpan", ComponentCoinLife::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_CollisionSphere", ComponentCollision::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_CoinMovement", ComponentCoinMovement::CreateComponent);
 
 	// Create a Character GameObject
 	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/character.xml");
@@ -83,7 +94,7 @@ bool ExampleGame::Init()
 	ComponentCameraFollow* pPlayerCamera = new ComponentCameraFollow(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 5.0f, 15.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));
     pCharacter->AddComponent(pPlayerCamera);
 
-
+	Common::GameObject* pCoin = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/coin.xml");
 	
 	// lamp post
 	Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/lamp.xml");

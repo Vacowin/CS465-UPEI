@@ -126,6 +126,10 @@
     <ClCompile Include="..\..\wolf\W_VertexDeclaration.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentCameraFollow.cpp" />
+    <ClCompile Include="ComponentCoinLife.cpp" />
+    <ClCompile Include="ComponentCoinMovement.cpp" />
+    <ClCompile Include="ComponentCoinScore.cpp" />
+    <ClCompile Include="ComponentCollision.cpp" />
     <ClCompile Include="ComponentPointLight.cpp" />
     <ClCompile Include="ComponentRenderableSquare.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -191,6 +195,10 @@
     <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentCameraFollow.h" />
+    <ClInclude Include="ComponentCoinLife.h" />
+    <ClInclude Include="ComponentCoinMovement.h" />
+    <ClInclude Include="ComponentCoinScore.h" />
+    <ClInclude Include="ComponentCollision.h" />
     <ClInclude Include="ComponentPointLight.h" />
     <ClInclude Include="ComponentRenderableSquare.h" />
     <ClInclude Include="EventCoinCollected.h" />

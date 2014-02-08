@@ -13,7 +13,7 @@
 #include "GameObject.h"
 #include "LuaScriptManager.h"
 #include <map>
-
+#include <vector>
 #include "tinyxml.h"	// For parsing GameObject XML
 
 namespace Common
@@ -23,6 +23,7 @@ namespace Common
 	public:
 		// Typedef for convenience
 		typedef std::map<std::string, GameObject*> GameObjectMap;
+		typedef std::vector<GameObject*> GameObjectList;	
 
 		typedef ComponentBase*(*ComponentFactoryMethod)(TiXmlNode* p_pNode);
 		typedef std::map<std::string, ComponentFactoryMethod> ComponentFactoryMap;
@@ -56,6 +57,8 @@ namespace Common
 		LuaPlus::LuaObject LuaCreateGameObject();
 		LuaPlus::LuaObject LuaCreateGameObjectXML(const char* p_strPath);
 
+		void AddRemovedObject(GameObject *p_pObject);
+
 	private:
 		//---------------------------------------------------------------------
 		// Private members
@@ -66,6 +69,9 @@ namespace Common
 
 		// Map of Component factories
 		ComponentFactoryMap m_mComponentFactoryMap;
+
+		// list to be removed next frame
+		GameObjectList m_lRemoveGOList;
 	};
 } // namespace Common
 

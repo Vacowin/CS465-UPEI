@@ -216,6 +216,13 @@ void GameObjectManager::RegisterComponentFactory(const std::string& p_strCompone
 //------------------------------------------------------------------------------
 void GameObjectManager::Update(float p_fDelta)
 {
+	while (m_lRemoveGOList.size()>0)
+	{
+		GameObject *pRemoveObject = m_lRemoveGOList.at(0);
+		m_lRemoveGOList.erase(m_lRemoveGOList.begin());
+		this->DestroyGameObject(pRemoveObject);
+	}
+
 	GameObject* pGO = NULL;
 	GameObjectMap::iterator it = m_mGOMap.begin(), end = m_mGOMap.end();
 	for (; it != end; ++it)
@@ -336,3 +343,10 @@ LuaPlus::LuaObject GameObjectManager::LuaCreateGameObjectXML(const char* p_strPa
 
 	return luaInstance;
 }
+
+
+void GameObjectManager::AddRemovedObject(GameObject *p_pObject)
+{
+	m_lRemoveGOList.push_back(p_pObject);
+}
+

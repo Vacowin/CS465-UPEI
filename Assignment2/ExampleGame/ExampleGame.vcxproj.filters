@@ -141,6 +141,10 @@
     <ClCompile Include="ComponentPointLight.cpp" />
     <ClCompile Include="ComponentCameraFollow.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="ComponentCoinLife.cpp" />
+    <ClCompile Include="ComponentCoinMovement.cpp" />
+    <ClCompile Include="ComponentCoinScore.cpp" />
+    <ClCompile Include="ComponentCollision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -325,5 +329,9 @@
     <ClInclude Include="EventCoinDisappeared.h" />
     <ClInclude Include="EventCoinSpawned.h" />
     <ClInclude Include="EventObjectCollision.h" />
+    <ClInclude Include="ComponentCoinLife.h" />
+    <ClInclude Include="ComponentCoinMovement.h" />
+    <ClInclude Include="ComponentCoinScore.h" />
+    <ClInclude Include="ComponentCollision.h" />
   </ItemGroup>
 </Project>
