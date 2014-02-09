@@ -140,6 +140,8 @@
     <ClCompile Include="src\ComponentRenderableMesh.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="Textbox\TFont.cpp" />
+    <ClCompile Include="Textbox\TTextBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\ComponentBase.h" />
@@ -213,6 +215,8 @@
     <ClInclude Include="src\ComponentCharacterController.h" />
     <ClInclude Include="src\ComponentRenderableMesh.h" />
     <ClInclude Include="src\ExampleGame.h" />
+    <ClInclude Include="Textbox\TFont.h" />
+    <ClInclude Include="Textbox\TTextBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

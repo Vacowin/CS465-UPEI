@@ -23,6 +23,10 @@
 #include "Assignment2/ExampleGame/ComponentCollision.h"
 #include "Assignment2/ExampleGame/EventManager.h"
 #include "Assignment2/ExampleGame/ComponentTimerLogic.h"
+#include "Assignment2/ExampleGame/Textbox/TTextBox.h"
+#include "Assignment2/ExampleGame/Textbox/TFont.h"
+#include "Assignment2/ExampleGame/ComponentCameraFollow.h"
+#include "Assignment2/ExampleGame/ComponentCamera.h"
 
 using namespace week2;
 
@@ -84,6 +88,8 @@ bool ExampleGame::Init()
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CollisionSphere", ComponentCollision::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CoinMovement", ComponentCoinMovement::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_TimerLogic", ComponentTimerLogic::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_CameraFollow", ComponentCameraFollow::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_Camera", ComponentCamera::CreateComponent);
 
 	// Create a Character GameObject
 	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/character.xml");
@@ -92,20 +98,12 @@ bool ExampleGame::Init()
 	pCharacter->GetTransform().SetTranslation(glm::vec3(3.0f, 0.0, 0.0f));
 	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,40.0f,0.0f));
 
-	// create a camara compoent for character;
-	ComponentCameraFollow* pPlayerCamera = new ComponentCameraFollow(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 5.0f, 15.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));
-    pCharacter->AddComponent(pPlayerCamera);
-
-	Common::GameObject* pCoin = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/coin.xml");
 	
 	// lamp post
 	Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/lamp.xml");
     m_pGameObjectManager->SetGameObjectGUID(pLamp, "lamp");
 	pLamp->GetTransform().Scale(glm::vec3(0.4f, 0.4, 0.4f));
 
-	// create a camara component for lamp;
-	ComponentCamera* pLampCamera = new ComponentCamera(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 25.0f, 0.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));	
-	pLamp->AddComponent(pLampCamera);
 
 	// Create ground
 	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/ground.xml");
@@ -114,6 +112,15 @@ bool ExampleGame::Init()
 	Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/timer.xml");
 	m_pGameObjectManager->SetGameObjectGUID(pTimer, "timer");
 
+	// HUD
+	TFont tfont = TFont("Assignment2/ExampleGame/data/font/bm_0.tga","Assignment2/ExampleGame/data/font/bm.fnt");
+	string txt = std::string("Score: 0");
+	TTextBox* textbox1 = new TTextBox(&tfont,txt,	160, 40);
+	textbox1->SetColor(1.0f, 0.0f, 0.0f, 1.0f);
+	textbox1->SetPos(50,50);
+	textbox1->Init();
+	Common::SceneManager::Instance()->AttachHUDTextBox(textbox1);
+	
 	// Everything initialized OK.
 	return true;
 }

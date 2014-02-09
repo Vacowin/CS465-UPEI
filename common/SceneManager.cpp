@@ -317,6 +317,9 @@ void SceneManager::Render()
 		wolf::Sprite* pSprite = static_cast<wolf::Sprite*>(*sIt);
 		pSprite->Render(mOrthoProj);
 	}
+
+	//render HUD textbox
+	m_pTextBox->Render();
 }
 
 void SceneManager::Update(float p_fDelta)

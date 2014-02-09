@@ -15,6 +15,7 @@
 #include "SceneCamera.h"
 #include "Assignment2\ExampleGame\Square.h"
 #include "Assignment2\ExampleGame\ComponentPointLight.h"
+#include "Assignment2\ExampleGame\Textbox\TTextBox.h"
 
 namespace Common
 {
@@ -70,6 +71,8 @@ namespace Common
 
 		void Update(float p_fDelta);
 
+		void AttachHUDTextBox(TTextBox *p_pTextBox) {m_pTextBox = p_pTextBox;};
+		TTextBox* GetHUDTextBox() {return m_pTextBox;};
 	private:
 		//------------------------------------------------------------------------------
 		// Private methods.
@@ -104,6 +107,8 @@ namespace Common
 		
 		// Default directional light
 		DirectionalLight* m_pLight;
+
+		TTextBox* m_pTextBox;
 	};
 
 } // namespace common

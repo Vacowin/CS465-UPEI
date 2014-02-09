@@ -31,7 +31,7 @@ Common::ComponentBase* ComponentTimerLogic::CreateComponent(TiXmlNode* p_pNode)
 	while (pChildNode != NULL)
 	{
 		const char* szNodeName = pChildNode->Value();
-		if (strcmp(szNodeName, "MaxCoin") == 0)
+		if (strcmp(szNodeName, "MaxObject") == 0)
 		{
 			// Parse attributes
 			TiXmlElement* pElement = pChildNode->ToElement();
@@ -63,6 +63,22 @@ Common::ComponentBase* ComponentTimerLogic::CreateComponent(TiXmlNode* p_pNode)
 			pTimerComponent->SetFrequency(fValue);
 		}
 
+		if (strcmp(szNodeName, "DefaultObject") == 0)
+		{
+			// Parse attributes
+			TiXmlElement* pElement = pChildNode->ToElement();
+
+			const char* szValue = pElement->Attribute("value");
+			if (szValue == NULL)
+			{
+				delete pTimerComponent;
+				return NULL;
+			}
+
+			std::string sValue = szValue;
+			pTimerComponent->SetDefaultObject(sValue);
+		}
+
 		pChildNode = pChildNode->NextSibling();
 	}
 
@@ -81,7 +97,7 @@ void ComponentTimerLogic::Update(float p_fDelta)
 			float randomX = rand()%20 -rand()%40;
 			float randomZ = rand()%20 -rand()%40;;
 	
-			Common::GameObject* pCoin = this->GetGameObject()->GetManager()->CreateGameObject("Assignment2/ExampleGame/data/xml/coin.xml");
+			Common::GameObject* pCoin = this->GetGameObject()->GetManager()->CreateGameObject("Assignment2/ExampleGame/data/xml/" + m_sObjectName+".xml");
 
 			pCoin->GetTransform().Translate(glm::vec3(randomX, 10.0f, randomZ));
 			
@@ -91,7 +107,7 @@ void ComponentTimerLogic::Update(float p_fDelta)
 		}
 	}
 }
-static int index=0;
+
 void ComponentTimerLogic::HandleCoinCollision(BaseEvent *p_Event)
 {
 	EventObjectCollision *pEventCollision = static_cast<EventObjectCollision*>(p_Event);
@@ -106,7 +122,6 @@ void ComponentTimerLogic::HandleCoinCollision(BaseEvent *p_Event)
 
 	EventManager::Instance()->QueueEvent(new EventCoinCollected(pEventCollision->GetGameObject1(), pCoin));
 	m_fTimePassed = 0.0f;
-	printf("yeah %d\n", index++);
 }
 
 void ComponentTimerLogic::HandleCoinDisappeared(BaseEvent *p_Event)

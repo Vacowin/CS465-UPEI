@@ -7,6 +7,7 @@
 #include "EventObjectCollision.h"
 #include "EventManager.h"
 #include "tinyxml\tinyxml.h"
+#include <string>
 
 using namespace std;
 
@@ -28,6 +29,7 @@ namespace week2
 
 		void SetMaxCoin(int p_iMax) {m_iMaxNumCoin = p_iMax;}
 		void SetFrequency(float p_fFre) { m_fFrequency = p_fFre;}
+		void SetDefaultObject(std::string p_sObject) { m_sObjectName = p_sObject;}
 	private:
 		void HandleCoinCollision(BaseEvent *p_Event);
 		void HandleCoinDisappeared(BaseEvent *p_Event);
@@ -35,6 +37,7 @@ namespace week2
 		int m_iMaxNumCoin;
 		float m_fFrequency;
 		float m_fTimePassed;
+		std::string m_sObjectName;
 	};
 }
 #endif

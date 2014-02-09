@@ -146,6 +146,12 @@
     <ClCompile Include="ComponentCoinScore.cpp" />
     <ClCompile Include="ComponentCollision.cpp" />
     <ClCompile Include="ComponentTimerLogic.cpp" />
+    <ClCompile Include="Textbox\TFont.cpp">
+      <Filter>Textbox</Filter>
+    </ClCompile>
+    <ClCompile Include="Textbox\TTextBox.cpp">
+      <Filter>Textbox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -159,6 +165,9 @@
     </Filter>
     <Filter Include="tinyxml">
       <UniqueIdentifier>{2b8c6bb5-92a9-471d-b423-46b598fb4455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textbox">
+      <UniqueIdentifier>{ce08fe6a-9d48-4205-9208-1cc835199737}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -335,5 +344,11 @@
     <ClInclude Include="ComponentCoinScore.h" />
     <ClInclude Include="ComponentCollision.h" />
     <ClInclude Include="ComponentTimerLogic.h" />
+    <ClInclude Include="Textbox\TFont.h">
+      <Filter>Textbox</Filter>
+    </ClInclude>
+    <ClInclude Include="Textbox\TTextBox.h">
+      <Filter>Textbox</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

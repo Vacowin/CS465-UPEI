@@ -18,4 +18,15 @@
 	
 	<GOC_CharacterController>
 	</GOC_CharacterController>
+
+	<GOC_CameraFollow>
+		<FOV value="45.0f" />
+		<AspectRatio value="1.777f" />
+		<NearClip value="0.1f" />
+		<FarClip value="1000.0f" />
+		<Position x="0.0f" y="5.0f" z="15.0f" />
+		<Target x="0.0f" y="5.0f" z="0.0f" />
+		<Up x="0.0f" y="1.0f" z="0.0f" />
+	</GOC_CameraFollow>
+
 </GameObject>

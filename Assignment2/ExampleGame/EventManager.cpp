@@ -51,6 +51,7 @@ void EventManager::TriggerEvent(BaseEvent* p_pBaseEvent)
 	}
 }
 
+
 void EventManager::AddListener(EventType p_EventType, EventListener p_EvenListener)
 {
 	ListenerMap::iterator it = m_mListenerMap.find(p_EventType);
@@ -70,16 +71,27 @@ void EventManager::AddListener(EventType p_EventType, EventListener p_EvenListen
 
 void EventManager::RemoveListerner(EventType p_EventType, EventListener p_EvenListener)
 {
-	/*ListenerMap::iterator it = m_mListenerMap.find(p_EventType);
+	ListenerMap::iterator it = m_mListenerMap.find(p_EventType);
 	if (it!=m_mListenerMap.end())
 	{
 		ListenerList listenerList = it->second;
 		for (int i=0;i<listenerList.size();i++)
 		{
 			EventListener eventDelegate = listenerList.at(i);
-			if (eventDelegate == p_EvenListener)
+			//if (eventDelegate == p_EvenListener)
+			//eventDelegate.target<void (BaseEvent*)>() == p_EvenListener.target<void (BaseEvent*)>();
+			/*
+			if (eventDelegate.target<void (BaseEvent*)>() == p_EvenListener.target<void (BaseEvent*)>()
+			 && eventDelegate.target_type() == p_EvenListener.target_type())
+			{	
+				auto listenerIter = std::find(listenerList.begin(), listenerList.end(), i);
+				if (listenerIter != listenerList.end())
+					listenerList.erase(listenerIter);
+			}
+			*/
+			
 		}
-	}*/
+	}
 }
 
 void EventManager::Update(float p_fDelta)
