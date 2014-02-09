@@ -1,6 +1,9 @@
+#ifndef COMPNENT_CAMERA_FOLLOW_H
+#define COMPNENT_CAMERA_FOLLOW_H
 
 #include "ComponentBase.h"
 #include "SceneCamera.h"
+#include "tinyxml\tinyxml.h"
 
 namespace week2
 {
@@ -14,9 +17,12 @@ public:
 	virtual void Update(float p_fDelta) ;
 	virtual const std::string FamilyID() { return std::string("GOC_CameraFollow"); }
 
+	static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
+
 	Common::SceneCamera* GetCamera() {return m_pCamera;}
 
 private:
 	Common::SceneCamera *m_pCamera;
 };
 }
+#endif

@@ -1,6 +1,9 @@
+#ifndef COMPNENT_CAMERA_H
+#define COMPNENT_CAMERA_H
 
 #include "ComponentBase.h"
 #include "SceneCamera.h"
+#include "tinyxml\tinyxml.h"
 
 namespace week2
 {
@@ -16,7 +19,10 @@ public:
 
 	Common::SceneCamera* GetCamera() {return m_pCamera;}
 
+	static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
+
 private:
 	Common::SceneCamera *m_pCamera;
 };
 }
+#endif
