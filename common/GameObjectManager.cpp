@@ -10,6 +10,9 @@
 #include "GameObjectManager.h"
 #include "ComponentRenderable.h"
 #include "Assignment2\ExampleGame\ComponentPointLight.h"
+#include "Assignment2\ExampleGame\EventManager.h"
+#include "Assignment2\ExampleGame\ComponentCollision.h"
+#include "Assignment2\ExampleGame\EventObjectCollision.h"
 
 using namespace Common;
 
@@ -230,6 +233,7 @@ void GameObjectManager::Update(float p_fDelta)
 		pGO = (GameObject*)it->second;
 		pGO->Update(p_fDelta);
 	}
+	CheckCollision();
 }
 
 //------------------------------------------------------------------------------
@@ -350,3 +354,36 @@ void GameObjectManager::AddRemovedObject(GameObject *p_pObject)
 	m_lRemoveGOList.push_back(p_pObject);
 }
 
+void GameObjectManager::CheckCollision()
+{
+	GameObject* pCharacter = NULL;
+	GameObjectMap::iterator it1 = m_mGOMap.find("character");
+	if (it1 != m_mGOMap.end())
+	{
+		pCharacter = (GameObject*)it1->second;
+	}
+
+	GameObject* pCoin = NULL;
+	GameObjectMap::iterator it = m_mGOMap.begin(), end = m_mGOMap.end();
+	for (; it != end; ++it)
+	{
+		pCoin = (GameObject*)it->second;
+		if (pCoin->GetGUID() != "character")
+		{
+			week2::ComponentCollision* pCollison1 = static_cast<week2::ComponentCollision*>(pCoin->GetComponent("GOC_CollisionSphere"));
+			if (pCollison1)
+			{
+				Transform &coinTransform = pCoin->GetTransform();
+				glm::vec3 distance1 = coinTransform.GetTranslation() - pCharacter->GetTransform().GetTranslation();
+				float dis = sqrt( distance1.x*distance1.x + distance1.z*distance1.z); 
+
+			
+				week2::ComponentCollision* pCollison2 = static_cast<week2::ComponentCollision*>(pCharacter->GetComponent("GOC_CollisionSphere"));
+
+				float radius = pCollison1->GetRadius() + pCollison2->GetRadius();
+				if (dis<radius)
+					EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pCoin));
+			}
+		}
+	}
+}

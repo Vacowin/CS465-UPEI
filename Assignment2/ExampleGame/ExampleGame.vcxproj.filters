@@ -145,6 +145,7 @@
     <ClCompile Include="ComponentCoinMovement.cpp" />
     <ClCompile Include="ComponentCoinScore.cpp" />
     <ClCompile Include="ComponentCollision.cpp" />
+    <ClCompile Include="ComponentTimerLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -333,5 +334,6 @@
     <ClInclude Include="ComponentCoinMovement.h" />
     <ClInclude Include="ComponentCoinScore.h" />
     <ClInclude Include="ComponentCollision.h" />
+    <ClInclude Include="ComponentTimerLogic.h" />
   </ItemGroup>
 </Project>

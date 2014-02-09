@@ -132,6 +132,7 @@
     <ClCompile Include="ComponentCollision.cpp" />
     <ClCompile Include="ComponentPointLight.cpp" />
     <ClCompile Include="ComponentRenderableSquare.cpp" />
+    <ClCompile Include="ComponentTimerLogic.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="src\ComponentAnimController.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="ComponentCollision.h" />
     <ClInclude Include="ComponentPointLight.h" />
     <ClInclude Include="ComponentRenderableSquare.h" />
+    <ClInclude Include="ComponentTimerLogic.h" />
     <ClInclude Include="EventCoinCollected.h" />
     <ClInclude Include="EventCoinDisappeared.h" />
     <ClInclude Include="EventCoinSpawned.h" />

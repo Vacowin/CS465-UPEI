@@ -22,6 +22,7 @@
 #include "Assignment2/ExampleGame/ComponentCoinMovement.h"
 #include "Assignment2/ExampleGame/ComponentCollision.h"
 #include "Assignment2/ExampleGame/EventManager.h"
+#include "Assignment2/ExampleGame/ComponentTimerLogic.h"
 
 using namespace week2;
 
@@ -82,6 +83,7 @@ bool ExampleGame::Init()
 	m_pGameObjectManager->RegisterComponentFactory("GOC_LifeSpan", ComponentCoinLife::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CollisionSphere", ComponentCollision::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CoinMovement", ComponentCoinMovement::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_TimerLogic", ComponentTimerLogic::CreateComponent);
 
 	// Create a Character GameObject
 	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/character.xml");
@@ -108,6 +110,10 @@ bool ExampleGame::Init()
 	// Create ground
 	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/ground.xml");
 
+	// Create timer
+	Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/timer.xml");
+	m_pGameObjectManager->SetGameObjectGUID(pTimer, "timer");
+
 	// Everything initialized OK.
 	return true;
 }
@@ -123,6 +129,7 @@ bool ExampleGame::Init()
 //------------------------------------------------------------------------------
 bool ExampleGame::Update(float p_fDelta)
 {
+	EventManager::Instance()->Update(p_fDelta);
 	m_pGameObjectManager->Update(p_fDelta);
 
 	return true;
