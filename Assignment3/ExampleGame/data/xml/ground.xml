@@ -1,0 +1,10 @@
+<GameObject>
+
+	<GOC_RenderableSquare>
+		<Textures path="Assignment2/ExampleGame/data/textures/ground.tga" />
+		<VertexProgram path="assignment2/ExampleGame/data/textured.vsh" />
+		<FragmentProgram path="assignment2/ExampleGame/data/textured.fsh" />
+		<Position x="500.0f" y="0" z="500.0f" />
+	</GOC_RenderableSquare>
+
+</GameObject>

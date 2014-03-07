@@ -319,7 +319,8 @@ void SceneManager::Render()
 	}
 
 	//render HUD textbox
-	m_pTextBox->Render();
+	//if (m_pTextBox)
+	//	m_pTextBox->Render();
 }
 
 void SceneManager::Update(float p_fDelta)

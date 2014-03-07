@@ -1,0 +1,32 @@
+<GameObject>
+	<GOC_AnimController>
+		<Anim name="idle" start="1" end="120" loop="true" />
+		<Anim name="run" start="252" end="276" loop="true" />
+		<Anim name="walk" start="305" end="340" loop="true" />
+	</GOC_AnimController>
+	
+	<GOC_RenderableMesh>
+		<Model path="Assignment2/ExampleGame/data/character/vincent.pod" />
+		<Textures path="Assignment2/ExampleGame/data/character/" />
+		<VertexProgram path="Assignment2/ExampleGame/data/skinned.vsh" />
+		<FragmentProgram path="Assignment2/ExampleGame/data/skinned.fsh" />
+	</GOC_RenderableMesh>
+	
+	<GOC_CollisionSphere>
+		<Radius value="3.0f" />
+	</GOC_CollisionSphere>
+	
+	<GOC_CharacterController>
+	</GOC_CharacterController>
+
+	<GOC_CameraFollow>
+		<FOV value="45.0f" />
+		<AspectRatio value="1.777f" />
+		<NearClip value="0.1f" />
+		<FarClip value="1000.0f" />
+		<Position x="0.0f" y="5.0f" z="15.0f" />
+		<Target x="0.0f" y="5.0f" z="0.0f" />
+		<Up x="0.0f" y="1.0f" z="0.0f" />
+	</GOC_CameraFollow>
+
+</GameObject>

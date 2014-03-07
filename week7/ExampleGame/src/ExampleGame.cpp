@@ -112,7 +112,7 @@ bool ExampleGame::Init()
 	pRigidBody->Init(new btStaticPlaneShape(btVector3(0,1,0), 0), "Normal", 0.0f, glm::vec3());
 
 	// Create 100 crates at random positions
-	for (int i = 0; i < 100; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		// Crate Game Object
 		Common::GameObject* pCrate = m_pGameObjectManager->CreateGameObject();
@@ -134,6 +134,9 @@ bool ExampleGame::Init()
 		pCrate->AddComponent(pRigidBody);
 
 		pRigidBody->Init(new btBoxShape(btVector3(1.5f, 1.5f, 1.5f)), "Normal", 2.0f, glm::vec3(0.0f, -1.5f, 0.0f));
+		//pRigidBody->Init(new btSphereShape(btVector3(1.5f, 1.5f, 1.5f)), "Normal", 2.0f, glm::vec3(0.0f, -1.5f, 0.0f));
+		//pRigidBody->Init(new btSphereShape(btScalar(3.0f)), "Normal",2.0f, glm::vec3(0.0f, -1.5f, 0.0f));
+		//pRigidBody->Init(new btConeShape(btScalar(1.5f), btScalar(6.0f)), "Normal", 2.0f, glm::vec3(0.0f, -1.5f, 0.0f));
 	}
 
 	// Everything initialized OK.
@@ -159,7 +162,16 @@ bool ExampleGame::Update(float p_fDelta)
 	bool bCurrentKeyDown = glfwGetKey('Z');
 	if (bCurrentKeyDown && !bLastKeyDown)
 	{
-		Common::BulletPhysicsManager::Instance()->ToggleDebugRendering();
+		//Common::BulletPhysicsManager::Instance()->ToggleDebugRendering();
+		std::map<std::string, Common::GameObject*>::iterator iter;
+		for (iter = m_pGameObjectManager->Begin(); iter != m_pGameObjectManager->End(); iter++)
+		{
+			Common::GameObject* pGO = iter->second;
+			Common::ComponentRigidBody* pRigidBodyCompoonent = static_cast<Common::ComponentRigidBody*>(pGO->GetComponent("GOC_RigidBody"));
+			btRigidBody* pBody = pRigidBodyCompoonent->getRigidBody();
+			//pBody->setActivationState(DISABLE_DEACTIVATION);
+			pBody->applyCentralImpulse(btVector3(10.0f, 0.0f, 0.0f));
+		}
 	}
 	bLastKeyDown = bCurrentKeyDown;
 

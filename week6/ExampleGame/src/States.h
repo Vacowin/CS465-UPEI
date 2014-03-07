@@ -13,7 +13,8 @@
 enum States
 {
 	eStateGameplay_MainMenu = 0,
-	eStateGameplay_Gameplay
+	eStateGameplay_Gameplay,
+	eStateGameplay_LeaderBoard
 };
 
 #endif // STATES_H

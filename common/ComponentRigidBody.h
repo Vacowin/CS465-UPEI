@@ -33,6 +33,7 @@ namespace Common
 		//------------------------------------------------------------------------------
 		virtual void Init(btCollisionShape* p_pCollisionShape, const std::string& p_strMaterial, float p_fMass, const glm::vec3& p_vOffset, bool p_bIsKinematic = false);
 
+		btRigidBody* getRigidBody() { return m_pBody;}
 	private:
 		//------------------------------------------------------------------------------
 		// Private members.

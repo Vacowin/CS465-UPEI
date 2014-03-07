@@ -82,7 +82,7 @@ void StateMainMenu::Update(float p_fDelta)
 			}
 			else if (y > 280.0f && y > 336.0f)
 			{
-				// Leaderboard pressed
+				m_pStateMachine->GoToState(eStateGameplay_LeaderBoard);
 			}
 		}
 	}

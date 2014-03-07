@@ -150,6 +150,12 @@
     <ClCompile Include="..\..\common\BulletPhysicsMaterialManager.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\common\EventManager.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\Square.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -336,6 +342,15 @@
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\common\BulletPhysicsMaterialManager.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\BaseEvent.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\EventManager.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Square.h">
       <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>

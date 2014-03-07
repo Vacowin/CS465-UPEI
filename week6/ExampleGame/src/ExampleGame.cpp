@@ -15,6 +15,7 @@
 #include "SceneManager.h"
 #include "StateGameplay.h"
 #include "StateMainMenu.h"
+#include "StateLeaderBoard.h"
 #include "States.h"
 #include "W_Model.h"
 #include "windows.h"
@@ -150,6 +151,7 @@ bool ExampleGame::Init()
 	m_pStateMachine = new Common::StateMachine();
 	m_pStateMachine->RegisterState(eStateGameplay_MainMenu, new StateMainMenu());
 	m_pStateMachine->RegisterState(eStateGameplay_Gameplay, new StateGameplay());
+	m_pStateMachine->RegisterState(eStateGameplay_LeaderBoard, new StateLeaderBoard());
 	m_pStateMachine->GoToState(eStateGameplay_MainMenu);
 
 	// Everything initialized OK.

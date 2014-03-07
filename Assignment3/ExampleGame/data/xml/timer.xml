@@ -1,0 +1,9 @@
+<GameObject>	
+	
+	<GOC_TimerLogic>
+		<MaxObject value="5" />
+		<Frequency value="1.0f" />
+		<DefaultObject value="coin" />
+	</GOC_TimerLogic>
+	
+</GameObject>

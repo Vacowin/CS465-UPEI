@@ -85,12 +85,14 @@
     <ClCompile Include="..\..\common\BulletPhysicsManager.cpp" />
     <ClCompile Include="..\..\common\BulletPhysicsMaterialManager.cpp" />
     <ClCompile Include="..\..\common\ComponentRigidBody.cpp" />
+    <ClCompile Include="..\..\common\EventManager.cpp" />
     <ClCompile Include="..\..\common\GameObject.cpp" />
     <ClCompile Include="..\..\common\Game.cpp" />
     <ClCompile Include="..\..\common\GameObjectManager.cpp" />
     <ClCompile Include="..\..\common\LuaScriptManager.cpp" />
     <ClCompile Include="..\..\common\SceneCamera.cpp" />
     <ClCompile Include="..\..\common\SceneManager.cpp" />
+    <ClCompile Include="..\..\common\Square.cpp" />
     <ClCompile Include="..\..\common\Transform.cpp" />
     <ClCompile Include="..\..\common\W_LineDrawer.cpp" />
     <ClCompile Include="..\..\PowerVR\PVRTBoneBatch.cpp" />
@@ -136,18 +138,21 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\common\BaseEvent.h" />
     <ClInclude Include="..\..\common\BulletPhysicsDebugDrawer.h" />
     <ClInclude Include="..\..\common\BulletPhysicsManager.h" />
     <ClInclude Include="..\..\common\BulletPhysicsMaterialManager.h" />
     <ClInclude Include="..\..\common\ComponentBase.h" />
     <ClInclude Include="..\..\common\ComponentRenderable.h" />
     <ClInclude Include="..\..\common\ComponentRigidBody.h" />
+    <ClInclude Include="..\..\common\EventManager.h" />
     <ClInclude Include="..\..\common\GameObject.h" />
     <ClInclude Include="..\..\common\Game.h" />
     <ClInclude Include="..\..\common\GameObjectManager.h" />
     <ClInclude Include="..\..\common\LuaScriptManager.h" />
     <ClInclude Include="..\..\common\SceneCamera.h" />
     <ClInclude Include="..\..\common\SceneManager.h" />
+    <ClInclude Include="..\..\common\Square.h" />
     <ClInclude Include="..\..\common\Transform.h" />
     <ClInclude Include="..\..\common\W_LineDrawer.h" />
     <ClInclude Include="..\..\PowerVR\PVRTArray.h" />

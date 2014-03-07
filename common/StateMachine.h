@@ -11,6 +11,7 @@
 #define STATEMACHINE_H
 
 #include <map>
+#include <list>
 
 namespace Common
 {

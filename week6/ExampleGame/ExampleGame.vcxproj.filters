@@ -141,6 +141,19 @@
       <Filter>wolf</Filter>
     </ClCompile>
     <ClCompile Include="src\ComponentRenderableSprite.cpp" />
+    <ClCompile Include="..\..\common\EventManager.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\Textbox\TFont.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\Textbox\TTextBox.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\Square.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StateLeaderBoard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -324,5 +337,21 @@
       <Filter>wolf</Filter>
     </ClInclude>
     <ClInclude Include="src\ComponentRenderableSprite.h" />
+    <ClInclude Include="..\..\common\BaseEvent.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\EventManager.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Textbox\TFont.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Textbox\TTextBox.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Square.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StateLeaderBoard.h" />
   </ItemGroup>
 </Project>

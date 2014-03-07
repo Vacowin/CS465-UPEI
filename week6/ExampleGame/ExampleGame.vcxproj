@@ -81,13 +81,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\common\EventManager.cpp" />
     <ClCompile Include="..\..\common\GameObject.cpp" />
     <ClCompile Include="..\..\common\Game.cpp" />
     <ClCompile Include="..\..\common\GameObjectManager.cpp" />
     <ClCompile Include="..\..\common\LuaScriptManager.cpp" />
     <ClCompile Include="..\..\common\SceneCamera.cpp" />
     <ClCompile Include="..\..\common\SceneManager.cpp" />
+    <ClCompile Include="..\..\common\Square.cpp" />
     <ClCompile Include="..\..\common\StateMachine.cpp" />
+    <ClCompile Include="..\..\common\Textbox\TFont.cpp" />
+    <ClCompile Include="..\..\common\Textbox\TTextBox.cpp" />
     <ClCompile Include="..\..\common\Transform.cpp" />
     <ClCompile Include="..\..\PowerVR\PVRTBoneBatch.cpp" />
     <ClCompile Include="..\..\PowerVR\PVRTDecompress.cpp" />
@@ -132,19 +136,25 @@
     <ClCompile Include="src\ExampleGame.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\StateGameplay.cpp" />
+    <ClCompile Include="src\StateLeaderBoard.cpp" />
     <ClCompile Include="src\StateMainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\common\BaseEvent.h" />
     <ClInclude Include="..\..\common\ComponentBase.h" />
     <ClInclude Include="..\..\common\ComponentRenderable.h" />
+    <ClInclude Include="..\..\common\EventManager.h" />
     <ClInclude Include="..\..\common\GameObject.h" />
     <ClInclude Include="..\..\common\Game.h" />
     <ClInclude Include="..\..\common\GameObjectManager.h" />
     <ClInclude Include="..\..\common\LuaScriptManager.h" />
     <ClInclude Include="..\..\common\SceneCamera.h" />
     <ClInclude Include="..\..\common\SceneManager.h" />
+    <ClInclude Include="..\..\common\Square.h" />
     <ClInclude Include="..\..\common\StateBase.h" />
     <ClInclude Include="..\..\common\StateMachine.h" />
+    <ClInclude Include="..\..\common\Textbox\TFont.h" />
+    <ClInclude Include="..\..\common\Textbox\TTextBox.h" />
     <ClInclude Include="..\..\common\Transform.h" />
     <ClInclude Include="..\..\PowerVR\PVRTArray.h" />
     <ClInclude Include="..\..\PowerVR\PVRTBackground.h" />
@@ -194,6 +204,7 @@
     <ClInclude Include="src\ComponentRenderableSprite.h" />
     <ClInclude Include="src\ExampleGame.h" />
     <ClInclude Include="src\StateGameplay.h" />
+    <ClInclude Include="src\StateLeaderBoard.h" />
     <ClInclude Include="src\StateMainMenu.h" />
     <ClInclude Include="src\States.h" />
   </ItemGroup>
