@@ -105,15 +105,12 @@
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="src\ExampleGame.cpp" />
-    <ClCompile Include="src\ComponentAnimController.cpp" />
-    <ClCompile Include="src\ComponentCharacterController.cpp" />
     <ClCompile Include="..\..\common\SceneCamera.cpp">
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\common\SceneManager.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="src\ComponentRenderableMesh.cpp" />
     <ClCompile Include="..\..\common\GameObjectManager.cpp">
       <Filter>common</Filter>
     </ClCompile>
@@ -135,22 +132,66 @@
     <ClCompile Include="..\..\wolf\W_Sprite.cpp">
       <Filter>wolf</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentRenderableSquare.cpp" />
     <ClCompile Include="Square.cpp" />
-    <ClCompile Include="ComponentCamera.cpp" />
-    <ClCompile Include="ComponentPointLight.cpp" />
-    <ClCompile Include="ComponentCameraFollow.cpp" />
-    <ClCompile Include="EventManager.cpp" />
-    <ClCompile Include="ComponentCoinLife.cpp" />
-    <ClCompile Include="ComponentCoinMovement.cpp" />
-    <ClCompile Include="ComponentCoinScore.cpp" />
-    <ClCompile Include="ComponentCollision.cpp" />
-    <ClCompile Include="ComponentTimerLogic.cpp" />
     <ClCompile Include="Textbox\TFont.cpp">
       <Filter>Textbox</Filter>
     </ClCompile>
     <ClCompile Include="Textbox\TTextBox.cpp">
       <Filter>Textbox</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComponentAnimController.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCameraFollow.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComponentCharacterController.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCoinLife.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCoinMovement.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCoinScore.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCollision.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentPointLight.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComponentRenderableMesh.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentRenderableSquare.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTimerLogic.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentRigidBody.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\BulletPhysicsDebugDrawer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\BulletPhysicsManager.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\BulletPhysicsMaterialManager.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\W_LineDrawer.cpp">
+      <Filter>wolf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +209,12 @@
     </Filter>
     <Filter Include="Textbox">
       <UniqueIdentifier>{ce08fe6a-9d48-4205-9208-1cc835199737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component">
+      <UniqueIdentifier>{0f8b8119-9e6e-4288-a044-2af2df92e229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event">
+      <UniqueIdentifier>{fcaf1867-c25d-4b2c-a065-7a22d364e97c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -301,15 +348,12 @@
     <ClInclude Include="..\..\common\ComponentBase.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="src\ComponentAnimController.h" />
-    <ClInclude Include="src\ComponentCharacterController.h" />
     <ClInclude Include="..\..\common\SceneCamera.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\common\SceneManager.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="src\ComponentRenderableMesh.h" />
     <ClInclude Include="..\..\common\ComponentRenderable.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -328,27 +372,81 @@
     <ClInclude Include="..\..\wolf\W_Sprite.h">
       <Filter>wolf</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentRenderableSquare.h" />
     <ClInclude Include="Square.h" />
-    <ClInclude Include="ComponentCamera.h" />
-    <ClInclude Include="ComponentPointLight.h" />
-    <ClInclude Include="ComponentCameraFollow.h" />
-    <ClInclude Include="EventManager.h" />
-    <ClInclude Include="BaseEvent.h" />
-    <ClInclude Include="EventCoinCollected.h" />
-    <ClInclude Include="EventCoinDisappeared.h" />
-    <ClInclude Include="EventCoinSpawned.h" />
-    <ClInclude Include="EventObjectCollision.h" />
-    <ClInclude Include="ComponentCoinLife.h" />
-    <ClInclude Include="ComponentCoinMovement.h" />
-    <ClInclude Include="ComponentCoinScore.h" />
-    <ClInclude Include="ComponentCollision.h" />
-    <ClInclude Include="ComponentTimerLogic.h" />
     <ClInclude Include="Textbox\TFont.h">
       <Filter>Textbox</Filter>
     </ClInclude>
     <ClInclude Include="Textbox\TTextBox.h">
       <Filter>Textbox</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComponentAnimController.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCameraFollow.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComponentCharacterController.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCoinLife.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCoinMovement.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCoinScore.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCollision.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentPointLight.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComponentRenderableMesh.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentRenderableSquare.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTimerLogic.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEvent.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventCoinCollected.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventCoinDisappeared.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventCoinSpawned.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventObjectCollision.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentRigidBody.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\BulletPhysicsDebugDrawer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\BulletPhysicsManager.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\BulletPhysicsMaterialManager.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\W_LineDrawer.h">
+      <Filter>wolf</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

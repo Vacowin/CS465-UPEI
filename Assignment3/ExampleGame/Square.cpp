@@ -6,10 +6,10 @@ namespace Common
 {
 Square::Square(const std::string& p_strTexturePath, const std::string& p_strVertexProgram, const std::string& p_strFragmentProgram,float x, float y, float z)
 {
-	wolf::Texture* pTex = wolf::TextureManager::CreateTexture(p_strTexturePath);
-    pTex->SetWrapMode(wolf::Texture::WM_Repeat, wolf::Texture::WM_Repeat);
+	m_pTexture = wolf::TextureManager::CreateTexture(p_strTexturePath);
+    m_pTexture->SetWrapMode(wolf::Texture::WM_Repeat, wolf::Texture::WM_Repeat);
     m_pMaterial = wolf::MaterialManager::CreateMaterial("Square");
-    m_pMaterial->SetTexture("texture", pTex);
+
     m_pMaterial->SetProgram(p_strVertexProgram, p_strFragmentProgram);
 
 	
@@ -39,12 +39,12 @@ Square::~Square(void)
 void Square::Render(const glm::mat4& p_mView, const glm::mat4& p_mProj)
 {
 	m_pVertexDeclaration->Bind();
-    m_pMaterial->Apply();
+	m_pMaterial->SetTexture("texture", m_pTexture);
     m_pMaterial->SetUniform("projection", p_mProj);
     m_pMaterial->SetUniform("view", p_mView);
     m_pMaterial->SetUniform("world", m_mWorldTransform);
     m_pMaterial->SetUniform("worldIT", glm::transpose(glm::inverse(m_mWorldTransform)));
-    
+    m_pMaterial->Apply();
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 }

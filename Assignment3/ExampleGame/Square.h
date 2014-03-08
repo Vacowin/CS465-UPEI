@@ -29,6 +29,7 @@ private:
 	wolf::Material* m_pMaterial;
 	glm::mat4 m_mWorldTransform;
 	wolf::VertexDeclaration* m_pVertexDeclaration;
+	wolf::Texture* m_pTexture;
 };
 
 }

@@ -9,10 +9,10 @@
 
 #include "GameObjectManager.h"
 #include "ComponentRenderable.h"
-#include "Assignment2\ExampleGame\ComponentPointLight.h"
-#include "Assignment2\ExampleGame\EventManager.h"
-#include "Assignment2\ExampleGame\ComponentCollision.h"
-#include "Assignment2\ExampleGame\EventObjectCollision.h"
+#include "Assignment3\ExampleGame\ComponentPointLight.h"
+#include "Assignment3\ExampleGame\EventManager.h"
+#include "Assignment3\ExampleGame\ComponentCollision.h"
+#include "Assignment3\ExampleGame\EventObjectCollision.h"
 
 using namespace Common;
 

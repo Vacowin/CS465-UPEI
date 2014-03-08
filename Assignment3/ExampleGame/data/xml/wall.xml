@@ -1,0 +1,18 @@
+<GameObject>
+
+	<GOC_RenderableSquare>
+		<Textures path="Assignment3/ExampleGame/data/textures/brick.tga" />
+		<VertexProgram path="assignment3/ExampleGame/data/textured.vsh" />
+		<FragmentProgram path="assignment3/ExampleGame/data/textured.fsh" />
+		<Position x="150.0f" y="0" z="150.0f" />
+	</GOC_RenderableSquare>
+
+	<GOC_RigidBody>
+		<CollisonShape value="box" width="150.0" height="0.2" depth="150.0" />
+		<Mass value="0.0f" />
+		<Material value="PlayDough" />
+		<Offset x="0.0f" y="0.0f" z="0.0f" />
+		<Kinematic value="true" />
+	</GOC_RigidBody>
+	
+</GameObject>

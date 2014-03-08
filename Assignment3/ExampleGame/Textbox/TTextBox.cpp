@@ -1,8 +1,8 @@
 #include "TTextBox.h"
-#include "Assignment2\ExampleGame\EventManager.h"
-#include "Assignment2\ExampleGame\EventCoinCollected.h"
+#include "Assignment3\ExampleGame\EventManager.h"
+#include "Assignment3\ExampleGame\EventCoinCollected.h"
 #include "common\GameObject.h"
-#include "Assignment2\ExampleGame\ComponentCoinScore.h"
+#include "Assignment3\ExampleGame\ComponentCoinScore.h"
 
 #define NEW_LINE 40
 
@@ -145,7 +145,7 @@ void TTextBox::Init()
 	}
 
 	if (!m_pProgram)
-		m_pProgram = wolf::ProgramManager::CreateProgram("Assignment2/ExampleGame/data/font/one_texture.vsh", "Assignment2/ExampleGame/data/font/one_texture.fsh");
+		m_pProgram = wolf::ProgramManager::CreateProgram("Assignment3/ExampleGame/data/font/one_texture.vsh", "Assignment3/ExampleGame/data/font/one_texture.fsh");
 	m_pVertexBuffer = wolf::BufferManager::CreateVertexBuffer(m_pVertices,sizeof(Vertex) * m_uiNumVertex);
 
 	m_pVertexDeclaration = new wolf::VertexDeclaration();
@@ -160,7 +160,7 @@ void TTextBox::Init()
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
  
 	if (!m_pTextureTextBox)
-		m_pTextureTextBox = wolf::TextureManager::CreateTexture("Assignment2/ExampleGame/data/font/textbox.tga");
+		m_pTextureTextBox = wolf::TextureManager::CreateTexture("Assignment3/ExampleGame/data/font/textbox.tga");
 	if (!m_pTextureFont)
 		m_pTextureFont = m_pFont->GetTextureForChar(0);
 }

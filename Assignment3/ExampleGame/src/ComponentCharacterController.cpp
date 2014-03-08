@@ -13,8 +13,9 @@
 #include "ComponentCharacterController.h"
 #include "ComponentRenderableMesh.h"
 #include "GameObject.h"
-#include "Assignment2\ExampleGame\ComponentCamera.h"
+#include "Assignment3\ExampleGame\ComponentCamera.h"
 #include "SceneManager.h"
+#include "Assignment3\ExampleGame\ComponentRigidBody.h"
 
 using namespace week2;
 
@@ -93,8 +94,8 @@ void ComponentCharacterController::Update(float p_fDelta)
 		m_fRotation -= m_fRotateSpeed*p_fDelta;
 	}
 
-	float z1 = m_fSpeed*cos((m_fRotation - 40) * PI / 180) - m_fSpeed*sin((m_fRotation - 40) * PI / 180);
-	float x1 = m_fSpeed*sin((m_fRotation - 40) * PI / 180) + m_fSpeed*cos((m_fRotation - 40) * PI / 180);
+	z1 = m_fSpeed*cos((m_fRotation - 40) * PI / 180) - m_fSpeed*sin((m_fRotation - 40) * PI / 180);
+	x1 = m_fSpeed*sin((m_fRotation - 40) * PI / 180) + m_fSpeed*cos((m_fRotation - 40) * PI / 180);
 
 	if (glfwGetKey('W'))
 	{
@@ -134,4 +135,21 @@ void ComponentCharacterController::Update(float p_fDelta)
 		pCamera = static_cast<ComponentCamera*>(GetGameObject()->GetManager()->GetGameObject("lamp")->GetComponent("GOC_Camera"))->GetCamera();
   
 	Common::SceneManager::Instance()->AttachCamera(pCamera);
+
+	if (!m_bToggleShoot && glfwGetMouseButton(0))
+	{
+		m_bToggleShoot = true;
+
+		glm::vec3 offset = glm::vec3(x1/2.0f,5,z1/2.0f);
+		glm::vec3 pos = this->GetGameObject()->GetTransform().GetTranslation();
+		glm::vec3 vNewPos = pos + glm::vec3(offset.x, offset.y, offset.z);
+
+		Common::GameObject* pProjectTile = this->GetGameObject()->GetManager()->CreateGameObject("Assignment3/ExampleGame/data/xml/projectile.xml");
+		pProjectTile->GetTransform().SetTranslation(glm::vec3(vNewPos.x,vNewPos.y,vNewPos.z));
+		ComponentRigidBody* pComponentRigid = static_cast<ComponentRigidBody*>(pProjectTile->GetComponent("GOC_RigidBody"));
+		pComponentRigid->BindGameObject();
+		pComponentRigid->ApplyCentralImpulse(glm::vec3(offset.x * 30, 0.0f, offset.z*30));
+	}
+	else if (!glfwGetMouseButton(0))
+		m_bToggleShoot = false;
 }

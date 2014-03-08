@@ -6,10 +6,10 @@
 	</GOC_AnimController>
 	
 	<GOC_RenderableMesh>
-		<Model path="Assignment2/ExampleGame/data/character/vincent.pod" />
-		<Textures path="Assignment2/ExampleGame/data/character/" />
-		<VertexProgram path="Assignment2/ExampleGame/data/skinned.vsh" />
-		<FragmentProgram path="Assignment2/ExampleGame/data/skinned.fsh" />
+		<Model path="Assignment3/ExampleGame/data/character/vincent.pod" />
+		<Textures path="Assignment3/ExampleGame/data/character/" />
+		<VertexProgram path="Assignment3/ExampleGame/data/skinned.vsh" />
+		<FragmentProgram path="Assignment3/ExampleGame/data/skinned.fsh" />
 	</GOC_RenderableMesh>
 	
 	<GOC_CollisionSphere>
@@ -28,5 +28,13 @@
 		<Target x="0.0f" y="5.0f" z="0.0f" />
 		<Up x="0.0f" y="1.0f" z="0.0f" />
 	</GOC_CameraFollow>
+
+	<GOC_RigidBody>
+		<CollisonShape value="capsule" height="6.0" radius="2.0" />
+		<Mass value="20.0f" />
+		<Material value="Normal" />
+		<Offset x="0.0f" y="-3.0f" z="0.0f" />
+		<Kinematic value="true" />
+	</GOC_RigidBody>
 
 </GameObject>

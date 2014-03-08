@@ -14,19 +14,21 @@
 #include "GameObject.h"
 #include "SceneManager.h"
 #include "W_Model.h"
-#include "Assignment2/ExampleGame/ComponentRenderableSquare.h"
-#include "Assignment2/ExampleGame/ComponentCamera.h"
-#include "Assignment2/ExampleGame/ComponentCameraFollow.h"
-#include "Assignment2/ExampleGame/ComponentCoinScore.h"
-#include "Assignment2/ExampleGame/ComponentCoinLife.h"
-#include "Assignment2/ExampleGame/ComponentCoinMovement.h"
-#include "Assignment2/ExampleGame/ComponentCollision.h"
-#include "Assignment2/ExampleGame/EventManager.h"
-#include "Assignment2/ExampleGame/ComponentTimerLogic.h"
-#include "Assignment2/ExampleGame/Textbox/TTextBox.h"
-#include "Assignment2/ExampleGame/Textbox/TFont.h"
-#include "Assignment2/ExampleGame/ComponentCameraFollow.h"
-#include "Assignment2/ExampleGame/ComponentCamera.h"
+#include "Assignment3/ExampleGame/ComponentRenderableSquare.h"
+#include "Assignment3/ExampleGame/ComponentCamera.h"
+#include "Assignment3/ExampleGame/ComponentCameraFollow.h"
+#include "Assignment3/ExampleGame/ComponentCoinScore.h"
+#include "Assignment3/ExampleGame/ComponentCoinLife.h"
+#include "Assignment3/ExampleGame/ComponentCoinMovement.h"
+#include "Assignment3/ExampleGame/ComponentCollision.h"
+#include "Assignment3/ExampleGame/EventManager.h"
+#include "Assignment3/ExampleGame/ComponentTimerLogic.h"
+#include "Assignment3/ExampleGame/Textbox/TTextBox.h"
+#include "Assignment3/ExampleGame/Textbox/TFont.h"
+#include "Assignment3/ExampleGame/ComponentCameraFollow.h"
+#include "Assignment3/ExampleGame/ComponentCamera.h"
+#include "common/BulletPhysicsManager.h"
+#include "Assignment3/ExampleGame/ComponentRigidBody.h"
 
 using namespace week2;
 
@@ -90,30 +92,52 @@ bool ExampleGame::Init()
 	m_pGameObjectManager->RegisterComponentFactory("GOC_TimerLogic", ComponentTimerLogic::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CameraFollow", ComponentCameraFollow::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_Camera", ComponentCamera::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_RigidBody", ComponentRigidBody::CreateComponent);
+
+	// Create a Physics Manager to manage physics simulation
+	Common::BulletPhysicsManager::CreateInstance("Assignment3/ExampleGame/data/physics_materials.xml",
+												"Assignment3/ExampleGame/data/shaders/lines.vsh", 
+												"Assignment3/ExampleGame/data/shaders/lines.fsh");
 
 	// Create a Character GameObject
-	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/character.xml");
+	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/character.xml");
 	m_pGameObjectManager->SetGameObjectGUID(pCharacter, "character");
 	pCharacter->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
 	pCharacter->GetTransform().SetTranslation(glm::vec3(3.0f, 0.0, 0.0f));
 	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,40.0f,0.0f));
 
-	
+
 	// lamp post
-	Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/lamp.xml");
+	Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/lamp.xml");
     m_pGameObjectManager->SetGameObjectGUID(pLamp, "lamp");
 	pLamp->GetTransform().Scale(glm::vec3(0.4f, 0.4, 0.4f));
 
-
 	// Create ground
-	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/ground.xml");
+	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/ground.xml");
+
+	// Create walls
+	Common::GameObject* pWall1 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	pWall1->GetTransform().Rotate(glm::vec3(90.0f,0.0f,0.0f));
+	pWall1->GetTransform().Translate(glm::vec3(0.0f,0.0f,75.0f));
+
+	Common::GameObject* pWall2 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	pWall2->GetTransform().Rotate(glm::vec3(90.0f,0.0f,0.0f));
+	pWall2->GetTransform().Translate(glm::vec3(0.0f,0.0f,-75.0f));
+
+	Common::GameObject* pWall3 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	pWall3->GetTransform().Rotate(glm::vec3(90.0f,90.0f,0.0f));
+	pWall3->GetTransform().Translate(glm::vec3(75.0f,0.0f,0.0f));
+
+	Common::GameObject* pWall4 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	pWall4->GetTransform().Rotate(glm::vec3(90.0f,90.0f,0.0f));
+	pWall4->GetTransform().Translate(glm::vec3(-75.0f,0.0f,0.0f));
 
 	// Create timer
-	Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment2/ExampleGame/data/xml/timer.xml");
+	Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/timer.xml");
 	m_pGameObjectManager->SetGameObjectGUID(pTimer, "timer");
 
 	// HUD
-	TFont tfont = TFont("Assignment2/ExampleGame/data/font/bm_0.tga","Assignment2/ExampleGame/data/font/bm.fnt");
+	TFont tfont = TFont("Assignment3/ExampleGame/data/font/bm_0.tga","Assignment3/ExampleGame/data/font/bm.fnt");
 	string txt = std::string("Score: 0");
 	TTextBox* textbox1 = new TTextBox(&tfont,txt,	160, 40);
 	textbox1->SetColor(1.0f, 0.0f, 0.0f, 1.0f);
@@ -136,8 +160,17 @@ bool ExampleGame::Init()
 //------------------------------------------------------------------------------
 bool ExampleGame::Update(float p_fDelta)
 {
+	Common::BulletPhysicsManager::Instance()->Update(p_fDelta);
 	EventManager::Instance()->Update(p_fDelta);
 	m_pGameObjectManager->Update(p_fDelta);
+
+	static bool bLastKeyDown = false;
+	bool bCurrentKeyDown = glfwGetKey('Z');
+	if (bCurrentKeyDown && !bLastKeyDown)
+	{
+		Common::BulletPhysicsManager::Instance()->ToggleDebugRendering();
+	}
+	bLastKeyDown = bCurrentKeyDown;
 
 	return true;
 }
@@ -157,6 +190,10 @@ void ExampleGame::Render()
 
 	// Render the scene
 	Common::SceneManager::Instance()->Render();
+
+	// Render physics debugging
+	Common::BulletPhysicsManager::Instance()->Render(Common::SceneManager::Instance()->GetCamera()->GetProjectionMatrix(), 
+													 Common::SceneManager::Instance()->GetCamera()->GetViewMatrix());
 }
 
 //------------------------------------------------------------------------------

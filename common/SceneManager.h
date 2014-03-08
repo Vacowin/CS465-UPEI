@@ -13,9 +13,9 @@
 #include "W_Model.h"
 #include "W_Sprite.h"
 #include "SceneCamera.h"
-#include "Assignment2\ExampleGame\Square.h"
-#include "Assignment2\ExampleGame\ComponentPointLight.h"
-#include "Assignment2\ExampleGame\Textbox\TTextBox.h"
+#include "Assignment3\ExampleGame\Square.h"
+#include "Assignment3\ExampleGame\ComponentPointLight.h"
+#include "Assignment3\ExampleGame\Textbox\TTextBox.h"
 
 namespace Common
 {

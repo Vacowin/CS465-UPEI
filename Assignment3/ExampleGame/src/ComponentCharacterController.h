@@ -54,6 +54,10 @@ namespace week2
 		float m_fRotation;
 		float m_fRotateSpeed;
 		float m_fSpeed;
+
+		bool m_bToggleShoot;
+
+		float x1,z1;
 	};
 }
 

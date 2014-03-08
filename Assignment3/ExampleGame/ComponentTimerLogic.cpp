@@ -97,7 +97,7 @@ void ComponentTimerLogic::Update(float p_fDelta)
 			float randomX = rand()%20 -rand()%40;
 			float randomZ = rand()%20 -rand()%40;;
 	
-			Common::GameObject* pCoin = this->GetGameObject()->GetManager()->CreateGameObject("Assignment2/ExampleGame/data/xml/" + m_sObjectName+".xml");
+			Common::GameObject* pCoin = this->GetGameObject()->GetManager()->CreateGameObject("Assignment3/ExampleGame/data/xml/" + m_sObjectName+".xml");
 
 			pCoin->GetTransform().Translate(glm::vec3(randomX, 10.0f, randomZ));
 			
@@ -134,5 +134,6 @@ void ComponentTimerLogic::HandleCoinDisappeared(BaseEvent *p_Event)
 	{
 		m_lCoinList.erase(it);
 	}	
+
 	m_fTimePassed = 0.0f;
 }
