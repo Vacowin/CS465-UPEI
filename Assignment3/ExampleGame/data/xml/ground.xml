@@ -12,7 +12,7 @@
 		<Mass value="0.0f" />
 		<Material value="PlayDough" />
 		<Offset x="0.0f" y="0.0f" z="0.0f" />
-		<Kinematic value="true" />
+		<Kinematic value="false" />
 	</GOC_RigidBody>
 
 </GameObject>

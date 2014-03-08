@@ -7,6 +7,7 @@ enum EventType
 	Event_CoinSpawned,
 	Event_CoinDisappeared,
 	Event_ObjectCollision,
+	Event_CharacterCollision,
 	Event_CoinCollected
 };
 

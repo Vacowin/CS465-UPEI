@@ -159,7 +159,8 @@ void ComponentRigidBody::Init(btCollisionShape* p_pCollisionShape, const std::st
 	m_sMaterial = p_strMaterial;
 	m_fMass = p_fMass;
 
-	if (!p_bIsKinematic) return;
+	/*
+	//if (!p_bIsKinematic) return;
 
 	// Set mass
 	btScalar mass(m_fMass);
@@ -203,6 +204,7 @@ void ComponentRigidBody::Init(btCollisionShape* p_pCollisionShape, const std::st
 
 	// Add rigid body to the world
 	BulletPhysicsManager::Instance()->GetWorld()->addRigidBody(m_pBody);
+	*/
 }
 
 //------------------------------------------------------------------------------
@@ -250,6 +252,11 @@ void ComponentRigidBody::ApplyCentralImpulse(const glm::vec3& vec)
 	m_pBody->applyCentralImpulse(btVector3(vec.x,vec.y,vec.z)); 
 }
 
+void ComponentRigidBody::SetLinearVelocity(const glm::vec3& vec)
+{
+	m_pBody->setLinearVelocity(btVector3(vec.x,vec.y,vec.z)); 
+}
+
 void ComponentRigidBody::BindGameObject()
 {
 	// Set mass
@@ -292,6 +299,12 @@ void ComponentRigidBody::BindGameObject()
 		m_pBody->setActivationState(DISABLE_DEACTIVATION);
 	}
 
+	if (this->GetGameObject()->GetGUID().compare("character") == 0)
+	{
+		m_pBody->setAngularFactor(0);
+		//m_pBody->setActivationState();
+	}
+	
 	// Add rigid body to the world
-	BulletPhysicsManager::Instance()->GetWorld()->addRigidBody(m_pBody);
+	BulletPhysicsManager::Instance()->GetWorld()->addRigidBody(m_pBody,1,1);
 }

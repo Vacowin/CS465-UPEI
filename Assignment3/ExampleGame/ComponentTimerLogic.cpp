@@ -1,15 +1,16 @@
 #include "ComponentTimerLogic.h"
 #include "GameObjectManager.h"
-#include "assignment2/ExampleGame/ComponentCoinMovement.h"
-#include "assignment2/ExampleGame/ComponentCollision.h"
-#include "assignment2/ExampleGame/ComponentCoinLife.h"
-#include "assignment2/ExampleGame/ComponentCoinScore.h"
-#include "assignment2/ExampleGame/src/ComponentRenderableMesh.h"
+#include "assignment3/ExampleGame/ComponentCoinMovement.h"
+#include "assignment3/ExampleGame/ComponentCollision.h"
+#include "assignment3/ExampleGame/ComponentCoinLife.h"
+#include "assignment3/ExampleGame/ComponentCoinScore.h"
+#include "assignment3/ExampleGame/src/ComponentRenderableMesh.h"
 #include <algorithm>
 #include "EventObjectCollision.h"
 #include "EventCoinDisappeared.h"
 #include "EventCoinSpawned.h"
 #include "EventCoinCollected.h"
+#include "Assignment3\ExampleGame\ComponentRigidBody.h"
 
 using namespace week2;
 
@@ -20,6 +21,8 @@ ComponentTimerLogic::ComponentTimerLogic()
 
 	EventListener eventListener2 = std::tr1::bind(&ComponentTimerLogic::HandleCoinDisappeared, this, std::tr1::placeholders::_1);
 	EventManager::Instance()->AddListener(Event_CoinDisappeared, eventListener2);
+
+	m_lNumCoin = 0;
 }
 
 Common::ComponentBase* ComponentTimerLogic::CreateComponent(TiXmlNode* p_pNode)
@@ -98,10 +101,12 @@ void ComponentTimerLogic::Update(float p_fDelta)
 			float randomZ = rand()%20 -rand()%40;;
 	
 			Common::GameObject* pCoin = this->GetGameObject()->GetManager()->CreateGameObject("Assignment3/ExampleGame/data/xml/" + m_sObjectName+".xml");
-
+			pCoin->GetManager()->SetGameObjectGUID(pCoin, "coin" + std::to_string(m_lNumCoin++));
 			pCoin->GetTransform().Translate(glm::vec3(randomX, 10.0f, randomZ));
-			
 			m_lCoinList.push_back(pCoin);
+
+			ComponentRigidBody* pCoinRigid = static_cast<ComponentRigidBody*>(pCoin->GetComponent("GOC_RigidBody"));
+			pCoinRigid->BindGameObject();
 
 			EventManager::Instance()->QueueEvent(new EventCoinSpawned(pCoin));
 		}

@@ -103,34 +103,51 @@ bool ExampleGame::Init()
 	Common::GameObject* pCharacter = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/character.xml");
 	m_pGameObjectManager->SetGameObjectGUID(pCharacter, "character");
 	pCharacter->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
-	pCharacter->GetTransform().SetTranslation(glm::vec3(3.0f, 0.0, 0.0f));
+	pCharacter->GetTransform().SetTranslation(glm::vec3(5.0f, 0.0, 0.0f));
 	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,40.0f,0.0f));
-
+	ComponentRigidBody* pCharRigid = static_cast<ComponentRigidBody*>(pCharacter->GetComponent("GOC_RigidBody"));
+	pCharRigid->BindGameObject();
 
 	// lamp post
 	Common::GameObject* pLamp = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/lamp.xml");
     m_pGameObjectManager->SetGameObjectGUID(pLamp, "lamp");
 	pLamp->GetTransform().Scale(glm::vec3(0.4f, 0.4, 0.4f));
+	ComponentRigidBody* pLampRigid = static_cast<ComponentRigidBody*>(pLamp->GetComponent("GOC_RigidBody"));
+	pLampRigid->BindGameObject();
 
 	// Create ground
 	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/ground.xml");
+	ComponentRigidBody* pGroundRigid = static_cast<ComponentRigidBody*>(pGround->GetComponent("GOC_RigidBody"));
+	pGroundRigid->BindGameObject();
 
 	// Create walls
 	Common::GameObject* pWall1 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	m_pGameObjectManager->SetGameObjectGUID(pWall1, "wall1");
 	pWall1->GetTransform().Rotate(glm::vec3(90.0f,0.0f,0.0f));
-	pWall1->GetTransform().Translate(glm::vec3(0.0f,0.0f,75.0f));
+	pWall1->GetTransform().Translate(glm::vec3(0.0f,150.0f,75.0f));
+	ComponentRigidBody* pWall1Rigid = static_cast<ComponentRigidBody*>(pWall1->GetComponent("GOC_RigidBody"));
+	pWall1Rigid->BindGameObject();
 
 	Common::GameObject* pWall2 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	m_pGameObjectManager->SetGameObjectGUID(pWall2, "wall2");
 	pWall2->GetTransform().Rotate(glm::vec3(90.0f,0.0f,0.0f));
-	pWall2->GetTransform().Translate(glm::vec3(0.0f,0.0f,-75.0f));
+	pWall2->GetTransform().Translate(glm::vec3(0.0f,150.0f,-75.0f));
+	ComponentRigidBody* pWall2Rigid = static_cast<ComponentRigidBody*>(pWall2->GetComponent("GOC_RigidBody"));
+	pWall2Rigid->BindGameObject();
 
 	Common::GameObject* pWall3 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	m_pGameObjectManager->SetGameObjectGUID(pWall3, "wall3");
 	pWall3->GetTransform().Rotate(glm::vec3(90.0f,90.0f,0.0f));
-	pWall3->GetTransform().Translate(glm::vec3(75.0f,0.0f,0.0f));
+	pWall3->GetTransform().Translate(glm::vec3(75.0f,150.0f,0.0f));
+	ComponentRigidBody* pWall3Rigid = static_cast<ComponentRigidBody*>(pWall3->GetComponent("GOC_RigidBody"));
+	pWall3Rigid->BindGameObject();
 
 	Common::GameObject* pWall4 = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/wall.xml");
+	m_pGameObjectManager->SetGameObjectGUID(pWall4, "wall4");
 	pWall4->GetTransform().Rotate(glm::vec3(90.0f,90.0f,0.0f));
-	pWall4->GetTransform().Translate(glm::vec3(-75.0f,0.0f,0.0f));
+	pWall4->GetTransform().Translate(glm::vec3(-75.0f,150.0f,0.0f));
+	ComponentRigidBody* pWall4Rigid = static_cast<ComponentRigidBody*>(pWall4->GetComponent("GOC_RigidBody"));
+	pWall4Rigid->BindGameObject();
 
 	// Create timer
 	Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/timer.xml");

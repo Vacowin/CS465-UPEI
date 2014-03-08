@@ -17,9 +17,17 @@
 
 namespace Common
 {
+	enum eCollisionGroups {
+		eCollisionGroup_None = 0,
+		eCollisionGroup_Player = 1,
+		eCollisionGroup_Environment = 2,
+		eCollisionGroup_Powerup = 4
+	};
+
 	class BulletPhysicsManager
 	{
 	public:
+
 		//---------------------------------------------------------------------
 		// Public Methods.
 		//---------------------------------------------------------------------

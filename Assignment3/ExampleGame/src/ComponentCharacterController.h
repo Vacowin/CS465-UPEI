@@ -13,6 +13,7 @@
 
 #include "ComponentBase.h"
 #include "tinyxml\tinyxml.h"
+#include "BaseEvent.h"
 
 namespace week2
 {
@@ -40,6 +41,8 @@ namespace week2
 		//------------------------------------------------------------------------------
 		// Private members.
 		//------------------------------------------------------------------------------
+
+		void HandleCharacterCollision(BaseEvent *p_Event);
 
 		// Keys buffer
 		bool m_bKeysDown[256];

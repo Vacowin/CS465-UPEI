@@ -88,8 +88,11 @@ void ComponentCameraFollow::Update(float p_fDelta)
 	ComponentCharacterController *pControllerComponent = static_cast<ComponentCharacterController*>(GetGameObject()->GetComponent("GOC_CharacterController"));
 	float fcharRotation = pControllerComponent->getCharacterRotation();
 
-	float z1 = 15*cos((fcharRotation - 40) * PI / 180) - 15*sin((fcharRotation - 40) * PI / 180);
-	float x1 = 15*sin((fcharRotation - 40) * PI / 180) + 15*cos((fcharRotation - 40) * PI / 180);
+	//float z1 = 15*cos((fcharRotation - 40) * PI / 180) - 15*sin((fcharRotation - 40) * PI / 180);
+	//float x1 = 15*sin((fcharRotation - 40) * PI / 180) + 15*cos((fcharRotation - 40) * PI / 180);
+
+	float z1 = 15*cos((fcharRotation - 80) * PI / 180) - 15*sin((fcharRotation - 80) * PI / 180);
+	float x1 = 15*sin((fcharRotation - 80) * PI / 180) + 15*cos((fcharRotation - 80) * PI / 180);
 
 	m_pCamera->SetPos(objectTransform.GetTranslation() + glm::vec3(-x1 , 10.0f, -z1));
 	m_pCamera->SetTarget(objectTransform.GetTranslation() + glm::vec3(0.0f, 6.0f, 0.0f));

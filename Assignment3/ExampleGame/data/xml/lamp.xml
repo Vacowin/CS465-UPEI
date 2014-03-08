@@ -18,11 +18,11 @@
 	</GOC_Camera>
 
 	<GOC_RigidBody>
-		<CollisonShape value="box" width="0.2" height="7.5" depth="0.5" />
+		<CollisonShape value="box" width="0.2" height="15" depth="0.2" />
 		<Mass value="0.0f" />
 		<Material value="Normal" />
-		<Offset x="0.0f" y="-7.5f" z="0.0f" />
-		<Kinematic value="true" />
+		<Offset x="0.0f" y="0.0f" z="0.0f" />
+		<Kinematic value="false" />
 	</GOC_RigidBody>
 
 </GameObject>

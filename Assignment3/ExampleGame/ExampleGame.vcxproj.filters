@@ -193,6 +193,9 @@
     <ClCompile Include="..\..\common\W_LineDrawer.cpp">
       <Filter>wolf</Filter>
     </ClCompile>
+    <ClCompile Include="EventCharacterCollision.h">
+      <Filter>event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">

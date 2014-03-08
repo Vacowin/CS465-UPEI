@@ -12,6 +12,7 @@
 
 #include "GameObject.h"
 #include <sstream>
+#include "Assignment3\ExampleGame\ComponentRigidBody.h"
 
 using namespace Common;
 
@@ -64,6 +65,13 @@ bool GameObject::AddComponent(ComponentBase* p_pComponent)
 	{
 		m_mComponentMap.insert(std::make_pair<std::string, ComponentBase*>(p_pComponent->FamilyID(), p_pComponent));
 		p_pComponent->SetGameObject(this);
+		/*
+		if (p_pComponent->FamilyID().compare("GOC_RigidBody"))
+		{
+			week2::ComponentRigidBody* pRigidComponent = static_cast<week2::ComponentRigidBody*>(p_pComponent);
+			pRigidComponent->BindGameObject();
+		}
+		*/
 		return true;
 	}
 

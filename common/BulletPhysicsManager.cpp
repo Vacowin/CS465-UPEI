@@ -10,6 +10,8 @@
 #include "BulletPhysicsManager.h"
 #include "GameObject.h"
 #include <cassert>
+#include "Assignment3\ExampleGame\EventObjectCollision.h"
+#include "Assignment3\ExampleGame\EventManager.h"
 
 using namespace Common;
 
@@ -215,14 +217,48 @@ void BulletPhysicsManager::TickCallback(btDynamicsWorld *p_pWorld, btScalar p_fT
 	BulletPhysicsManager* pPhysicsManagerInstance = static_cast<BulletPhysicsManager*>(p_pWorld->getWorldUserInfo());
 
 	// Check for collisions
-	int numManifolds = p_pWorld->getDispatcher()->getNumManifolds();
+	btDynamicsWorld *pworld = Common::BulletPhysicsManager::Instance()->GetWorld();
+	int numManifolds = pworld->getDispatcher()->getNumManifolds();
 	for (int i = 0; i < numManifolds; ++i)
 	{
 		btPersistentManifold* contactManifold = p_pWorld->getDispatcher()->getManifoldByIndexInternal(i);
 		const btRigidBody* obA = static_cast<const btRigidBody*>(contactManifold->getBody0());
 		const btRigidBody* obB = static_cast<const btRigidBody*>(contactManifold->getBody1());
-		const GameObject* pGameObjectA = static_cast<const GameObject*>(obA->getUserPointer());
-		const GameObject* pGameObjectB = static_cast<const GameObject*>(obB->getUserPointer());
+		GameObject* pGameObjectA = static_cast<GameObject*>(obA->getUserPointer());
+		GameObject* pGameObjectB = static_cast<GameObject*>(obB->getUserPointer());
+
+		GameObject* pCharacter = NULL;
+		GameObject* pOtherObject = NULL;
+		if (pGameObjectA->GetGUID().compare("character") == 0)
+		{
+			pCharacter = pGameObjectA;
+			pOtherObject = pGameObjectB;
+		}
+		else if (pGameObjectB->GetGUID().compare("character") == 0)
+		{
+			pCharacter = pGameObjectB;
+			pOtherObject = pGameObjectA;
+		}
+
+		if (pCharacter)
+		{
+			std::string sOtherObjectName = pOtherObject->GetGUID();
+			if (sOtherObjectName.compare("lamp") == 0)
+			{
+				//EventManager::Instance()->QueueEvent(new EventObjectCollision(nullptr, nullptr));
+			}
+			else
+			{
+				std::string subName = sOtherObjectName.substr(0,4);
+				if (subName.compare("wall") == 0)
+				{}	//EventManager::Instance()->QueueEvent(new EventObjectCollision(nullptr, nullptr));
+				else if (subName.compare("coin") == 0)
+				{
+					EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pOtherObject));
+				}
+			}
+		}
+		
 
 		int numContacts = contactManifold->getNumContacts();
 		for (int j = 0; j < numContacts; ++j)

@@ -38,6 +38,7 @@ namespace week2
 		float m_fFrequency;
 		float m_fTimePassed;
 		std::string m_sObjectName;
+		long double m_lNumCoin;
 	};
 }
 #endif

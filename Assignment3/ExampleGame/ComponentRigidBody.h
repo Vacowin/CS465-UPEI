@@ -36,8 +36,10 @@ namespace week2
 
 		static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
 
+		btRigidBody* GetRigidBody() { return m_pBody;}
 		void BindGameObject();
 		void ApplyCentralImpulse(const glm::vec3& vec);
+		void SetLinearVelocity(const glm::vec3& vec);
 	private:
 		//------------------------------------------------------------------------------
 		// Private members.

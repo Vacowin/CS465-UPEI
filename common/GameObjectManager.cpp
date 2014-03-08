@@ -356,6 +356,7 @@ void GameObjectManager::AddRemovedObject(GameObject *p_pObject)
 
 void GameObjectManager::CheckCollision()
 {
+	/*
 	GameObject* pCharacter = NULL;
 	GameObjectMap::iterator it1 = m_mGOMap.find("character");
 	if (it1 != m_mGOMap.end())
@@ -382,8 +383,9 @@ void GameObjectManager::CheckCollision()
 
 				float radius = pCollison1->GetRadius() + pCollison2->GetRadius();
 				if (dis<radius)
-					EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pCoin));
+				{}//EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pCoin));
 			}
 		}
 	}
+	*/
 }

@@ -16,6 +16,9 @@
 #include "Assignment3\ExampleGame\ComponentCamera.h"
 #include "SceneManager.h"
 #include "Assignment3\ExampleGame\ComponentRigidBody.h"
+#include "Assignment3\ExampleGame\EventManager.h"
+#include "Assignment3\ExampleGame\EventCharacterCollision.h"
+#include "Assignment3\ExampleGame\EventObjectCollision.h"
 
 using namespace week2;
 
@@ -33,6 +36,13 @@ ComponentCharacterController::ComponentCharacterController()
 	m_fRotation = 0;
 	m_fRotateSpeed = 200;
 	m_fSpeed = 9;
+
+	//EventListener eventListener = std::tr1::bind(&ComponentCharacterController::HandleCharacterCollision, this, std::tr1::placeholders::_1);
+	//EventManager::Instance()->AddListener(Event_CharacterCollision, eventListener);
+
+	//EventListener eventListener = std::tr1::bind(&ComponentCharacterController::HandleCharacterCollision, this, std::tr1::placeholders::_1);
+	//EventManager::Instance()->AddListener(Event_ObjectCollision, eventListener);
+
 }
 
 //------------------------------------------------------------------------------
@@ -70,7 +80,8 @@ void ComponentCharacterController::Update(float p_fDelta)
 		m_bKeysDown[i] = (glfwGetKey(i) == GLFW_PRESS);
 	}
 
-	Common::Transform& transform = this->GetGameObject()->GetTransform();
+	//Common::Transform& transform = this->GetGameObject()->GetTransform();
+	//if (m_fRotation>360) m_fRotation = 0;
 
 	ComponentAnimController* pAnimation = static_cast<ComponentAnimController*>(this->GetGameObject()->GetComponent("GOC_AnimController"));
 
@@ -82,41 +93,69 @@ void ComponentCharacterController::Update(float p_fDelta)
 			m_bTurnBack = true;
 		}
 	}
+
+	ComponentRigidBody* pCharRigid = static_cast<ComponentRigidBody*>(this->GetGameObject()->GetComponent("GOC_RigidBody"));
+	btRigidBody *m_pRigidBody = pCharRigid->GetRigidBody();
     
-	if ((m_bKeysDown['a'] || m_bKeysDown['A']))
-	{
-		transform.Rotate(glm::vec3(0.0f,m_fRotateSpeed*p_fDelta,0.0f));
-		m_fRotation += m_fRotateSpeed*p_fDelta;
-	}
-	else if ((m_bKeysDown['d'] || m_bKeysDown['D']))
-	{
-		transform.Rotate(glm::vec3(0.0f,-m_fRotateSpeed*p_fDelta,0.0f));
-		m_fRotation -= m_fRotateSpeed*p_fDelta;
-	}
+	z1 = m_fSpeed*cos((m_fRotation - 80) * PI / 180) - m_fSpeed*sin((m_fRotation - 80) * PI / 180);
+	x1 = m_fSpeed*sin((m_fRotation - 80) * PI / 180) + m_fSpeed*cos((m_fRotation - 80) * PI / 180);
 
-	z1 = m_fSpeed*cos((m_fRotation - 40) * PI / 180) - m_fSpeed*sin((m_fRotation - 40) * PI / 180);
-	x1 = m_fSpeed*sin((m_fRotation - 40) * PI / 180) + m_fSpeed*cos((m_fRotation - 40) * PI / 180);
+	//z1 = m_fSpeed*cos((m_fRotation - 40) * PI / 180) - m_fSpeed*sin((m_fRotation - 40) * PI / 180);
+	//x1 = m_fSpeed*sin((m_fRotation - 40) * PI / 180) + m_fSpeed*cos((m_fRotation - 40) * PI / 180);
 
-	if (glfwGetKey('W'))
+	if (glfwGetKey('W') == GLFW_PRESS /* && !m_bMoveForwardToogle*/)
 	{
-		transform.Translate(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta));
+		//m_bMoveForwardToogle = true;
+		//transform.Translate(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta));
+		//pCharRigid->ApplyCentralImpulse(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta));
+		//pCharRigid->ApplyCentralImpulse(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta)*50.0f);
+
+		m_pRigidBody->setLinearVelocity(btVector3(x1*p_fDelta, 0, z1*p_fDelta)*80.0f);
         if (m_bKeysDown['W'] != m_bKeysDownLast['W'])
 		    pAnimation->SetAnim("run");
 	}
-    else if (glfwGetKey('S') )
+	if (glfwGetKey('W') == GLFW_RELEASE)
+	{
+		m_pRigidBody->setLinearVelocity(btVector3(0.0f,0.0f,0.0f));
+	}
+
+	if (glfwGetKey('A') == GLFW_PRESS)
+	{
+		//transform.Rotate(glm::vec3(0.0f,m_fRotateSpeed*p_fDelta,0.0f));
+		m_fRotation += m_fRotateSpeed*p_fDelta;
+
+		m_pRigidBody->setAngularVelocity(btVector3(0.0,(m_fRotateSpeed*1.03f)*p_fDelta,0.0));
+		m_pRigidBody->setLinearVelocity(btVector3(0.0f,0.0f,0.0f));
+	}
+	else if (glfwGetKey('D') == GLFW_PRESS)
+	{
+		//transform.Rotate(glm::vec3(0.0f,-m_fRotateSpeed*p_fDelta,0.0f));
+		m_fRotation -= m_fRotateSpeed*p_fDelta;
+
+		m_pRigidBody->setAngularVelocity(btVector3(0.0,-(m_fRotateSpeed*1.03f)*p_fDelta,0.0));
+		m_pRigidBody->setLinearVelocity(btVector3(0.0f,0.0f,0.0f));
+	}
+	if (glfwGetKey('A') == GLFW_RELEASE && glfwGetKey('D') == GLFW_RELEASE)
+	{
+		m_pRigidBody->setAngularVelocity(btVector3(0.0f,0.0f,0.0f));
+	}
+
+    if (glfwGetKey('S') )
 	{
 		if (m_bTurnBack)
 		{
-			transform.Rotate(glm::vec3(0.0f,180,0.0f));
-			m_fRotation += 180;
+			//transform.Rotate(glm::vec3(0.0f,180,0.0f));
+			//m_fRotation += 180;
 			m_bTurnBack = false;
 		}
 
-		transform.Translate(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta));
+		m_pRigidBody->setLinearVelocity(-btVector3(x1*p_fDelta, 0, z1*p_fDelta)*80.0f);
+		//transform.Translate(glm::vec3(x1*p_fDelta, 0, z1*p_fDelta));
         if (m_bKeysDown['S'] != m_bKeysDownLast['S'])
 		    pAnimation->SetAnim("run");
 	}
 
+	
 	// Switch camera
 	if (glfwGetKey('C') == GLFW_PRESS && !m_bToggleCamera)
     {
@@ -140,7 +179,7 @@ void ComponentCharacterController::Update(float p_fDelta)
 	{
 		m_bToggleShoot = true;
 
-		glm::vec3 offset = glm::vec3(x1/2.0f,5,z1/2.0f);
+		glm::vec3 offset = glm::vec3(x1/2.0f,6,z1/2.0f);
 		glm::vec3 pos = this->GetGameObject()->GetTransform().GetTranslation();
 		glm::vec3 vNewPos = pos + glm::vec3(offset.x, offset.y, offset.z);
 
@@ -148,8 +187,23 @@ void ComponentCharacterController::Update(float p_fDelta)
 		pProjectTile->GetTransform().SetTranslation(glm::vec3(vNewPos.x,vNewPos.y,vNewPos.z));
 		ComponentRigidBody* pComponentRigid = static_cast<ComponentRigidBody*>(pProjectTile->GetComponent("GOC_RigidBody"));
 		pComponentRigid->BindGameObject();
-		pComponentRigid->ApplyCentralImpulse(glm::vec3(offset.x * 30, 0.0f, offset.z*30));
+		pComponentRigid->ApplyCentralImpulse(glm::vec3(offset.x * 40, 0.0f, offset.z*40));
 	}
 	else if (!glfwGetMouseButton(0))
 		m_bToggleShoot = false;
+}
+
+void ComponentCharacterController::HandleCharacterCollision(BaseEvent *p_Event)
+{
+	/*
+	EventCharacterCollision *pEventCollision = static_cast<EventCharacterCollision*>(p_Event);
+
+	z1 = m_fSpeed*cos((m_fRotation - 40) * PI / 180) - m_fSpeed*sin((m_fRotation - 40) * PI / 180);
+	x1 = m_fSpeed*sin((m_fRotation - 40) * PI / 180) + m_fSpeed*cos((m_fRotation - 40) * PI / 180);
+
+	glm::vec3 offset = glm::normalize(glm::vec3(x1,0,z1));
+
+	Common::Transform& transform = this->GetGameObject()->GetTransform();
+	transform.Translate(-(offset*0.25f));
+	*/
 }
