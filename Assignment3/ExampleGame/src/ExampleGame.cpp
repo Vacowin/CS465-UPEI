@@ -162,6 +162,28 @@ bool ExampleGame::Init()
 	textbox1->Init();
 	Common::SceneManager::Instance()->AttachHUDTextBox(textbox1);
 	
+	for (int j = 0;j<4;j++)
+	{
+		float randX = (rand() % 60) - (rand() % 10);
+		float randZ = (rand() % 60) - (rand() % 10);
+		for (int i = 0; i < 9; ++i)
+		{
+			Common::GameObject* pCrate = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/crate.xml");
+			char buff[64];
+			sprintf(buff, "Crate%d",j*9+ i);
+			m_pGameObjectManager->SetGameObjectGUID(pCrate, buff);
+
+			glm::vec3 vPosition;
+			vPosition.x = randX;
+			vPosition.y = i*3.1f;
+			vPosition.z = randZ;
+			pCrate->GetTransform().SetTranslation(vPosition);
+
+			ComponentRigidBody* pCrateRigid = static_cast<ComponentRigidBody*>(pCrate->GetComponent("GOC_RigidBody"));
+			pCrateRigid->BindGameObject();
+		}
+	}
+
 	// Everything initialized OK.
 	return true;
 }

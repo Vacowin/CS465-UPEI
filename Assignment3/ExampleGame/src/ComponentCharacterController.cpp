@@ -159,7 +159,7 @@ void ComponentCharacterController::Update(float p_fDelta)
 	{
 		m_bToggleShoot = true;
 
-		glm::vec3 offset = glm::vec3(m_vFace.x*2,6,m_vFace.z*2.0f);
+		glm::vec3 offset = glm::vec3(m_vFace.x*2.5f,5.5,m_vFace.z*2.5f);
 		glm::vec3 pos = this->GetGameObject()->GetTransform().GetTranslation();
 		glm::vec3 vNewPos = pos + glm::vec3(offset.x, offset.y, offset.z);
 
@@ -167,7 +167,7 @@ void ComponentCharacterController::Update(float p_fDelta)
 		pProjectTile->GetTransform().SetTranslation(glm::vec3(vNewPos.x,vNewPos.y,vNewPos.z));
 		ComponentRigidBody* pComponentRigid = static_cast<ComponentRigidBody*>(pProjectTile->GetComponent("GOC_RigidBody"));
 		pComponentRigid->BindGameObject();
-		pComponentRigid->ApplyCentralImpulse(glm::vec3(offset.x * 50, 0.0f, offset.z*50));
+		pComponentRigid->ApplyCentralImpulse(glm::vec3(offset.x * 40, 0.0f, offset.z*40));
 	}
 	else if (!glfwGetMouseButton(0))
 		m_bToggleShoot = false;
