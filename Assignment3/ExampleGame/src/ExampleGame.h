@@ -13,7 +13,7 @@
 #include "common/Game.h"
 #include "common/GameObjectManager.h"
 #include "common/SceneCamera.h"
-
+#include "common\StateMachine.h"
 #include <list>
 
 namespace week2
@@ -46,6 +46,8 @@ namespace week2
 
 		// Game Object Manager
 		Common::GameObjectManager* m_pGameObjectManager;
+
+		Common::StateMachine* m_pStateMachine;
 	};
 
 } // namespace week2

@@ -141,6 +141,7 @@
     <ClCompile Include="ComponentTimerLogic.cpp" />
     <ClCompile Include="EventCharacterCollision.h" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="src\ComponentAnimController.cpp" />
     <ClCompile Include="src\ComponentCharacterController.cpp" />
@@ -224,11 +225,13 @@
     <ClInclude Include="EventCoinSpawned.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="EventObjectCollision.h" />
+    <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="src\ComponentAnimController.h" />
     <ClInclude Include="src\ComponentCharacterController.h" />
     <ClInclude Include="src\ComponentRenderableMesh.h" />
     <ClInclude Include="src\ExampleGame.h" />
+    <ClInclude Include="States.h" />
     <ClInclude Include="Textbox\TFont.h" />
     <ClInclude Include="Textbox\TTextBox.h" />
   </ItemGroup>

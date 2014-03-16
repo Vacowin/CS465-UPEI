@@ -199,6 +199,7 @@
     <ClCompile Include="..\..\common\StateMachine.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="GamePlayState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -460,5 +461,7 @@
     <ClInclude Include="..\..\common\StateMachine.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="GamePlayState.h" />
+    <ClInclude Include="States.h" />
   </ItemGroup>
 </Project>
