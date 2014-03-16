@@ -1,0 +1,14 @@
+<GameObject>	
+	<GOC_RenderableSprite>
+		<Texture path="Assignment3/ExampleGame/data/ui/ButtonPlayNow.tga" />
+		<VertexProgram path="Assignment3/ExampleGame/data/ui/sprite.vsh" />
+		<FragmentProgram path="Assignment3/ExampleGame/data/ui/sprite.fsh" />
+		<Width value=155.0  />
+		<Height value=56.0  />
+	</GOC_RenderableSprite>
+	
+	<GOC_MouseClick>
+		<Width value=155.0  />
+		<Height value=56.0  />
+	</GOC_MouseClick>
+</GameObject>

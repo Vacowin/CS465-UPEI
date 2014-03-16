@@ -1,27 +1,23 @@
 #pragma once
-#ifndef GAMEPLAYSTATE_H
-#define GAMEPLAYSTATE_H
+#ifndef PAUSETATE_H
+#define PAUSESTATE_H
 #include "common\StateBase.h"
-#include "common/GameObjectManager.h"
-#include "common/SceneCamera.h"
+#include "common\GameObject.h"
 
 namespace week2
 {
-	class GamePlayState : public Common::StateBase
+	class PauseState : public Common::StateBase
 	{
 	public:
-		GamePlayState();
-		~GamePlayState();
+		PauseState();
+		~PauseState();
 
 		virtual void Enter();
 		virtual void Update(float p_fDelta);
 		virtual void Exit();
 		virtual void Suspend();
 		virtual void Resume();
-
 	private:
-		Common::GameObjectManager* m_pGameObjectManager;
-
 		Common::GameObject* m_pButton;
 	};
 }

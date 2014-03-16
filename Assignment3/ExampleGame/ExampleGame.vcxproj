@@ -135,13 +135,16 @@
     <ClCompile Include="ComponentCoinMovement.cpp" />
     <ClCompile Include="ComponentCoinScore.cpp" />
     <ClCompile Include="ComponentCollision.cpp" />
+    <ClCompile Include="ComponentMouseClick.cpp" />
     <ClCompile Include="ComponentPointLight.cpp" />
+    <ClCompile Include="ComponentRenderableSprite.cpp" />
     <ClCompile Include="ComponentRenderableSquare.cpp" />
     <ClCompile Include="ComponentRigidBody.cpp" />
     <ClCompile Include="ComponentTimerLogic.cpp" />
     <ClCompile Include="EventCharacterCollision.h" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
+    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="src\ComponentAnimController.cpp" />
     <ClCompile Include="src\ComponentCharacterController.cpp" />
@@ -216,7 +219,9 @@
     <ClInclude Include="ComponentCoinMovement.h" />
     <ClInclude Include="ComponentCoinScore.h" />
     <ClInclude Include="ComponentCollision.h" />
+    <ClInclude Include="ComponentMouseClick.h" />
     <ClInclude Include="ComponentPointLight.h" />
+    <ClInclude Include="ComponentRenderableSprite.h" />
     <ClInclude Include="ComponentRenderableSquare.h" />
     <ClInclude Include="ComponentRigidBody.h" />
     <ClInclude Include="ComponentTimerLogic.h" />
@@ -226,6 +231,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="EventObjectCollision.h" />
     <ClInclude Include="GamePlayState.h" />
+    <ClInclude Include="PauseState.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="src\ComponentAnimController.h" />
     <ClInclude Include="src\ComponentCharacterController.h" />

@@ -1,25 +1,15 @@
 #include "GamePlayState.h"
-#include "Assignment3/ExampleGame/src/ComponentAnimController.h"
-#include "Assignment3/ExampleGame/src/ComponentCharacterController.h"
-#include "Assignment3/ExampleGame/src/ComponentRenderableMesh.h"
 #include "GameObject.h"
 #include "SceneManager.h"
 #include "W_Model.h"
-#include "Assignment3/ExampleGame/ComponentRenderableSquare.h"
-#include "Assignment3/ExampleGame/ComponentCamera.h"
-#include "Assignment3/ExampleGame/ComponentCameraFollow.h"
-#include "Assignment3/ExampleGame/ComponentCoinScore.h"
-#include "Assignment3/ExampleGame/ComponentCoinLife.h"
-#include "Assignment3/ExampleGame/ComponentCoinMovement.h"
-#include "Assignment3/ExampleGame/ComponentCollision.h"
-#include "Assignment3/ExampleGame/EventManager.h"
-#include "Assignment3/ExampleGame/ComponentTimerLogic.h"
+
 #include "Assignment3/ExampleGame/Textbox/TTextBox.h"
 #include "Assignment3/ExampleGame/Textbox/TFont.h"
-#include "Assignment3/ExampleGame/ComponentCameraFollow.h"
-#include "Assignment3/ExampleGame/ComponentCamera.h"
 #include "common/BulletPhysicsManager.h"
 #include "Assignment3/ExampleGame/ComponentRigidBody.h"
+#include "Assignment3/ExampleGame/States.h"
+#include "Assignment3/ExampleGame/src/ExampleGame.h"
+#include "Assignment3/ExampleGame/ComponentMouseClick.h"
 
 using namespace week2;
 
@@ -34,6 +24,7 @@ GamePlayState::~GamePlayState()
 
 void GamePlayState::Enter()
 {
+	/*
 		// Initialize our Scene Manager
 	Common::SceneManager::CreateInstance();
 
@@ -45,6 +36,9 @@ void GamePlayState::Enter()
 	m_pGameObjectManager = new Common::GameObjectManager();
 
 	EventManager::CreateInstance();
+	
+
+	m_pGameObjectManager = ExampleGame::GetInstance()->GameObjectManager();
 
 	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableMesh", ComponentRenderableMesh::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_AnimController", ComponentAnimController::CreateComponent);
@@ -58,7 +52,9 @@ void GamePlayState::Enter()
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CameraFollow", ComponentCameraFollow::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_Camera", ComponentCamera::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_RigidBody", ComponentRigidBody::CreateComponent);
+	*/
 
+	m_pGameObjectManager = ExampleGame::GetInstance()->GameObjectManager();
 	// Create a Physics Manager to manage physics simulation
 	Common::BulletPhysicsManager::CreateInstance("Assignment3/ExampleGame/data/physics_materials.xml",
 												"Assignment3/ExampleGame/data/shaders/lines.vsh", 
@@ -148,14 +144,17 @@ void GamePlayState::Enter()
 			pCrateRigid->BindGameObject();
 		}
 	}
+
+	m_pButton  = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/button_pause.xml");
+	m_pButton->GetTransform().SetTranslation(glm::vec3(1125.0f, 0.0f, 0.0f));
 }
 
 void GamePlayState::Update(float p_fDelta)
 {
 	Common::BulletPhysicsManager::Instance()->Update(p_fDelta);
-	EventManager::Instance()->Update(p_fDelta);
-	m_pGameObjectManager->Update(p_fDelta);
-	m_pGameObjectManager->SyncTransforms();
+	//EventManager::Instance()->Update(p_fDelta);
+	//m_pGameObjectManager->Update(p_fDelta);
+	//m_pGameObjectManager->SyncTransforms();
 
 	static bool bLastKeyDown = false;
 	bool bCurrentKeyDown = glfwGetKey('Z');
@@ -164,18 +163,29 @@ void GamePlayState::Update(float p_fDelta)
 		Common::BulletPhysicsManager::Instance()->ToggleDebugRendering();
 	}
 	bLastKeyDown = bCurrentKeyDown;
+
+	ComponentMouseClick *pMouse = static_cast<ComponentMouseClick*>(m_pButton->GetComponent("GOC_MouseClick"));
+	if (pMouse->GetClicked())
+	{
+		pMouse->SetActive(false);
+		m_pStateMachine->PushState(eStateGame_Pause);
+	}
 }
 
 void GamePlayState::Suspend()
 {
+
 }
 
 void GamePlayState::Resume()
 {
+	ComponentMouseClick *pMouse = static_cast<ComponentMouseClick*>(m_pButton->GetComponent("GOC_MouseClick"));
+	pMouse->SetActive(true);
 }
 
 void GamePlayState::Exit()
 {
+	/*
 	m_pGameObjectManager->DestroyAllGameObjects();
 	delete m_pGameObjectManager;
 	m_pGameObjectManager = NULL;
@@ -189,4 +199,5 @@ void GamePlayState::Exit()
 
 	// Destroy the Scene Manager
 	Common::SceneManager::DestroyInstance();
+	*/
 }

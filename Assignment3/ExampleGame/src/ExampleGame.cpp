@@ -31,9 +31,14 @@
 #include "Assignment3/ExampleGame/ComponentRigidBody.h"
 #include "common\StateMachine.h"
 #include "Assignment3\ExampleGame\GamePlayState.h"
+#include "Assignment3\ExampleGame\PauseState.h"
 #include "Assignment3\ExampleGame\States.h"
+#include "Assignment3\ExampleGame\ComponentRenderableSprite.h"
+#include "Assignment3\ExampleGame\ComponentMouseClick.h"
 
 using namespace week2;
+
+ExampleGame* ExampleGame::s_pInstance = NULL;
 
 //------------------------------------------------------------------------------
 // Method:    ExampleGame
@@ -45,8 +50,10 @@ using namespace week2;
 ExampleGame::ExampleGame()
 	: 
 	m_pSceneCamera(NULL),
-	m_pGameObjectManager(NULL)
+	m_pGameObjectManager(NULL),
+	m_pStateMachine(NULL)
 {
+	s_pInstance = this;
 }
 
 //------------------------------------------------------------------------------
@@ -72,11 +79,6 @@ ExampleGame::~ExampleGame()
 //------------------------------------------------------------------------------
 bool ExampleGame::Init()
 {
-	m_pStateMachine = new Common::StateMachine();
-	m_pStateMachine->RegisterState(eStateGame_Play, new GamePlayState());
-	m_pStateMachine->GoToState(eStateGame_Play);
-
-	/*
 	// Initialize our Scene Manager
 	Common::SceneManager::CreateInstance();
 
@@ -101,7 +103,15 @@ bool ExampleGame::Init()
 	m_pGameObjectManager->RegisterComponentFactory("GOC_CameraFollow", ComponentCameraFollow::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_Camera", ComponentCamera::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_RigidBody", ComponentRigidBody::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_MouseClick", ComponentMouseClick::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableSprite", ComponentRenderableSprite::CreateComponent);
 
+	m_pStateMachine = new Common::StateMachine();
+	m_pStateMachine->RegisterState(eStateGame_Play, new GamePlayState());
+	m_pStateMachine->RegisterState(eStateGame_Pause, new PauseState());
+	m_pStateMachine->GoToState(eStateGame_Play);
+
+	/*
 	// Create a Physics Manager to manage physics simulation
 	Common::BulletPhysicsManager::CreateInstance("Assignment3/ExampleGame/data/physics_materials.xml",
 												"Assignment3/ExampleGame/data/shaders/lines.vsh", 
@@ -208,11 +218,12 @@ bool ExampleGame::Init()
 //------------------------------------------------------------------------------
 bool ExampleGame::Update(float p_fDelta)
 {
-	/*
-	Common::BulletPhysicsManager::Instance()->Update(p_fDelta);
+	//Common::BulletPhysicsManager::Instance()->Update(p_fDelta);
 	EventManager::Instance()->Update(p_fDelta);
 	m_pGameObjectManager->Update(p_fDelta);
-
+	m_pStateMachine->Update(p_fDelta);
+	
+	/*
 	static bool bLastKeyDown = false;
 	bool bCurrentKeyDown = glfwGetKey('Z');
 	if (bCurrentKeyDown && !bLastKeyDown)
@@ -221,7 +232,7 @@ bool ExampleGame::Update(float p_fDelta)
 	}
 	bLastKeyDown = bCurrentKeyDown;
 	*/
-	m_pStateMachine->Update(p_fDelta);
+	
 
 	return true;
 }
@@ -237,7 +248,7 @@ bool ExampleGame::Update(float p_fDelta)
 void ExampleGame::Render()
 {
 	// Sync transforms to render components
-	//m_pGameObjectManager->SyncTransforms();
+	m_pGameObjectManager->SyncTransforms();
 
 	// Render the scene
 	Common::SceneManager::Instance()->Render();
@@ -256,7 +267,6 @@ void ExampleGame::Render()
 //------------------------------------------------------------------------------
 void ExampleGame::Shutdown()
 {
-	/*
 	// Clear our Game Objects
 	m_pGameObjectManager->DestroyAllGameObjects();
 	delete m_pGameObjectManager;
@@ -271,5 +281,4 @@ void ExampleGame::Shutdown()
 
 	// Destroy the Scene Manager
 	Common::SceneManager::DestroyInstance();
-	*/
 }

@@ -27,6 +27,11 @@ namespace week2
 		ExampleGame();
 		virtual ~ExampleGame();
 
+		// Static instance
+		static ExampleGame* GetInstance() { return s_pInstance; }
+		Common::GameObjectManager* GameObjectManager() { 
+			return m_pGameObjectManager; }
+
 	protected:	
 		//------------------------------------------------------------------------------
 		// Protected methods.
@@ -40,6 +45,7 @@ namespace week2
 		//------------------------------------------------------------------------------
 		// Private members.
 		//------------------------------------------------------------------------------
+		static ExampleGame* s_pInstance;
 
 		// A camera for the scene
 		Common::SceneCamera* m_pSceneCamera;
