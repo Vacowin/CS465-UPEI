@@ -104,7 +104,7 @@ bool ExampleGame::Init()
 	m_pGameObjectManager->SetGameObjectGUID(pCharacter, "character");
 	pCharacter->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
 	pCharacter->GetTransform().SetTranslation(glm::vec3(5.0f, 0.0, 0.0f));
-	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,40.0f,0.0f));
+	pCharacter->GetTransform().Rotate(glm::vec3(0.0f,80.0f,0.0f));
 	ComponentRigidBody* pCharRigid = static_cast<ComponentRigidBody*>(pCharacter->GetComponent("GOC_RigidBody"));
 	pCharRigid->BindGameObject();
 

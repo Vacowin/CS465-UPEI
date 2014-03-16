@@ -31,7 +31,7 @@
 
 	<GOC_RigidBody>
 		<CollisonShape value="capsule" height="5.0" radius="1.8" />
-		<Mass value="50.0f" />
+		<Mass value="70.0f" />
 		<Material value="Normal" />
 		<Offset x="0.0f" y="-4.0f" z="0.0f" />
 		<Kinematic value="false" />

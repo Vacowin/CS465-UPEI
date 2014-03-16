@@ -301,8 +301,13 @@ void ComponentRigidBody::BindGameObject()
 
 	if (this->GetGameObject()->GetGUID().compare("character") == 0)
 	{
-		m_pBody->setAngularFactor(0);
-		//m_pBody->setActivationState();
+		m_pBody->setAngularFactor(0.1);
+		m_pBody->setActivationState(DISABLE_DEACTIVATION);
+	}
+	else if (m_bKinematic)
+	{
+		m_pBody->setCollisionFlags( m_pBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+		m_pBody->setActivationState(DISABLE_DEACTIVATION);
 	}
 	
 	// Add rigid body to the world

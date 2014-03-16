@@ -23,7 +23,7 @@
 
 	<GOC_RigidBody>
 		<CollisonShape value="box" width="2.5" height="2.5" depth="0.3" />
-		<Mass value="1.0f" />
+		<Mass value="0.5f" />
 		<Material value="Normal" />
 		<Offset x="0.0f" y="0.0f" z="0.0f" />
 		<Kinematic value="true" />

@@ -243,19 +243,10 @@ void BulletPhysicsManager::TickCallback(btDynamicsWorld *p_pWorld, btScalar p_fT
 		if (pCharacter)
 		{
 			std::string sOtherObjectName = pOtherObject->GetGUID();
-			if (sOtherObjectName.compare("lamp") == 0)
+			std::string subName = sOtherObjectName.substr(0,4);
+			if (subName.compare("coin") == 0)
 			{
-				//EventManager::Instance()->QueueEvent(new EventObjectCollision(nullptr, nullptr));
-			}
-			else
-			{
-				std::string subName = sOtherObjectName.substr(0,4);
-				if (subName.compare("wall") == 0)
-				{}	//EventManager::Instance()->QueueEvent(new EventObjectCollision(nullptr, nullptr));
-				else if (subName.compare("coin") == 0)
-				{
-					EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pOtherObject));
-				}
+				EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pOtherObject));
 			}
 		}
 		

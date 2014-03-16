@@ -9,8 +9,8 @@
 
 	<GOC_RigidBody>
 		<CollisonShape value="sphere" radius="1.2" />
-		<Mass value="3.0f" />
-		<Material value="PlayDough" />
+		<Mass value="2.0f" />
+		<Material value="Normal" />
 		<Offset x="0.0f" y="0.0f" z="0.0f" />
 		<Kinematic value="false" />
 	</GOC_RigidBody>

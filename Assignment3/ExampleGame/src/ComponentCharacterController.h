@@ -14,6 +14,7 @@
 #include "ComponentBase.h"
 #include "tinyxml\tinyxml.h"
 #include "BaseEvent.h"
+#include "glm\glm.hpp"
 
 namespace week2
 {
@@ -35,7 +36,7 @@ namespace week2
 		virtual const std::string ComponentID(){ return std::string("GOC_CharacterController"); }
 		virtual void Update(float p_fDelta);
 
-		float getCharacterRotation() { return m_fRotation;}
+		const glm::vec3& getFaceDirection() { return m_vFace;}
 		static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
 	private:
 		//------------------------------------------------------------------------------
@@ -54,13 +55,12 @@ namespace week2
 		bool m_bToggleCamera;
 		bool m_b3PCamera;
 
-		float m_fRotation;
 		float m_fRotateSpeed;
 		float m_fSpeed;
 
 		bool m_bToggleShoot;
 
-		float x1,z1;
+		glm::vec3 m_vFace;
 	};
 }
 

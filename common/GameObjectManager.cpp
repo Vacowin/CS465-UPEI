@@ -223,7 +223,8 @@ void GameObjectManager::Update(float p_fDelta)
 	{
 		GameObject *pRemoveObject = m_lRemoveGOList.at(0);
 		m_lRemoveGOList.erase(m_lRemoveGOList.begin());
-		this->DestroyGameObject(pRemoveObject);
+		if (pRemoveObject)
+			this->DestroyGameObject(pRemoveObject);
 	}
 
 	GameObject* pGO = NULL;
