@@ -11,7 +11,7 @@
 #define STATEMACHINE_H
 
 #include <map>
-#include <list>
+#include <stack>
 
 namespace Common
 {
@@ -26,6 +26,7 @@ namespace Common
 		//---------------------------------------------------------------------
 
 		typedef std::map<int, StateBase*> StateMap;
+		typedef std::stack<StateBase*> StateStack;
 
 	public:
 		//---------------------------------------------------------------------
@@ -42,13 +43,15 @@ namespace Common
 		// Update current state
 		void Update(float p_fDelta);
 
-		int GetCurrentState()		{ return m_iCurrentState; }
+		int GetCurrentStateID()		{ return m_iCurrentState; }
 		float GetCurrentStateTime() { return m_fCurrentStateTime; }
 
 		// A way for states in a state machine to reference back to their owner, whether 
 		// it's the Game class, a Character controller or an AI controller.
 		void SetStateMachineOwner(void *p_pOwner)	{ m_pOwner = p_pOwner; }
 		void* GetStateMachineOwner()				{ return m_pOwner; }
+
+		StateBase* GetCurrentState(){return m_sStateStack.top();}
 
 	private:
 		//---------------------------------------------------------------------
@@ -58,9 +61,11 @@ namespace Common
 		// Map of state Ids to state instances
 		StateMap m_mStateMap;
 
-		// Current state
+		// State Stack
+		StateStack m_sStateStack;
+
+		// Current state id
 		int m_iCurrentState;
-		StateBase* m_pCurrentState;
 
 		// State timer
 		float m_fCurrentStateTime;

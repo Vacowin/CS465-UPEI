@@ -30,6 +30,8 @@ namespace Common
 		virtual void Enter() = 0;
 		virtual void Update(float p_fDelta) = 0;
 		virtual void Exit() = 0;
+		virtual void Suspend() = 0;
+		virtual void Resume() = 0;
 
 	private:
 		//------------------------------------------------------------------------------

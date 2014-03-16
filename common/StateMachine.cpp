@@ -22,7 +22,6 @@ using namespace Common;
 StateMachine::StateMachine()
 	:
 	m_iCurrentState(-1),
-	m_pCurrentState(NULL),
 	m_fCurrentStateTime(0.0f),
 	m_pOwner(NULL)
 {
@@ -36,6 +35,15 @@ StateMachine::StateMachine()
 //------------------------------------------------------------------------------
 StateMachine::~StateMachine()
 {
+	for(auto it = m_mStateMap.begin(); it != m_mStateMap.end();it++)
+	{
+		delete it->second;
+	}
+
+	while(m_sStateStack.size() > 0)
+	{
+		m_sStateStack.pop();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -75,19 +83,22 @@ void StateMachine::GoToState(int p_iState)
 	}
 	assert(pState);
 
-	// Call exit on current state
-	if (m_pCurrentState)
+	if(m_sStateStack.size() > 0)
 	{
-		m_pCurrentState->Exit();
+		if(m_sStateStack.top())
+		{
+			m_sStateStack.top()->Exit();
+			m_sStateStack.pop();
+		}
 	}
-
-	// Call enter on the new state
-	pState->Enter();
 
 	// Set the new current state.
 	m_iCurrentState = p_iState;
-	m_pCurrentState = pState;
+	m_sStateStack.push(pState);
 	m_fCurrentStateTime = 0.0f;
+
+	// Call enter on the new state
+	pState->Enter();
 }
 
 //------------------------------------------------------------------------------
@@ -99,7 +110,19 @@ void StateMachine::GoToState(int p_iState)
 //------------------------------------------------------------------------------
 void StateMachine::PushState(int p_iState)
 {
-	assert(false);	// NOT YET IMPLEMENTED
+	StateBase * pState = NULL;
+	StateMap::iterator it = m_mStateMap.find(p_iState);
+	if(it != m_mStateMap.end())
+		pState = static_cast<StateBase*>(it->second);
+
+	assert(pState);
+
+	if(m_sStateStack.size() != 0)
+		m_sStateStack.top()->Suspend();
+
+	m_iCurrentState = p_iState;
+	m_sStateStack.push(pState);
+	m_sStateStack.top()->Enter();
 }
 
 //------------------------------------------------------------------------------
@@ -110,7 +133,14 @@ void StateMachine::PushState(int p_iState)
 //------------------------------------------------------------------------------
 void StateMachine::PopState()
 {
-	assert(false);	// NOT YET IMPLEMENTED
+	if(!m_sStateStack.empty())
+	{
+		m_sStateStack.top()->Exit();
+		m_sStateStack.pop();
+		
+		if(!m_sStateStack.empty())
+			m_sStateStack.top()->Resume();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -123,8 +153,6 @@ void StateMachine::PopState()
 void StateMachine::Update(float p_fDelta)
 {
 	m_fCurrentStateTime += p_fDelta;
-	if (m_pCurrentState)
-	{
-		m_pCurrentState->Update(p_fDelta);
-	}
+	if (m_sStateStack.size() != 0)
+		m_sStateStack.top()->Update(p_fDelta);
 }

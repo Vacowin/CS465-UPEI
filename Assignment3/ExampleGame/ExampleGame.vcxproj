@@ -90,6 +90,7 @@
     <ClCompile Include="..\..\common\LuaScriptManager.cpp" />
     <ClCompile Include="..\..\common\SceneCamera.cpp" />
     <ClCompile Include="..\..\common\SceneManager.cpp" />
+    <ClCompile Include="..\..\common\StateMachine.cpp" />
     <ClCompile Include="..\..\common\Transform.cpp" />
     <ClCompile Include="..\..\common\W_LineDrawer.cpp" />
     <ClCompile Include="..\..\PowerVR\PVRTBoneBatch.cpp" />
@@ -161,6 +162,8 @@
     <ClInclude Include="..\..\common\LuaScriptManager.h" />
     <ClInclude Include="..\..\common\SceneCamera.h" />
     <ClInclude Include="..\..\common\SceneManager.h" />
+    <ClInclude Include="..\..\common\StateBase.h" />
+    <ClInclude Include="..\..\common\StateMachine.h" />
     <ClInclude Include="..\..\common\Transform.h" />
     <ClInclude Include="..\..\common\W_LineDrawer.h" />
     <ClInclude Include="..\..\PowerVR\PVRTArray.h" />
