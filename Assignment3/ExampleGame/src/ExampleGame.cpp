@@ -127,9 +127,9 @@ bool ExampleGame::Init()
 bool ExampleGame::Update(float p_fDelta)
 {
 	EventManager::Instance()->Update(p_fDelta);
-	m_pStateMachine->Update(p_fDelta);
 	m_pGameObjectManager->Update(p_fDelta);
-
+	m_pStateMachine->Update(p_fDelta);
+	
 	return true;
 }
 

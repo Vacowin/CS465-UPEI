@@ -14,6 +14,9 @@
 #include "BulletPhysicsDebugDrawer.h"
 #include "BulletPhysicsMaterialManager.h"
 #include "W_LineDrawer.h"
+#include <vector>
+#include "GameObject.h"
+#include <vector>
 
 namespace Common
 {
@@ -79,6 +82,7 @@ namespace Common
 		bool m_bRenderDebug;
 		wolf::LineDrawer* m_pLineDrawer;
 		BulletPhysicsDebugDrawer* m_pDebugDrawer;
+		static std::vector<std::pair<GameObject*,GameObject*>> m_lPairCollision;
 	};
 }
 

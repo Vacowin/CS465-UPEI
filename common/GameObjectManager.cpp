@@ -66,6 +66,7 @@ void GameObjectManager::DestroyGameObject(GameObject* p_pGameObject)
 	{
 		pGO = (GameObject*)it->second;
 		delete pGO;
+		pGO = NULL;
 		m_mGOMap.erase(it);
 	}
 }
@@ -226,6 +227,7 @@ void GameObjectManager::Update(float p_fDelta)
 		if (pRemoveObject)
 			this->DestroyGameObject(pRemoveObject);
 	}
+	
 
 	GameObject* pGO = NULL;
 	GameObjectMap::iterator it = m_mGOMap.begin(), end = m_mGOMap.end();
@@ -353,40 +355,25 @@ LuaPlus::LuaObject GameObjectManager::LuaCreateGameObjectXML(const char* p_strPa
 void GameObjectManager::AddRemovedObject(GameObject *p_pObject)
 {
 	m_lRemoveGOList.push_back(p_pObject);
+	
+}
+
+bool GameObjectManager::CheckRemoveObject(GameObject *p_pObject)
+{
+	bool ret = false;
+	for (int i=0;i<m_lRemoveGOList.size();i++)
+	{
+		GameObject* pGO = m_lRemoveGOList.at(i);
+		if (pGO == p_pObject)
+		{
+			ret = true;
+			break;
+		}
+	}
+	return ret;
 }
 
 void GameObjectManager::CheckCollision()
 {
-	/*
-	GameObject* pCharacter = NULL;
-	GameObjectMap::iterator it1 = m_mGOMap.find("character");
-	if (it1 != m_mGOMap.end())
-	{
-		pCharacter = (GameObject*)it1->second;
-	}
-
-	GameObject* pCoin = NULL;
-	GameObjectMap::iterator it = m_mGOMap.begin(), end = m_mGOMap.end();
-	for (; it != end; ++it)
-	{
-		pCoin = (GameObject*)it->second;
-		if (pCoin->GetGUID() != "character")
-		{
-			week2::ComponentCollision* pCollison1 = static_cast<week2::ComponentCollision*>(pCoin->GetComponent("GOC_CollisionSphere"));
-			if (pCollison1)
-			{
-				Transform &coinTransform = pCoin->GetTransform();
-				glm::vec3 distance1 = coinTransform.GetTranslation() - pCharacter->GetTransform().GetTranslation();
-				float dis = sqrt( distance1.x*distance1.x + distance1.z*distance1.z); 
-
-			
-				week2::ComponentCollision* pCollison2 = static_cast<week2::ComponentCollision*>(pCharacter->GetComponent("GOC_CollisionSphere"));
-
-				float radius = pCollison1->GetRadius() + pCollison2->GetRadius();
-				if (dis<radius)
-				{}//EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pCoin));
-			}
-		}
-	}
-	*/
+	
 }

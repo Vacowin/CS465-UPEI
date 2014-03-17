@@ -118,17 +118,46 @@ void ComponentTimerLogic::Update(float p_fDelta)
 void ComponentTimerLogic::HandleCoinCollision(BaseEvent *p_Event)
 {
 	EventObjectCollision *pEventCollision = static_cast<EventObjectCollision*>(p_Event);
-	Common::GameObject *pCoin = pEventCollision->GetGameObject2();
-
-	std::vector<Common::GameObject*>::iterator it = std::find(m_lCoinList.begin(), m_lCoinList.end(), pCoin);
-	if (it != m_lCoinList.end())
+	Common::GameObject* pGameObjectA = pEventCollision->GetGameObject1();
+	Common::GameObject* pGameObjectB = pEventCollision->GetGameObject2();
+	
+	Common::GameObject* pCharacter = NULL;
+	Common::GameObject* pOtherObject = NULL;
+	
+	if (pGameObjectA->GetGUID().compare("character") == 0)
 	{
-		m_lCoinList.erase(it);
-	}	
-	this->GetGameObject()->GetManager()->AddRemovedObject(pCoin);
+		pCharacter = pGameObjectA;
+		pOtherObject = pGameObjectB;
+	}
+	else if (pGameObjectB->GetGUID().compare("character") == 0)
+	{
+		pCharacter = pGameObjectB;
+		pOtherObject = pGameObjectA;
+	}
+	
 
-	EventManager::Instance()->QueueEvent(new EventCoinCollected(pEventCollision->GetGameObject1(), pCoin));
-	m_fTimePassed = 0.0f;
+	if (pCharacter)
+	{
+		
+		std::string sOtherObjectName = pOtherObject->GetGUID();
+		std::string subName = sOtherObjectName.substr(0,4);
+		if (subName.compare("coin") == 0)
+		{
+			Common::GameObject *pCoin = pOtherObject;
+
+			std::vector<Common::GameObject*>::iterator it = std::find(m_lCoinList.begin(), m_lCoinList.end(), pCoin);
+			if (it != m_lCoinList.end())
+			{
+				m_lCoinList.erase(it);
+			}	
+			if (!this->GetGameObject()->GetManager()->CheckRemoveObject(pCoin))
+				this->GetGameObject()->GetManager()->AddRemovedObject(pCoin);
+
+			EventManager::Instance()->QueueEvent(new EventCoinCollected(pEventCollision->GetGameObject1(), pCoin));
+			m_fTimePassed = 0.0f;
+		}
+		
+	}
 }
 
 void ComponentTimerLogic::HandleCoinDisappeared(BaseEvent *p_Event)

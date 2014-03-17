@@ -37,20 +37,27 @@ ComponentRigidBody::ComponentRigidBody()
 //------------------------------------------------------------------------------
 ComponentRigidBody::~ComponentRigidBody()
 {
+	
 	if (m_pBody && m_pBody->getMotionState())
 	{
+		m_pBody->setUserPointer(NULL);
 		delete m_pBody->getMotionState();
 
 		Common::BulletPhysicsManager::Instance()->GetWorld()->removeCollisionObject(m_pBody);
 		delete m_pBody;
 		m_pBody = NULL;
 	}
-
+	
+	//m_pBody->setUserPointer(NULL);
+	//Common::BulletPhysicsManager::Instance()->RemoveRigidBody(m_pBody);
+	
 	if (m_pCollisionShape)
 	{
 		delete m_pCollisionShape;
 		m_pCollisionShape = NULL;
 	}
+	
+	
 }
 
 Common::ComponentBase* ComponentRigidBody::CreateComponent(TiXmlNode* p_pNode)

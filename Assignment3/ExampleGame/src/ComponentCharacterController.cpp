@@ -93,7 +93,7 @@ void ComponentCharacterController::Update(float p_fDelta)
 
 	ComponentRigidBody* pCharRigid = static_cast<ComponentRigidBody*>(this->GetGameObject()->GetComponent("GOC_RigidBody"));
 	btRigidBody *m_pRigidBody = pCharRigid->GetRigidBody();
-    //m_pRigidBody->setAngularFactor(0);
+    m_pRigidBody->setAngularFactor(0);
 	btTransform trans;
 	m_pRigidBody->getMotionState()->getWorldTransform(trans);
 

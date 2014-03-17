@@ -17,7 +17,7 @@ using namespace Common;
 
 // Static singleton instance
 BulletPhysicsManager* BulletPhysicsManager::s_pPhysicsManagerInstance = NULL;
-
+std::vector<std::pair<GameObject*,GameObject*>> BulletPhysicsManager::m_lPairCollision;
 //------------------------------------------------------------------------------
 // Method:    CreateInstance
 // Returns:   void
@@ -162,6 +162,13 @@ BulletPhysicsManager::~BulletPhysicsManager()
 void BulletPhysicsManager::Update(float p_fDelta)
 {
 	m_pDynamicsWorld->stepSimulation(p_fDelta, 10);
+
+	for (int i=0;i<m_lPairCollision.size();i++)
+	{
+		std::pair<GameObject*,GameObject*> pair = m_lPairCollision.at(i);
+		EventManager::Instance()->QueueEvent(new EventObjectCollision(pair.first, pair.second));
+	}
+	m_lPairCollision.clear();
 }
 
 //------------------------------------------------------------------------------
@@ -226,43 +233,21 @@ void BulletPhysicsManager::TickCallback(btDynamicsWorld *p_pWorld, btScalar p_fT
 		const btRigidBody* obB = static_cast<const btRigidBody*>(contactManifold->getBody1());
 		GameObject* pGameObjectA = static_cast<GameObject*>(obA->getUserPointer());
 		GameObject* pGameObjectB = static_cast<GameObject*>(obB->getUserPointer());
-
-		GameObject* pCharacter = NULL;
-		GameObject* pOtherObject = NULL;
-		if (pGameObjectA->GetGUID().compare("character") == 0)
-		{
-			pCharacter = pGameObjectA;
-			pOtherObject = pGameObjectB;
-		}
-		else if (pGameObjectB->GetGUID().compare("character") == 0)
-		{
-			pCharacter = pGameObjectB;
-			pOtherObject = pGameObjectA;
-		}
-
-		if (pCharacter)
-		{
-			std::string sOtherObjectName = pOtherObject->GetGUID();
-			std::string subName = sOtherObjectName.substr(0,4);
-			if (subName.compare("coin") == 0)
-			{
-				EventManager::Instance()->QueueEvent(new EventObjectCollision(pCharacter, pOtherObject));
-			}
-		}
 		
-
-		int numContacts = contactManifold->getNumContacts();
-		for (int j = 0; j < numContacts; ++j)
+		bool pairExist = false;
+		for (int i=0;i<m_lPairCollision.size();i++)
 		{
-			btManifoldPoint& pt = contactManifold->getContactPoint(j);
-			if (pt.getDistance() < 0.0f)
+			std::pair<GameObject*,GameObject*> pair = m_lPairCollision.at(i);
+			if ((pair.first==pGameObjectA && pair.second==pGameObjectB)
+				||(pair.first==pGameObjectB && pair.second==pGameObjectA))
 			{
-				const btVector3& ptA = pt.getPositionWorldOnA();
-				const btVector3& ptB = pt.getPositionWorldOnB();
-				const btVector3& normalOnB = pt.m_normalWorldOnB;
-
-				// TODO: do something with the collision here; perhaps store a list of contact pairs in order to generate and queue an event?
+				pairExist = true;
+				break;
 			}
 		}
+		if (!pairExist)
+			m_lPairCollision.push_back(std::make_pair(pGameObjectA, pGameObjectB));
+		
 	}
+	
 }

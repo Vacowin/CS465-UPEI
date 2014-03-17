@@ -110,7 +110,10 @@ void GamePlayState::Enter()
 
 			glm::vec3 vPosition;
 			vPosition.x = randX;
-			vPosition.y = i*3.1f;
+			if (i==0||i==1)
+				vPosition.y = 0.0f;
+			else
+				vPosition.y = i*3.0f;
 			vPosition.z = randZ;
 			pCrate->GetTransform().SetTranslation(vPosition);
 

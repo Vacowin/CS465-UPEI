@@ -58,6 +58,7 @@ namespace Common
 		LuaPlus::LuaObject LuaCreateGameObjectXML(const char* p_strPath);
 
 		void AddRemovedObject(GameObject *p_pObject);
+		bool CheckRemoveObject(GameObject *p_pObject);
 		void CheckCollision();
 	private:
 		//---------------------------------------------------------------------

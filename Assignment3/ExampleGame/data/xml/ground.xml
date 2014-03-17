@@ -10,7 +10,7 @@
 	<GOC_RigidBody>
 		<CollisonShape value="plane" x="0.0" y="1.0" z="0.0" constant="0.0"/>
 		<Mass value="0.0f" />
-		<Material value="PlayDough" />
+		<Material value="Ground" />
 		<Offset x="0.0f" y="0.0f" z="0.0f" />
 		<Kinematic value="false" />
 	</GOC_RigidBody>
