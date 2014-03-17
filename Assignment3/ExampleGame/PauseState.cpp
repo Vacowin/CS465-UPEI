@@ -18,6 +18,9 @@ void PauseState::Enter()
 {
 	m_pButton  = ExampleGame::GetInstance()->GameObjectManager()->CreateGameObject("Assignment3/ExampleGame/data/xml/button_resume.xml");
 	m_pButton->GetTransform().SetTranslation(glm::vec3(1125.0f, 0.0f, 0.0f));
+
+	m_pMessage  = ExampleGame::GetInstance()->GameObjectManager()->CreateGameObject("Assignment3/ExampleGame/data/xml/pause_message.xml");
+	m_pMessage->GetTransform().SetTranslation(glm::vec3(550.0f, 300.0f, 0.0f));
 }
 
 void PauseState::Update(float p_fDelta)
@@ -32,10 +35,12 @@ void PauseState::Update(float p_fDelta)
 void PauseState::Exit()
 {
 	ExampleGame::GetInstance()->GameObjectManager()->DestroyGameObject(m_pButton);
+	ExampleGame::GetInstance()->GameObjectManager()->DestroyGameObject(m_pMessage);
 }
 
 void PauseState::Suspend()
 {
+
 }
 
 void PauseState::Resume()

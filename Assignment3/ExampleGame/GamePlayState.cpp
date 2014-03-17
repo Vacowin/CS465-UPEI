@@ -10,6 +10,9 @@
 #include "Assignment3/ExampleGame/States.h"
 #include "Assignment3/ExampleGame/src/ExampleGame.h"
 #include "Assignment3/ExampleGame/ComponentMouseClick.h"
+#include "Assignment3/ExampleGame/src/ComponentCharacterController.h"
+#include "Assignment3/ExampleGame/ComponentCoinMovement.h"
+#include "Assignment3/ExampleGame/ComponentTimerLogic.h"
 
 using namespace week2;
 
@@ -24,36 +27,6 @@ GamePlayState::~GamePlayState()
 
 void GamePlayState::Enter()
 {
-	/*
-		// Initialize our Scene Manager
-	Common::SceneManager::CreateInstance();
-
-	// Initialize our Scene Camera and attach it to the Scene Manager
-	m_pSceneCamera = new Common::SceneCamera(45.0f, 1280.0f / 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 5.0f, 15.0f), glm::vec3(0.0f,5.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f));
-	Common::SceneManager::Instance()->AttachCamera(m_pSceneCamera);
-
-	// Initialize our GameObjectManager
-	m_pGameObjectManager = new Common::GameObjectManager();
-
-	EventManager::CreateInstance();
-	
-
-	m_pGameObjectManager = ExampleGame::GetInstance()->GameObjectManager();
-
-	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableMesh", ComponentRenderableMesh::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_AnimController", ComponentAnimController::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_CharacterController", ComponentCharacterController::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableSquare", ComponentRenderableSquare::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_CoinScore", ComponentCoinScore::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_LifeSpan", ComponentCoinLife::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_CollisionSphere", ComponentCollision::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_CoinMovement", ComponentCoinMovement::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_TimerLogic", ComponentTimerLogic::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_CameraFollow", ComponentCameraFollow::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_Camera", ComponentCamera::CreateComponent);
-	m_pGameObjectManager->RegisterComponentFactory("GOC_RigidBody", ComponentRigidBody::CreateComponent);
-	*/
-
 	m_pGameObjectManager = ExampleGame::GetInstance()->GameObjectManager();
 	// Create a Physics Manager to manage physics simulation
 	Common::BulletPhysicsManager::CreateInstance("Assignment3/ExampleGame/data/physics_materials.xml",
@@ -123,6 +96,7 @@ void GamePlayState::Enter()
 	textbox1->Init();
 	Common::SceneManager::Instance()->AttachHUDTextBox(textbox1);
 	
+	// Create crates 
 	for (int j = 0;j<4;j++)
 	{
 		float randX = (rand() % 60) - (rand() % 10);
@@ -145,6 +119,7 @@ void GamePlayState::Enter()
 		}
 	}
 
+	// create button
 	m_pButton  = m_pGameObjectManager->CreateGameObject("Assignment3/ExampleGame/data/xml/button_pause.xml");
 	m_pButton->GetTransform().SetTranslation(glm::vec3(1125.0f, 0.0f, 0.0f));
 }
@@ -152,9 +127,6 @@ void GamePlayState::Enter()
 void GamePlayState::Update(float p_fDelta)
 {
 	Common::BulletPhysicsManager::Instance()->Update(p_fDelta);
-	//EventManager::Instance()->Update(p_fDelta);
-	//m_pGameObjectManager->Update(p_fDelta);
-	//m_pGameObjectManager->SyncTransforms();
 
 	static bool bLastKeyDown = false;
 	bool bCurrentKeyDown = glfwGetKey('Z');
@@ -174,30 +146,26 @@ void GamePlayState::Update(float p_fDelta)
 
 void GamePlayState::Suspend()
 {
+	ComponentCharacterController* pController = static_cast<ComponentCharacterController*>(m_pGameObjectManager->GetGameObject("character")->GetComponent("GOC_CharacterController"));
+	pController->SetActive(false);
 
+	ComponentTimerLogic* pTimer = static_cast<ComponentTimerLogic*>(m_pGameObjectManager->GetGameObject("timer")->GetComponent("GOC_TimerLogic"));
+	pTimer->SetActive(false);
 }
 
 void GamePlayState::Resume()
 {
 	ComponentMouseClick *pMouse = static_cast<ComponentMouseClick*>(m_pButton->GetComponent("GOC_MouseClick"));
 	pMouse->SetActive(true);
+
+	ComponentCharacterController* pController = static_cast<ComponentCharacterController*>(m_pGameObjectManager->GetGameObject("character")->GetComponent("GOC_CharacterController"));
+	pController->SetActive(true);
+
+	ComponentTimerLogic* pTimer = static_cast<ComponentTimerLogic*>(m_pGameObjectManager->GetGameObject("timer")->GetComponent("GOC_TimerLogic"));
+	pTimer->SetActive(true);
 }
 
 void GamePlayState::Exit()
 {
-	/*
-	m_pGameObjectManager->DestroyAllGameObjects();
-	delete m_pGameObjectManager;
-	m_pGameObjectManager = NULL;
-
-	// Delete our camera
-	if (m_pSceneCamera)
-	{
-		delete m_pSceneCamera;
-		m_pSceneCamera = NULL;
-	}
-
-	// Destroy the Scene Manager
-	Common::SceneManager::DestroyInstance();
-	*/
+	m_pGameObjectManager->DestroyGameObject(m_pButton);
 }

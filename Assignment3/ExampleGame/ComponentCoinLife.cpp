@@ -40,6 +40,8 @@ Common::ComponentBase* ComponentCoinLife::CreateComponent(TiXmlNode* p_pNode)
 
 void ComponentCoinLife::Update(float p_fDelta)
 {
+	if (!m_bActive) return;
+
 	if (abs(m_fTimePassed) > 1000) m_fTimePassed = 0.0f; 
 	m_fTimePassed += p_fDelta;
 	if (m_fTimePassed > m_fLifeSpan)

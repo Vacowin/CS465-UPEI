@@ -38,6 +38,7 @@ namespace week2
 
 		const glm::vec3& getFaceDirection() { return m_vFace;}
 		static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
+		void SetActive(bool value) {m_bActive = value;}
 	private:
 		//------------------------------------------------------------------------------
 		// Private members.
@@ -61,6 +62,7 @@ namespace week2
 		bool m_bToggleShoot;
 
 		glm::vec3 m_vFace;
+		bool m_bActive;
 	};
 }
 

@@ -21,10 +21,11 @@ namespace week2
 
 		void SetLifeSpan(float p_fLife) {m_fLifeSpan = p_fLife;}
 		float GetLifeSpan() {return m_fLifeSpan;}
-
+		void SetActive(bool value) { m_bActive = value;}
 	private:
 		float m_fLifeSpan;
 		float m_fTimePassed;
+		bool m_bActive;
 	};
 }
 

@@ -72,6 +72,7 @@ Common::ComponentBase* ComponentCharacterController::CreateComponent(TiXmlNode* 
 //------------------------------------------------------------------------------
 void ComponentCharacterController::Update(float p_fDelta)
 {
+	if (!m_bActive) return;
 	// Transfer previous frame key presses to "Last" array and get current keyboard state
 	for (int i = 0; i < 256; ++i)
 	{

@@ -90,6 +90,8 @@ Common::ComponentBase* ComponentTimerLogic::CreateComponent(TiXmlNode* p_pNode)
 
 void ComponentTimerLogic::Update(float p_fDelta)
 {
+	if (!m_bActive) return;
+
 	if (abs(m_fTimePassed) > 1000) m_fTimePassed = 0.0f; 
 	m_fTimePassed += p_fDelta;
 	if (m_fTimePassed > m_fFrequency)
@@ -141,4 +143,18 @@ void ComponentTimerLogic::HandleCoinDisappeared(BaseEvent *p_Event)
 	}	
 
 	m_fTimePassed = 0.0f;
+}
+
+void ComponentTimerLogic::SetActive(bool value)
+{
+	m_bActive = value;
+	for (int i=0;i<m_lCoinList.size();i++)
+	{
+		Common::GameObject* pCoin =m_lCoinList.at(i);
+		ComponentCoinMovement* pMovement = static_cast<ComponentCoinMovement*>(pCoin->GetComponent("GOC_CoinMovement"));
+		pMovement->SetActive(value);
+
+		ComponentCoinLife* pLife = static_cast<ComponentCoinLife*>(pCoin->GetComponent("GOC_LifeSpan"));
+		pLife->SetActive(value);
+	}
 }

@@ -1,6 +1,6 @@
 <GameObject>	
 	<GOC_RenderableSprite>
-		<Texture path="Assignment3/ExampleGame/data/ui/ButtonEmpty.tga" />
+		<Texture path="Assignment3/ExampleGame/data/ui/ButtonPause.tga" />
 		<VertexProgram path="Assignment3/ExampleGame/data/ui/sprite.vsh" />
 		<FragmentProgram path="Assignment3/ExampleGame/data/ui/sprite.fsh" />
 		<Width value=155.0  />

@@ -55,7 +55,7 @@ Common::ComponentBase* ComponentCoinMovement::CreateComponent(TiXmlNode* p_pNode
 
 void ComponentCoinMovement::Update(float p_fDelta)
 {
-	//m_fRotate = p_fDelta*2000;
+	if (!m_bActive) return;
 	if (abs(p_fDelta) > 1000) p_fDelta = 0.0f; 
 
 

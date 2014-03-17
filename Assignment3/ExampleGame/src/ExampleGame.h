@@ -29,8 +29,7 @@ namespace week2
 
 		// Static instance
 		static ExampleGame* GetInstance() { return s_pInstance; }
-		Common::GameObjectManager* GameObjectManager() { 
-			return m_pGameObjectManager; }
+		Common::GameObjectManager* GameObjectManager() { return m_pGameObjectManager; }
 
 	protected:	
 		//------------------------------------------------------------------------------

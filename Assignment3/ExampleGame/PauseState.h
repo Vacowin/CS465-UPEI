@@ -19,6 +19,7 @@ namespace week2
 		virtual void Resume();
 	private:
 		Common::GameObject* m_pButton;
+		Common::GameObject* m_pMessage;
 	};
 }
 #endif

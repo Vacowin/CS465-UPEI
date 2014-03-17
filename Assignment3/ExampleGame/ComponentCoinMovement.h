@@ -21,12 +21,14 @@ namespace week2
 
 		void SetRotationSpeed(float p_fRotate) {m_fRotate = p_fRotate;}
 		void SetBobScale(float p_fScale) {m_fBobScale = p_fScale;}
+		void SetActive(bool value) {m_bActive = value;}
 	private:
 		float m_fRotate;
 		float m_fBob;
 		int m_iBobFlag;
 
 		float m_fBobScale;
+		bool m_bActive;
 	};
 }
 #endif
