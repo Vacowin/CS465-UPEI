@@ -1,0 +1,28 @@
+<GameObject>
+
+	<GOC_RenderableMesh>
+		<Model path="Assignment4/ExampleGame/data/props/lamp.pod" />
+		<Textures path="Assignment4/ExampleGame/data/props/" />
+		<VertexProgram path="Assignment4/ExampleGame/data/shaders/textured.vsh" />
+		<FragmentProgram path="Assignment4/ExampleGame/data/shaders/textured.fsh" />
+	</GOC_RenderableMesh>
+	
+	<GOC_Camera>
+		<FOV value="45.0f" />
+		<AspectRatio value="1.777f" />
+		<NearClip value="0.1f" />
+		<FarClip value="1000.0f" />
+		<Position x="0.0f" y="25.0f" z="0.0f" />
+		<Target x="0.0f" y="5.0f" z="0.0f" />
+		<Up x="0.0f" y="1.0f" z="0.0f" />
+	</GOC_Camera>
+
+	<GOC_RigidBody>
+		<CollisonShape value="box" width="0.2" height="15" depth="0.2" />
+		<Mass value="0.0f" />
+		<Material value="Normal" />
+		<Offset x="0.0f" y="0.0f" z="0.0f" />
+		<Kinematic value="false" />
+	</GOC_RigidBody>
+
+</GameObject>

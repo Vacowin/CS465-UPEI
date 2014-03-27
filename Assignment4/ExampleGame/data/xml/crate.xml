@@ -1,0 +1,17 @@
+<GameObject>	
+	<GOC_RenderableMesh>
+		<Model path="Assignment4/ExampleGame/data/props/crate.pod" />
+		<Textures path="Assignment4/ExampleGame/data/props/" />
+		<VertexProgram path="Assignment4/ExampleGame/data/shaders/textured.vsh" />
+		<FragmentProgram path="Assignment4/ExampleGame/data/shaders/textured.fsh" />
+	</GOC_RenderableMesh>
+
+	<GOC_RigidBody>
+		<CollisonShape value="box" width="1.5" height="1.5" depth="1.5" />
+		<Mass value="2.0f" />
+		<Material value="Normal" />
+		<Offset x="0.0f" y="-1.5f" z="0.0f" />
+		<Kinematic value="false" />
+	</GOC_RigidBody>
+
+</GameObject>

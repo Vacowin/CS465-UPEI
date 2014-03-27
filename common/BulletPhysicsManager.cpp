@@ -10,8 +10,8 @@
 #include "BulletPhysicsManager.h"
 #include "GameObject.h"
 #include <cassert>
-#include "Assignment3\ExampleGame\EventObjectCollision.h"
-#include "Assignment3\ExampleGame\EventManager.h"
+#include "Assignment4\ExampleGame\EventObjectCollision.h"
+#include "Assignment4\ExampleGame\EventManager.h"
 
 using namespace Common;
 
