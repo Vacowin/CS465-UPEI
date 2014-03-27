@@ -13,6 +13,9 @@
 #include "Assignment4/ExampleGame/src/ComponentCharacterController.h"
 #include "Assignment4/ExampleGame/ComponentCoinMovement.h"
 #include "Assignment4/ExampleGame/ComponentTimerLogic.h"
+#include "Assignment4/ExampleGame/src/ComponentRenderableMesh.h"
+#include "Assignment4/ExampleGame/src/ComponentAnimController.h"
+#include "Assignment4/ExampleGame/ComponentAIController.h"
 
 using namespace week2;
 
@@ -53,7 +56,7 @@ void GamePlayState::Enter()
 	Common::GameObject* pGround = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/ground.xml");
 	ComponentRigidBody* pGroundRigid = static_cast<ComponentRigidBody*>(pGround->GetComponent("GOC_RigidBody"));
 	pGroundRigid->BindGameObject();
-
+	
 	// Create walls
 	Common::GameObject* pWall1 = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/wall.xml");
 	m_pGameObjectManager->SetGameObjectGUID(pWall1, "wall1");
@@ -84,8 +87,8 @@ void GamePlayState::Enter()
 	pWall4Rigid->BindGameObject();
 
 	// Create timer
-	Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/timer.xml");
-	m_pGameObjectManager->SetGameObjectGUID(pTimer, "timer");
+	//Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/timer.xml");
+	//m_pGameObjectManager->SetGameObjectGUID(pTimer, "timer");
 
 	// HUD
 	TFont tfont = TFont("Assignment4/ExampleGame/data/font/bm_0.tga","Assignment4/ExampleGame/data/font/bm.fnt");
@@ -97,6 +100,7 @@ void GamePlayState::Enter()
 	Common::SceneManager::Instance()->AttachHUDTextBox(textbox1);
 	
 	// Create crates 
+	/*
 	for (int j = 0;j<4;j++)
 	{
 		float randX = (rand() % 60) - (rand() % 10);
@@ -121,10 +125,35 @@ void GamePlayState::Enter()
 			pCrateRigid->BindGameObject();
 		}
 	}
-
+	*/
 	// create button
 	m_pButton  = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/button_pause.xml");
 	m_pButton->GetTransform().SetTranslation(glm::vec3(1125.0f, 0.0f, 0.0f));
+
+	Common::GameObject* pZombie = m_pGameObjectManager->CreateGameObject();
+	pZombie->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
+	pZombie->GetTransform().SetTranslation(glm::vec3(25.0f, 0.0f, 25.0f));
+	m_pGameObjectManager->SetGameObjectGUID(pZombie, "AICharacter");
+
+	// Create a renderable component for it
+	
+	ComponentRenderableMesh* pRenderableComponent = new ComponentRenderableMesh();
+	pRenderableComponent->Init("Assignment4/ExampleGame/data/zombie/zombie.pod", "Assignment4/ExampleGame/data/zombie/", "Assignment4/ExampleGame/data/skinned.vsh", "Assignment4/ExampleGame/data/skinned.fsh");
+	pZombie->AddComponent(pRenderableComponent);
+
+	// Create an animation controller component for it
+	ComponentAnimController* pAnimControllerComponent = new ComponentAnimController();
+	pAnimControllerComponent->AddAnim("run", 12, 36, true);
+	pAnimControllerComponent->AddAnim("walk", 108, 229, true);
+	pAnimControllerComponent->AddAnim("idle", 350, 470, true);
+	pAnimControllerComponent->AddAnim("walk_injured", 547, 582, true);
+	pAnimControllerComponent->SetAnim("idle");
+	pZombie->AddComponent(pAnimControllerComponent); 
+
+	// Create a controller component for it
+	ComponentAIController* pAIControllerComponent = new ComponentAIController();
+	pZombie->AddComponent(pAIControllerComponent);
+	pAIControllerComponent->Init();
 }
 
 void GamePlayState::Update(float p_fDelta)

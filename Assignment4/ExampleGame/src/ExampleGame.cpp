@@ -35,6 +35,7 @@
 #include "Assignment4\ExampleGame\States.h"
 #include "Assignment4\ExampleGame\ComponentRenderableSprite.h"
 #include "Assignment4\ExampleGame\ComponentMouseClick.h"
+#include "Assignment4/ExampleGame/AI/AIPathfinder.h"
 
 using namespace week2;
 
@@ -111,6 +112,10 @@ bool ExampleGame::Init()
 	m_pStateMachine->RegisterState(eStateGame_Pause, new PauseState());
 	m_pStateMachine->GoToState(eStateGame_Play);
 
+	// Initialize our AIPathfindingManager
+	AIPathfinder::CreateInstance();
+	AIPathfinder::Instance()->Load("Assignment4/ExampleGame/data/path/AIPathfindingData1.xml");
+
 	// Everything initialized OK.
 	return true;
 }
@@ -130,6 +135,14 @@ bool ExampleGame::Update(float p_fDelta)
 	m_pGameObjectManager->Update(p_fDelta);
 	m_pStateMachine->Update(p_fDelta);
 	
+	static bool bLastKeyDown = false;
+	bool bCurrentKeyDown = glfwGetKey('X');
+	if (bCurrentKeyDown && !bLastKeyDown)
+	{
+		AIPathfinder::Instance()->ToggleDebugRendering(m_pGameObjectManager);
+	}
+	bLastKeyDown = bCurrentKeyDown;
+
 	return true;
 }
 
@@ -152,6 +165,10 @@ void ExampleGame::Render()
 	// Render physics debugging
 	Common::BulletPhysicsManager::Instance()->Render(Common::SceneManager::Instance()->GetCamera()->GetProjectionMatrix(), 
 													 Common::SceneManager::Instance()->GetCamera()->GetViewMatrix());
+
+	// Debug pathfinding render
+	AIPathfinder::Instance()->Render(Common::SceneManager::Instance()->GetCamera()->GetProjectionMatrix(), 
+									 Common::SceneManager::Instance()->GetCamera()->GetViewMatrix());
 }
 
 //------------------------------------------------------------------------------

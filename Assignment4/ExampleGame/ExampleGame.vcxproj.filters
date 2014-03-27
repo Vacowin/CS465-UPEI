@@ -207,6 +207,21 @@
     <ClCompile Include="ComponentMouseClick.cpp">
       <Filter>component</Filter>
     </ClCompile>
+    <ClCompile Include="AI\AIPathfinder.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentAIController.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="AI\AIStateChasing.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AI\AIStateIdle.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AI\AIStateWander.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -229,6 +244,9 @@
     </Filter>
     <Filter Include="event">
       <UniqueIdentifier>{fcaf1867-c25d-4b2c-a065-7a22d364e97c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{4a40ca8f-bc48-4f9b-9828-3ae426ef1985}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -476,6 +494,21 @@
     </ClInclude>
     <ClInclude Include="ComponentMouseClick.h">
       <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\AIPathfinder.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentAIController.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\AIStateChasing.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\AIStateIdle.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\AIStateWander.h">
+      <Filter>AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

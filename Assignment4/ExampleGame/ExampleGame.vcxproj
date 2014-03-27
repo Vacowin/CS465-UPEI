@@ -129,6 +129,11 @@
     <ClCompile Include="..\..\wolf\W_TextureManager.cpp" />
     <ClCompile Include="..\..\wolf\W_VertexBuffer.cpp" />
     <ClCompile Include="..\..\wolf\W_VertexDeclaration.cpp" />
+    <ClCompile Include="AI\AIPathfinder.cpp" />
+    <ClCompile Include="AI\AIStateChasing.cpp" />
+    <ClCompile Include="AI\AIStateIdle.cpp" />
+    <ClCompile Include="AI\AIStateWander.cpp" />
+    <ClCompile Include="ComponentAIController.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentCameraFollow.cpp" />
     <ClCompile Include="ComponentCoinLife.cpp" />
@@ -212,7 +217,12 @@
     <ClInclude Include="..\..\wolf\W_Types.h" />
     <ClInclude Include="..\..\wolf\W_VertexBuffer.h" />
     <ClInclude Include="..\..\wolf\W_VertexDeclaration.h" />
+    <ClInclude Include="AI\AIPathfinder.h" />
+    <ClInclude Include="AI\AIStateChasing.h" />
+    <ClInclude Include="AI\AIStateIdle.h" />
+    <ClInclude Include="AI\AIStateWander.h" />
     <ClInclude Include="BaseEvent.h" />
+    <ClInclude Include="ComponentAIController.h" />
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentCameraFollow.h" />
     <ClInclude Include="ComponentCoinLife.h" />
