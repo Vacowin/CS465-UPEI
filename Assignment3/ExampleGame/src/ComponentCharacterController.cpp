@@ -36,12 +36,6 @@ ComponentCharacterController::ComponentCharacterController()
 	m_fRotateSpeed = 3;
 	m_fSpeed = 20;
 
-	//EventListener eventListener = std::tr1::bind(&ComponentCharacterController::HandleCharacterCollision, this, std::tr1::placeholders::_1);
-	//EventManager::Instance()->AddListener(Event_CharacterCollision, eventListener);
-
-	//EventListener eventListener = std::tr1::bind(&ComponentCharacterController::HandleCharacterCollision, this, std::tr1::placeholders::_1);
-	//EventManager::Instance()->AddListener(Event_ObjectCollision, eventListener);
-
 }
 
 //------------------------------------------------------------------------------
@@ -174,17 +168,3 @@ void ComponentCharacterController::Update(float p_fDelta)
 		m_bToggleShoot = false;
 }
 
-void ComponentCharacterController::HandleCharacterCollision(BaseEvent *p_Event)
-{
-	/*
-	EventCharacterCollision *pEventCollision = static_cast<EventCharacterCollision*>(p_Event);
-
-	z1 = m_fSpeed*cos((m_fRotation - 40) * PI / 180) - m_fSpeed*sin((m_fRotation - 40) * PI / 180);
-	x1 = m_fSpeed*sin((m_fRotation - 40) * PI / 180) + m_fSpeed*cos((m_fRotation - 40) * PI / 180);
-
-	glm::vec3 offset = glm::normalize(glm::vec3(x1,0,z1));
-
-	Common::Transform& transform = this->GetGameObject()->GetTransform();
-	transform.Translate(-(offset*0.25f));
-	*/
-}

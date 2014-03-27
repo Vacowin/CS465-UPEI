@@ -201,8 +201,10 @@
     </ClCompile>
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="PauseState.cpp" />
-    <ClCompile Include="ComponentMouseClick.cpp" />
     <ClCompile Include="ComponentRenderableSprite.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMouseClick.cpp">
       <Filter>component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -469,8 +471,10 @@
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="States.h" />
     <ClInclude Include="PauseState.h" />
-    <ClInclude Include="ComponentMouseClick.h" />
     <ClInclude Include="ComponentRenderableSprite.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMouseClick.h">
       <Filter>component</Filter>
     </ClInclude>
   </ItemGroup>

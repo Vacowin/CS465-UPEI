@@ -308,7 +308,7 @@ void ComponentRigidBody::BindGameObject()
 
 	if (this->GetGameObject()->GetGUID().compare("character") == 0)
 	{
-		m_pBody->setAngularFactor(0.1);
+		//m_pBody->setAngularFactor(0.1);
 		m_pBody->setActivationState(DISABLE_DEACTIVATION);
 	}
 	else if (m_bKinematic)

@@ -146,6 +146,9 @@
     <ClCompile Include="src\AIStateChasingFast.cpp" />
     <ClCompile Include="src\AIStateIdle.cpp" />
     <ClCompile Include="src\AIStateWander.cpp" />
+    <ClCompile Include="..\..\common\BulletPhysicsDebugDrawer.cpp" />
+    <ClCompile Include="..\..\common\BulletPhysicsManager.cpp" />
+    <ClCompile Include="..\..\common\BulletPhysicsMaterialManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -334,5 +337,8 @@
     <ClInclude Include="src\AIStateChasingFast.h" />
     <ClInclude Include="src\AIStateIdle.h" />
     <ClInclude Include="src\AIStateWander.h" />
+    <ClInclude Include="..\..\common\BulletPhysicsDebugDrawer.h" />
+    <ClInclude Include="..\..\common\BulletPhysicsManager.h" />
+    <ClInclude Include="..\..\common\BulletPhysicsMaterialManager.h" />
   </ItemGroup>
 </Project>

@@ -51,13 +51,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\PowerVR;$(SolutionDir)..\..\glfw\include;$(SolutionDir)..\..\glew\include;$(SolutionDir)..\..\luaPlus\include;$(SolutionDir)..\..\wolf;$(SolutionDir)..\..\tinyxml;$(SolutionDir)..\..\common;$(SolutionDir)..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\PowerVR;$(SolutionDir)..\..\glfw\include;$(SolutionDir)..\..\glew\include;$(SolutionDir)..\..\luaPlus\include;$(SolutionDir)..\..\wolf;$(SolutionDir)..\..\tinyxml;$(SolutionDir)..\..\common;$(SolutionDir)..\..\;$(SolutionDir)..\..\bullet\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;luaplus51-1201.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\glew\lib;$(ProjectDir)..\..\glfw\lib-msvc100;$(ProjectDir)..\..\luaPlus\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;luaplus51-1201.lib;BulletCollision.lib;BulletCollision_debug.lib;BulletDynamics.lib;BulletDynamics_debug.lib;LinearMath.lib;LinearMath_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\glew\lib;$(ProjectDir)..\..\glfw\lib-msvc100;$(ProjectDir)..\..\luaPlus\lib;$(ProjectDir)..\..\bullet\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,6 +81,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\common\BulletPhysicsDebugDrawer.cpp" />
+    <ClCompile Include="..\..\common\BulletPhysicsManager.cpp" />
+    <ClCompile Include="..\..\common\BulletPhysicsMaterialManager.cpp" />
     <ClCompile Include="..\..\common\GameObject.cpp" />
     <ClCompile Include="..\..\common\Game.cpp" />
     <ClCompile Include="..\..\common\GameObjectManager.cpp" />
@@ -140,6 +143,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\common\BulletPhysicsDebugDrawer.h" />
+    <ClInclude Include="..\..\common\BulletPhysicsManager.h" />
+    <ClInclude Include="..\..\common\BulletPhysicsMaterialManager.h" />
     <ClInclude Include="..\..\common\ComponentBase.h" />
     <ClInclude Include="..\..\common\ComponentRenderable.h" />
     <ClInclude Include="..\..\common\GameObject.h" />

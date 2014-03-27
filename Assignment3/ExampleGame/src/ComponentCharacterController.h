@@ -44,8 +44,6 @@ namespace week2
 		// Private members.
 		//------------------------------------------------------------------------------
 
-		void HandleCharacterCollision(BaseEvent *p_Event);
-
 		// Keys buffer
 		bool m_bKeysDown[256];
 		bool m_bKeysDownLast[256];

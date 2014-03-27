@@ -75,6 +75,8 @@ void AIStateChasing::Update(float p_fDelta)
 		Common::Transform& transform = pController->GetGameObject()->GetTransform();
 		Common::Transform& targetTransform = m_pTargetGameObject->GetTransform();
 
+		bool m_bPathChange = false;
+		glm::vec3 vTemp;
 		// In two cases we want to recalculate our path:
 		//	1. If we don't have a path
 		//  2. If our target position is different from the existing path we are following
@@ -90,7 +92,11 @@ void AIStateChasing::Update(float p_fDelta)
 			if (pEndNode->m_vPosition != vTarget)
 			{
 				// Our path has changed
+				//m_lPath.pop_front();
+				if (m_lPath.size()>1)
+					vTemp = glm::vec3(static_cast<glm::vec3>(*(m_lPath.begin())));
 				m_lPath = AIPathfinder::Instance()->FindPath(transform.GetTranslation(), targetTransform.GetTranslation());
+				m_bPathChange = true;
 			}
 		}
 
@@ -98,10 +104,42 @@ void AIStateChasing::Update(float p_fDelta)
 		glm::vec3 vMoveTarget = transform.GetTranslation();
 		if (m_lPath.size() > 0)
 		{
+			
+			AIPathfinder::PositionList::const_iterator it1;
+			int i;
+			glm::vec3 node2;
+			for (it1 = m_lPath.begin(), i =0;it1!=m_lPath.end();it1++)
+			{
+				if (i==1)
+				{
+					node2 = static_cast<glm::vec3>(*it1);
+					break;
+				}
+				i++;
+			}
+			
 			// Move towards the first node in the path
 			AIPathfinder::PositionList::const_iterator it = m_lPath.begin();
+			
 			vMoveTarget = static_cast<glm::vec3>(*it);
-
+			
+			if(m_bPathChange)
+			{
+				if (node2.x == vTemp.x && node2.z == vTemp.z)
+				{
+					//vMoveTarget = vTemp;
+					if (m_lPath.size()>1)
+					{
+						m_lPath.pop_front();
+						it = m_lPath.begin();
+						vMoveTarget = static_cast<glm::vec3>(*it);
+						printf("true\n");
+					}
+				}
+				else
+					printf("false %f %f   %f %f\n", node2.x, vTemp.x, node2.z, vTemp.z);
+			}
+			
 			// If we're here then choose then next node instead
 			if (m_lPath.size() > 1 && glm::length(vMoveTarget - transform.GetTranslation()) < 0.5f)
 			{

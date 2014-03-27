@@ -88,7 +88,7 @@ void TTextBox::ConstructQuadforTextBox()
 
 void TTextBox::Init()
 {
-	m_pFont = new TFont("assignment2/ExampleGame/data/font/bm_0.tga","assignment2/ExampleGame/data/font/bm.fnt");
+	m_pFont = new TFont("assignment3/ExampleGame/data/font/bm_0.tga","assignment3/ExampleGame/data/font/bm.fnt");
 	m_uiCurrentXPos = m_uiOriginXPos + m_iXBoxOffset1;
 	m_iXBoxOffset1 = 10 * (m_uiWidth/256.0);
 	m_iYBoxOffset1 = 10 * (m_uiHeight/256.0);
