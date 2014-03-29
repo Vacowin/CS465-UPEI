@@ -39,8 +39,9 @@ namespace week2
 			PathNode* pParentNode;
 			bool bInOpenList;
 			bool bInClosedList;
+			bool bIsOccupied;
 
-			PathNode() : G(0), H(0), pParentNode(NULL), bInOpenList(false), bInClosedList(false) {}
+			PathNode() : G(0), H(0), pParentNode(NULL), bInOpenList(false), bInClosedList(false), bIsOccupied(false) {}
 		};
 
 		// Typedefs
@@ -63,6 +64,7 @@ namespace week2
 		void ToggleDebugRendering(Common::GameObjectManager* p_pGameObjectManager);
 		void Render(const glm::mat4& p_mProj, const glm::mat4& p_mView);
 
+		void UpdateNodeOccupied(const glm::vec3& p_vPos);
 	private:
 		//------------------------------------------------------------------------------
 		// Private methods.

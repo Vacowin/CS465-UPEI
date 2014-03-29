@@ -1,0 +1,29 @@
+<GameObject>
+	<GOC_AnimController>
+		<Anim name="idle" start="350" end="470" loop="true" />
+		<Anim name="run" start="12" end="36" loop="true" />
+		<Anim name="walk" start="108" end="229" loop="true" />
+		<Anim name="walk_injured" start="547" end="582" loop="true" />
+	</GOC_AnimController>
+	
+	<GOC_RenderableMesh>
+		<Model path="Assignment4/ExampleGame/data/zombie/zombie.pod" />
+		<Textures path="Assignment4/ExampleGame/data/zombie/" />
+		<VertexProgram path="Assignment4/ExampleGame/data/skinned.vsh" />
+		<FragmentProgram path="Assignment4/ExampleGame/data/skinned.fsh" />
+	</GOC_RenderableMesh>
+	
+	<GOC_RigidBody>
+		<CollisonShape value="capsule" height="5.0" radius="1.8" />
+		<Mass value="50.0f" />
+		<Material value="Normal" />
+		<Offset x="0.0f" y="-4.0f" z="0.0f" />
+		<Kinematic value="true" />
+	</GOC_RigidBody>
+
+	<GOC_AIController>
+	</GOC_AIController>
+
+	
+
+</GameObject>

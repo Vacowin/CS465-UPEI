@@ -222,6 +222,12 @@
     <ClCompile Include="AI\AIStateWander.cpp">
       <Filter>AI</Filter>
     </ClCompile>
+    <ClCompile Include="AI\UtilityWorldState.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AI\AIStateChasingCoin.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -508,6 +514,12 @@
       <Filter>AI</Filter>
     </ClInclude>
     <ClInclude Include="AI\AIStateWander.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\UtilityWorldState.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\AIStateChasingCoin.h">
       <Filter>AI</Filter>
     </ClInclude>
   </ItemGroup>

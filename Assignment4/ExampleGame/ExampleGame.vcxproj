@@ -131,8 +131,10 @@
     <ClCompile Include="..\..\wolf\W_VertexDeclaration.cpp" />
     <ClCompile Include="AI\AIPathfinder.cpp" />
     <ClCompile Include="AI\AIStateChasing.cpp" />
+    <ClCompile Include="AI\AIStateChasingCoin.cpp" />
     <ClCompile Include="AI\AIStateIdle.cpp" />
     <ClCompile Include="AI\AIStateWander.cpp" />
+    <ClCompile Include="AI\UtilityWorldState.cpp" />
     <ClCompile Include="ComponentAIController.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentCameraFollow.cpp" />
@@ -219,8 +221,10 @@
     <ClInclude Include="..\..\wolf\W_VertexDeclaration.h" />
     <ClInclude Include="AI\AIPathfinder.h" />
     <ClInclude Include="AI\AIStateChasing.h" />
+    <ClInclude Include="AI\AIStateChasingCoin.h" />
     <ClInclude Include="AI\AIStateIdle.h" />
     <ClInclude Include="AI\AIStateWander.h" />
+    <ClInclude Include="AI\UtilityWorldState.h" />
     <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="ComponentAIController.h" />
     <ClInclude Include="ComponentCamera.h" />

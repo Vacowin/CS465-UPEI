@@ -122,8 +122,37 @@ void ComponentTimerLogic::HandleCoinCollision(BaseEvent *p_Event)
 	Common::GameObject* pGameObjectB = pEventCollision->GetGameObject2();
 	
 	Common::GameObject* pCharacter = NULL;
-	Common::GameObject* pOtherObject = NULL;
+	Common::GameObject* pCoin = NULL;
+	Common::GameObject* pZombie = NULL;
 	
+	std::string subName1 = (pGameObjectA->GetGUID()).substr(0,4);
+	std::string subName2 = (pGameObjectB->GetGUID()).substr(0,4);
+
+	if (subName1.compare("coin") == 0)
+	{
+		pCoin = pGameObjectA;
+		if (pGameObjectB->GetGUID().compare("character") == 0)
+			pCharacter = pGameObjectB;
+		else
+		{
+			std::string subNameB = (pGameObjectB->GetGUID()).substr(0,6);
+			if (subNameB.compare("zombie") == 0)
+				pZombie = pGameObjectB;
+		}
+	}
+	else if (subName2.compare("coin") == 0)
+	{
+		pCoin = pGameObjectB;
+		if (pGameObjectA->GetGUID().compare("character") == 0)
+			pCharacter = pGameObjectA;
+		else
+		{
+			std::string subNameA = (pGameObjectA->GetGUID()).substr(0,6);
+			if (subNameA.compare("zombie") == 0)
+				pZombie = pGameObjectA;
+		}
+	}
+	/*
 	if (pGameObjectA->GetGUID().compare("character") == 0)
 	{
 		pCharacter = pGameObjectA;
@@ -134,17 +163,27 @@ void ComponentTimerLogic::HandleCoinCollision(BaseEvent *p_Event)
 		pCharacter = pGameObjectB;
 		pOtherObject = pGameObjectA;
 	}
-	
-
-	if (pCharacter)
+	else 	
 	{
-		
-		std::string sOtherObjectName = pOtherObject->GetGUID();
-		std::string subName = sOtherObjectName.substr(0,4);
-		if (subName.compare("coin") == 0)
+		std::string subName1 = (pGameObjectA->GetGUID()).substr(0,6);
+		std::string subName2 = (pGameObjectB->GetGUID()).substr(0,6);
+		if (subName1.compare("zombie") == 0)
 		{
-			Common::GameObject *pCoin = pOtherObject;
+			pZombie = pGameObjectA;
+			pOtherObject = pGameObjectB;
+		}
+		else if (subName2.compare("zombie") == 0)
+		{
+			pZombie = pGameObjectB;
+			pOtherObject = pGameObjectA;
+		}
+	}
+	*/
 
+	if (pCoin)
+	{
+		if (pCharacter)
+		{
 			std::vector<Common::GameObject*>::iterator it = std::find(m_lCoinList.begin(), m_lCoinList.end(), pCoin);
 			if (it != m_lCoinList.end())
 			{
@@ -156,7 +195,18 @@ void ComponentTimerLogic::HandleCoinCollision(BaseEvent *p_Event)
 			EventManager::Instance()->QueueEvent(new EventCoinCollected(pEventCollision->GetGameObject1(), pCoin));
 			m_fTimePassed = 0.0f;
 		}
+		else if (pZombie)
+		{
+			std::vector<Common::GameObject*>::iterator it = std::find(m_lCoinList.begin(), m_lCoinList.end(), pCoin);
+			if (it != m_lCoinList.end())
+			{
+				m_lCoinList.erase(it);
+			}	
+			if (!this->GetGameObject()->GetManager()->CheckRemoveObject(pCoin))
+				this->GetGameObject()->GetManager()->AddRemovedObject(pCoin);
 		
+			m_fTimePassed = 0.0f;
+		}
 	}
 }
 
@@ -186,4 +236,13 @@ void ComponentTimerLogic::SetActive(bool value)
 		ComponentCoinLife* pLife = static_cast<ComponentCoinLife*>(pCoin->GetComponent("GOC_LifeSpan"));
 		pLife->SetActive(value);
 	}
+}
+
+vector<std::string>* ComponentTimerLogic::GetCurrentCoinID()
+{
+	vector<std::string>* pCoinIDList = new vector<std::string>();
+	for (int i=0;i<m_lCoinList.size();i++)
+		pCoinIDList->push_back(m_lCoinList.at(i)->GetGUID());
+
+	return pCoinIDList;
 }

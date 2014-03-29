@@ -87,8 +87,8 @@ void GamePlayState::Enter()
 	pWall4Rigid->BindGameObject();
 
 	// Create timer
-	//Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/timer.xml");
-	//m_pGameObjectManager->SetGameObjectGUID(pTimer, "timer");
+	Common::GameObject* pTimer = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/timer.xml");
+	m_pGameObjectManager->SetGameObjectGUID(pTimer, "timer");
 
 	// HUD
 	TFont tfont = TFont("Assignment4/ExampleGame/data/font/bm_0.tga","Assignment4/ExampleGame/data/font/bm.fnt");
@@ -99,9 +99,8 @@ void GamePlayState::Enter()
 	textbox1->Init();
 	Common::SceneManager::Instance()->AttachHUDTextBox(textbox1);
 	
-	// Create crates 
-	/*
-	for (int j = 0;j<4;j++)
+	// Create crates
+	for (int j = 0;j<2;j++)
 	{
 		float randX = (rand() % 60) - (rand() % 10);
 		float randZ = (rand() % 60) - (rand() % 10);
@@ -113,11 +112,8 @@ void GamePlayState::Enter()
 			m_pGameObjectManager->SetGameObjectGUID(pCrate, buff);
 
 			glm::vec3 vPosition;
-			vPosition.x = randX;
-			if (i==0||i==1)
-				vPosition.y = 0.0f;
-			else
-				vPosition.y = i*3.0f;
+			vPosition.x = randX;		
+			vPosition.y = i*3.0f;
 			vPosition.z = randZ;
 			pCrate->GetTransform().SetTranslation(vPosition);
 
@@ -125,35 +121,33 @@ void GamePlayState::Enter()
 			pCrateRigid->BindGameObject();
 		}
 	}
-	*/
+	
 	// create button
 	m_pButton  = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/button_pause.xml");
 	m_pButton->GetTransform().SetTranslation(glm::vec3(1125.0f, 0.0f, 0.0f));
 
-	Common::GameObject* pZombie = m_pGameObjectManager->CreateGameObject();
-	pZombie->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
-	pZombie->GetTransform().SetTranslation(glm::vec3(25.0f, 0.0f, 25.0f));
-	m_pGameObjectManager->SetGameObjectGUID(pZombie, "AICharacter");
+	// create zombies
+	Common::GameObject* pZombie3 = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/zombie.xml");
+	pZombie3->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
+	pZombie3->GetTransform().SetTranslation(glm::vec3(20.0f, 0.0f, 20.0f));
+	m_pGameObjectManager->SetGameObjectGUID(pZombie3, "zombieCoin2");
+	ComponentRigidBody* pRigidZombie3 = static_cast<ComponentRigidBody*>(pZombie3->GetComponent("GOC_RigidBody"));
+	pRigidZombie3->BindGameObject();
 
-	// Create a renderable component for it
-	
-	ComponentRenderableMesh* pRenderableComponent = new ComponentRenderableMesh();
-	pRenderableComponent->Init("Assignment4/ExampleGame/data/zombie/zombie.pod", "Assignment4/ExampleGame/data/zombie/", "Assignment4/ExampleGame/data/skinned.vsh", "Assignment4/ExampleGame/data/skinned.fsh");
-	pZombie->AddComponent(pRenderableComponent);
+	Common::GameObject* pZombie2 = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/zombie.xml");
+	pZombie2->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
+	pZombie2->GetTransform().SetTranslation(glm::vec3(25.0f, 0.0f, 25.0f));
+	m_pGameObjectManager->SetGameObjectGUID(pZombie2, "zombieCoin1");
+	ComponentRigidBody* pRigidZombie2 = static_cast<ComponentRigidBody*>(pZombie2->GetComponent("GOC_RigidBody"));
+	pRigidZombie2->BindGameObject();
 
-	// Create an animation controller component for it
-	ComponentAnimController* pAnimControllerComponent = new ComponentAnimController();
-	pAnimControllerComponent->AddAnim("run", 12, 36, true);
-	pAnimControllerComponent->AddAnim("walk", 108, 229, true);
-	pAnimControllerComponent->AddAnim("idle", 350, 470, true);
-	pAnimControllerComponent->AddAnim("walk_injured", 547, 582, true);
-	pAnimControllerComponent->SetAnim("idle");
-	pZombie->AddComponent(pAnimControllerComponent); 
+	Common::GameObject* pZombie1 = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/zombie.xml");
+	pZombie1->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
+	pZombie1->GetTransform().SetTranslation(glm::vec3(15.0f, 0.0f, 15.0f));
+	m_pGameObjectManager->SetGameObjectGUID(pZombie1, "zombieCharacter");
+	ComponentRigidBody* pRigidZombie1 = static_cast<ComponentRigidBody*>(pZombie1->GetComponent("GOC_RigidBody"));
+	pRigidZombie1->BindGameObject();
 
-	// Create a controller component for it
-	ComponentAIController* pAIControllerComponent = new ComponentAIController();
-	pZombie->AddComponent(pAIControllerComponent);
-	pAIControllerComponent->Init();
 }
 
 void GamePlayState::Update(float p_fDelta)

@@ -292,6 +292,11 @@ const AIPathfinder::PositionList& AIPathfinder::FindPath(const glm::vec3& p_vSta
 		for (; openListIt != openListEnd; ++openListIt)
 		{
 			PathNode* pTemp = static_cast<PathNode*>(*openListIt);
+			// dynamic avoidance
+			if (pTemp->bIsOccupied)
+			{
+				pTemp->H = 100000;
+			}
 			if (pCurrentNode == NULL || (pTemp->G + pTemp->H) < (pCurrentNode->G + pCurrentNode->H))
 			{
 				pCurrentNode = pTemp;
@@ -469,4 +474,37 @@ void AIPathfinder::Render(const glm::mat4& p_mProj, const glm::mat4& p_mView)
 
 		m_pLineDrawer->Render(p_mProj, p_mView);
 	}
+}
+
+// check for  dynamic avoidance
+void AIPathfinder::UpdateNodeOccupied(const glm::vec3& p_vPos)
+{
+	PathNode* pUpdateNode = NULL;
+
+	float fNodeDist = 10000.0f;
+	char strDebugBuffer[64];
+
+	// Find the node; we'll just use the nodes that are closest to the node
+	NodeList::const_iterator it = m_lPathNodes.begin(), end = m_lPathNodes.end();
+	for (; it != end; ++it)
+	{
+		PathNode* pNode = static_cast<PathNode*>(*it);
+		pNode->bIsOccupied = false;
+		pNode->m_vPosition.y = 0;
+		// Skip nodes without any neighbours
+		if (pNode->m_lNeighbourNodes.size() < 1)
+		{
+			continue;
+		}
+
+		float fDistoPos = glm::length(pNode->m_vPosition - p_vPos);
+
+		if (pUpdateNode == NULL || fDistoPos < fNodeDist)
+		{
+			pUpdateNode = pNode;
+			fNodeDist = fDistoPos;
+		}
+	}
+	
+	pUpdateNode->bIsOccupied = true;
 }

@@ -13,9 +13,18 @@
 
 #include "ComponentBase.h"
 #include "StateMachine.h"
+#include "tinyxml\tinyxml.h"
 
 namespace week2
 {
+	enum AIState
+	{
+			eAIState_None = -1,
+			eAIState_Wander = 0,
+			eAIState_Idle,
+			eAIState_Chasing,
+			eAIState_ChasingCoin
+	};
 	class ComponentAIController : public Common::ComponentBase
 	{
 	public:
@@ -24,14 +33,7 @@ namespace week2
 		//------------------------------------------------------------------------------
 
 		// Supported AI behaviours
-		enum AIState
-		{
-			eAIState_None = -1,
-			eAIState_Idle = 0,
-			eAIState_Wander,
-			eAIState_Chasing,
-			eAIState_FastChase
-		};
+		
 
 	public:
 		//------------------------------------------------------------------------------
@@ -39,6 +41,8 @@ namespace week2
 		//------------------------------------------------------------------------------
 		ComponentAIController();
 		virtual ~ComponentAIController();
+
+		static Common::ComponentBase* CreateComponent(TiXmlNode* p_pNode);
 
 		virtual const std::string FamilyID() { return std::string("GOC_AIController"); }
 		virtual const std::string ComponentID(){ return std::string("GOC_AIController"); }
@@ -52,12 +56,14 @@ namespace week2
 		AIState MapActionToState(const std::string& p_strAction)
 		{
 			if (p_strAction.compare("ACTION_CHASE") == 0)			{ return eAIState_Chasing; }
-			else if (p_strAction.compare("ACTION_CHASEFAST") == 0)	{ return eAIState_FastChase; }
-			else if (p_strAction.compare("ACTION_IDLE") == 0)		{ return eAIState_Idle; }
+			else if (p_strAction.compare("ACTION_CHASECOIN") == 0)	{ return eAIState_ChasingCoin; }
 			else if (p_strAction.compare("ACTION_WANDER") == 0)		{ return eAIState_Wander; }	
+			else if (p_strAction.compare("ACTION_IDLE") == 0)		{ return eAIState_Idle; }	
 			else													{ return eAIState_None; }
 		}
 
+		void SetCoinTarget(std::string p_sCoin) { m_sCoinTarget = p_sCoin;}
+		const std::string& GetCoinTarget() { return m_sCoinTarget;}
 	private:
 		//------------------------------------------------------------------------------
 		// Private members.
@@ -66,6 +72,9 @@ namespace week2
 
 		// Our state machine
 		Common::StateMachine* m_pStateMachine;
+
+		std::string m_sCoinTarget;
+		int m_iFrameCount;
 	};
 }
 

@@ -13,13 +13,13 @@
 #include "Assignment4/ExampleGame/ComponentAIController.h"
 #include "Assignment4/ExampleGame/src/ComponentRenderableMesh.h"
 #include "GameObject.h"
+#include "Assignment4\ExampleGame\AI\UtilityWorldState.h"
 
 // AI States
-
-#include "Assignment4/ExampleGame/AI/AIStateIdle.h"
 #include "Assignment4/ExampleGame/AI/AIStateChasing.h"
 #include "Assignment4/ExampleGame/AI/AIStateWander.h"
-
+#include "Assignment4/ExampleGame/AI/AIStateIdle.h"
+#include "Assignment4\ExampleGame\AI\AIStateChasingCoin.h"
 
 #include "windows.h"
 
@@ -35,6 +35,8 @@ ComponentAIController::ComponentAIController()
 	:
 	m_pStateMachine(NULL)
 {
+	m_sCoinTarget = "";
+	m_iFrameCount = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -53,6 +55,15 @@ ComponentAIController::~ComponentAIController()
 	}
 }
 
+Common::ComponentBase* ComponentAIController::CreateComponent(TiXmlNode* p_pNode)
+{
+	assert(strcmp(p_pNode->Value(), "GOC_AIController") == 0);
+	ComponentAIController* pAIController = new ComponentAIController();
+	pAIController->Init();
+
+	return pAIController;
+}
+
 //------------------------------------------------------------------------------
 // Method:    Update
 // Parameter: float p_fDelta
@@ -62,14 +73,40 @@ ComponentAIController::~ComponentAIController()
 //------------------------------------------------------------------------------
 void ComponentAIController::Update(float p_fDelta)
 {
-	// Do we need to switch states?
-	/*
-	AIState eBestState = this->MapActionToState(strBestAction);
-	if (m_pStateMachine->GetCurrentStateID() != eBestState)
+
+	float bestUtility = 0;
+	AIState bestState ;
+	UtilityWorldState* worldStateCopy = UtilityWorldState::Copy();
+	
+	worldStateCopy->ApplyAction(AIState::eAIState_Chasing);
+	float chasingUtility = worldStateCopy->Utility(this->GetGameObject());
+	if (chasingUtility > bestUtility)
 	{
-		m_pStateMachine->GoToState(eBestState);
+		bestUtility = chasingUtility;
+		bestState = eAIState_Chasing;
 	}
-	*/
+
+	worldStateCopy->ApplyAction(eAIState_ChasingCoin);
+	float chasingCoinUtility = worldStateCopy->Utility(this->GetGameObject());
+	if (chasingCoinUtility > bestUtility)
+	{
+		bestUtility = chasingCoinUtility;
+		bestState = eAIState_ChasingCoin;
+	}
+
+	worldStateCopy->ApplyAction(eAIState_Wander);
+	float wanderUtility = worldStateCopy->Utility(this->GetGameObject());
+	if (wanderUtility > bestUtility)
+	{
+		bestUtility = wanderUtility;
+		bestState = eAIState_Wander;
+	}
+
+	if (m_pStateMachine->GetCurrentStateID() != bestState)
+	{
+		m_pStateMachine->GoToState(bestState);
+	}
+
 	m_pStateMachine->Update(p_fDelta);
 	
 }
@@ -86,8 +123,9 @@ void ComponentAIController::Init()
 	// Initialize the StateMachine and supported states
 	m_pStateMachine = new Common::StateMachine();
 	m_pStateMachine->SetStateMachineOwner(this);
-	m_pStateMachine->RegisterState(eAIState_Idle, new AIStateIdle());
 	m_pStateMachine->RegisterState(eAIState_Wander, new AIStateWander());
+	m_pStateMachine->RegisterState(eAIState_Idle, new AIStateIdle());
 	m_pStateMachine->RegisterState(eAIState_Chasing, new AIStateChasing());
-	m_pStateMachine->GoToState(eAIState_Chasing);
+	m_pStateMachine->RegisterState(eAIState_ChasingCoin, new AIStateChasingCoin());
+	//m_pStateMachine->GoToState(eAIState_Chasing);
 }

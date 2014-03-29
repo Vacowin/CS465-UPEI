@@ -31,6 +31,8 @@ namespace week2
 		void SetFrequency(float p_fFre) { m_fFrequency = p_fFre;}
 		void SetDefaultObject(std::string p_sObject) { m_sObjectName = p_sObject;}
 		void SetActive(bool value);
+
+		vector<std::string>* GetCurrentCoinID();
 	private:
 		void HandleCoinCollision(BaseEvent *p_Event);
 		void HandleCoinDisappeared(BaseEvent *p_Event);

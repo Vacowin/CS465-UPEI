@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------
 
 #include "AIPathfinder.h"
-#include "AIStateChasing.h"
+#include "AIStateChasingCoin.h"
 #include "ComponentBase.h"
 #include "Assignment4/ExampleGame/ComponentAIController.h"
 #include "Assignment4/ExampleGame/src/ComponentAnimController.h"
@@ -24,7 +24,7 @@ using namespace week2;
 // 
 // Constructor.
 //------------------------------------------------------------------------------
-AIStateChasing::AIStateChasing()
+AIStateChasingCoin::AIStateChasingCoin()
 {
 }
 
@@ -34,7 +34,7 @@ AIStateChasing::AIStateChasing()
 // 
 // Destructor.
 //------------------------------------------------------------------------------
-AIStateChasing::~AIStateChasing()
+AIStateChasingCoin::~AIStateChasingCoin()
 {
 }
 
@@ -44,7 +44,7 @@ AIStateChasing::~AIStateChasing()
 // 
 // Called when this state becomes active.
 //------------------------------------------------------------------------------
-void AIStateChasing::Enter()
+void AIStateChasingCoin::Enter()
 {
 	// Trigger the walk animation
 	ComponentAIController* pController = static_cast<ComponentAIController*>(m_pStateMachine->GetStateMachineOwner());
@@ -55,9 +55,7 @@ void AIStateChasing::Enter()
 		pAnimController->SetAnim("walk");
 	}
 
-	// Set our target
-	// NOTE: this really should come into the state Enter() method as a context parameter so it's not hard coded.
-	m_pTargetGameObject = pController->GetGameObject()->GetManager()->GetGameObject("character");
+	//m_pTargetGameObject = pController->GetGameObject()->GetManager()->GetGameObject(pController->GetCoinTarget());
 }
 
 //------------------------------------------------------------------------------
@@ -67,8 +65,12 @@ void AIStateChasing::Enter()
 // 
 // Called each from when this state is active.
 //------------------------------------------------------------------------------
-void AIStateChasing::Update(float p_fDelta)
+void AIStateChasingCoin::Update(float p_fDelta)
 {
+	ComponentAIController* pController = static_cast<ComponentAIController*>(m_pStateMachine->GetStateMachineOwner());
+	m_pTargetGameObject = pController->GetGameObject()->GetManager()->GetGameObject(pController->GetCoinTarget());
+	//m_pTargetGameObject = pController->GetGameObject()->GetManager()->GetGameObject("character");
+
 	if (m_pTargetGameObject)
 	{
 		ComponentAIController* pController = static_cast<ComponentAIController*>(m_pStateMachine->GetStateMachineOwner());
@@ -165,7 +167,7 @@ void AIStateChasing::Update(float p_fDelta)
 	else
 	{
 		// If we don't have a target, we shouldn't be in a chase state; go to idle
-		m_pStateMachine->GoToState(eAIState_Wander);
+		m_pStateMachine->GoToState(eAIState_Idle);
 	}
 }
 
@@ -175,7 +177,7 @@ void AIStateChasing::Update(float p_fDelta)
 // 
 // Called when this state becomes inactive.
 //------------------------------------------------------------------------------
-void AIStateChasing::Exit()
+void AIStateChasingCoin::Exit()
 {	
 	m_pTargetGameObject = NULL;
 }

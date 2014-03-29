@@ -88,7 +88,7 @@ void AIStateWander::Update(float p_fDelta)
 	if (glm::length(vDiff) < 0.5f)
 	{
 		// Close enough; we're finished in this state. Go to idle
-		m_pStateMachine->GoToState(ComponentAIController::eAIState_Idle);
+		m_pStateMachine->GoToState(eAIState_Idle);
 		return;
 	}
 

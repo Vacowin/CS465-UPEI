@@ -36,6 +36,7 @@
 #include "Assignment4\ExampleGame\ComponentRenderableSprite.h"
 #include "Assignment4\ExampleGame\ComponentMouseClick.h"
 #include "Assignment4/ExampleGame/AI/AIPathfinder.h"
+#include "Assignment4\ExampleGame\ComponentAIController.h"
 
 using namespace week2;
 
@@ -106,6 +107,7 @@ bool ExampleGame::Init()
 	m_pGameObjectManager->RegisterComponentFactory("GOC_RigidBody", ComponentRigidBody::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_MouseClick", ComponentMouseClick::CreateComponent);
 	m_pGameObjectManager->RegisterComponentFactory("GOC_RenderableSprite", ComponentRenderableSprite::CreateComponent);
+	m_pGameObjectManager->RegisterComponentFactory("GOC_AIController", ComponentAIController::CreateComponent);
 
 	m_pStateMachine = new Common::StateMachine();
 	m_pStateMachine->RegisterState(eStateGame_Play, new GamePlayState());
@@ -143,6 +145,16 @@ bool ExampleGame::Update(float p_fDelta)
 	}
 	bLastKeyDown = bCurrentKeyDown;
 
+	
+	Common::GameObject* pZombie1 = m_pGameObjectManager->GetGameObject("zombieCharacter");
+	AIPathfinder::Instance()->UpdateNodeOccupied(pZombie1->GetTransform().GetTranslation());
+
+	Common::GameObject* pZombie2 = m_pGameObjectManager->GetGameObject("zombieCoin1");
+	AIPathfinder::Instance()->UpdateNodeOccupied(pZombie2->GetTransform().GetTranslation());
+
+	Common::GameObject* pZombie3 = m_pGameObjectManager->GetGameObject("zombieCoin2");
+	AIPathfinder::Instance()->UpdateNodeOccupied(pZombie3->GetTransform().GetTranslation());
+	
 	return true;
 }
 
