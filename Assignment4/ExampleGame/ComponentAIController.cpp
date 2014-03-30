@@ -73,9 +73,10 @@ Common::ComponentBase* ComponentAIController::CreateComponent(TiXmlNode* p_pNode
 //------------------------------------------------------------------------------
 void ComponentAIController::Update(float p_fDelta)
 {
-
+	
 	float bestUtility = 0;
-	AIState bestState ;
+	AIState bestState = eAIState_Wander;
+	
 	UtilityWorldState* worldStateCopy = UtilityWorldState::Copy();
 	
 	worldStateCopy->ApplyAction(AIState::eAIState_Chasing);
@@ -85,7 +86,7 @@ void ComponentAIController::Update(float p_fDelta)
 		bestUtility = chasingUtility;
 		bestState = eAIState_Chasing;
 	}
-
+	
 	worldStateCopy->ApplyAction(eAIState_ChasingCoin);
 	float chasingCoinUtility = worldStateCopy->Utility(this->GetGameObject());
 	if (chasingCoinUtility > bestUtility)
@@ -93,7 +94,7 @@ void ComponentAIController::Update(float p_fDelta)
 		bestUtility = chasingCoinUtility;
 		bestState = eAIState_ChasingCoin;
 	}
-
+	
 	worldStateCopy->ApplyAction(eAIState_Wander);
 	float wanderUtility = worldStateCopy->Utility(this->GetGameObject());
 	if (wanderUtility > bestUtility)
@@ -101,12 +102,12 @@ void ComponentAIController::Update(float p_fDelta)
 		bestUtility = wanderUtility;
 		bestState = eAIState_Wander;
 	}
-
+	
 	if (m_pStateMachine->GetCurrentStateID() != bestState)
 	{
 		m_pStateMachine->GoToState(bestState);
 	}
-
+	
 	m_pStateMachine->Update(p_fDelta);
 	
 }
@@ -127,5 +128,5 @@ void ComponentAIController::Init()
 	m_pStateMachine->RegisterState(eAIState_Idle, new AIStateIdle());
 	m_pStateMachine->RegisterState(eAIState_Chasing, new AIStateChasing());
 	m_pStateMachine->RegisterState(eAIState_ChasingCoin, new AIStateChasingCoin());
-	//m_pStateMachine->GoToState(eAIState_Chasing);
+	//m_pStateMachine->GoToState(eAIState_Wander);
 }

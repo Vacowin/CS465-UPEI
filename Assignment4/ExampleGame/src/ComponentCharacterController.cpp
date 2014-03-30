@@ -35,7 +35,7 @@ ComponentCharacterController::ComponentCharacterController()
 
 	m_fRotateSpeed = 3;
 	m_fSpeed = 20;
-
+	m_numProjectiles = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -159,6 +159,7 @@ void ComponentCharacterController::Update(float p_fDelta)
 		glm::vec3 vNewPos = pos + glm::vec3(offset.x, offset.y, offset.z);
 
 		Common::GameObject* pProjectTile = this->GetGameObject()->GetManager()->CreateGameObject("Assignment4/ExampleGame/data/xml/projectile.xml");
+		pProjectTile->GetManager()->SetGameObjectGUID(pProjectTile, "projectile" + std::to_string(m_numProjectiles++));
 		pProjectTile->GetTransform().SetTranslation(glm::vec3(vNewPos.x,vNewPos.y,vNewPos.z));
 		ComponentRigidBody* pComponentRigid = static_cast<ComponentRigidBody*>(pProjectTile->GetComponent("GOC_RigidBody"));
 		pComponentRigid->BindGameObject();

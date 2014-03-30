@@ -228,6 +228,9 @@
     <ClCompile Include="AI\AIStateChasingCoin.cpp">
       <Filter>AI</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentZombieStun.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="wolf">
@@ -521,6 +524,9 @@
     </ClInclude>
     <ClInclude Include="AI\AIStateChasingCoin.h">
       <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentZombieStun.h">
+      <Filter>component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -127,6 +127,14 @@ void GamePlayState::Enter()
 	m_pButton->GetTransform().SetTranslation(glm::vec3(1125.0f, 0.0f, 0.0f));
 
 	// create zombies
+
+	Common::GameObject* pZombie1 = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/zombie.xml");
+	pZombie1->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
+	pZombie1->GetTransform().SetTranslation(glm::vec3(15.0f, 0.0f, 15.0f));
+	m_pGameObjectManager->SetGameObjectGUID(pZombie1, "zombieCharacter");
+	ComponentRigidBody* pRigidZombie1 = static_cast<ComponentRigidBody*>(pZombie1->GetComponent("GOC_RigidBody"));
+	pRigidZombie1->BindGameObject();
+	
 	Common::GameObject* pZombie3 = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/zombie.xml");
 	pZombie3->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
 	pZombie3->GetTransform().SetTranslation(glm::vec3(20.0f, 0.0f, 20.0f));
@@ -140,14 +148,7 @@ void GamePlayState::Enter()
 	m_pGameObjectManager->SetGameObjectGUID(pZombie2, "zombieCoin1");
 	ComponentRigidBody* pRigidZombie2 = static_cast<ComponentRigidBody*>(pZombie2->GetComponent("GOC_RigidBody"));
 	pRigidZombie2->BindGameObject();
-
-	Common::GameObject* pZombie1 = m_pGameObjectManager->CreateGameObject("Assignment4/ExampleGame/data/xml/zombie.xml");
-	pZombie1->GetTransform().Scale(glm::vec3(0.05f, 0.05, 0.05f));
-	pZombie1->GetTransform().SetTranslation(glm::vec3(15.0f, 0.0f, 15.0f));
-	m_pGameObjectManager->SetGameObjectGUID(pZombie1, "zombieCharacter");
-	ComponentRigidBody* pRigidZombie1 = static_cast<ComponentRigidBody*>(pZombie1->GetComponent("GOC_RigidBody"));
-	pRigidZombie1->BindGameObject();
-
+	
 }
 
 void GamePlayState::Update(float p_fDelta)

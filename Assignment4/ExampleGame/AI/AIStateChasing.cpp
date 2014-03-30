@@ -15,6 +15,7 @@
 #include "GameObject.h"
 #include <glm/gtx/vector_angle.hpp>
 #include <Windows.h>
+#include "Assignment4\ExampleGame\ComponentZombieStun.h"
 
 using namespace week2;
 
@@ -74,6 +75,11 @@ void AIStateChasing::Update(float p_fDelta)
 		ComponentAIController* pController = static_cast<ComponentAIController*>(m_pStateMachine->GetStateMachineOwner());
 		Common::Transform& transform = pController->GetGameObject()->GetTransform();
 		Common::Transform& targetTransform = m_pTargetGameObject->GetTransform();
+
+		float fVelocity = 6.0f;
+		ComponentZombieStun* pStunComponent = static_cast<ComponentZombieStun*>(pController->GetGameObject()->GetComponent("GOC_ZombieStun"));
+		if (pStunComponent->GetIsStunned())
+			fVelocity /= 2;
 
 		bool m_bPathChange = false;
 		glm::vec3 vTemp;
@@ -154,7 +160,6 @@ void AIStateChasing::Update(float p_fDelta)
 		if (glm::length(vDiff) > 0.0f)
 		{
 			vDiff = glm::normalize(vDiff);
-			float fVelocity = 4.0f;
 			transform.Translate(vDiff * fVelocity * p_fDelta);
 
 			// Rotate facing direction

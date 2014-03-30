@@ -12,7 +12,7 @@
 	</GOC_CoinMovement>
 	
 	<GOC_LifeSpan>
-		<Timer value="6.0f" />
+		<Timer value="8.0f" />
 	</GOC_LifeSpan>
 	<GOC_CoinScore>
 		<Score value="5" />

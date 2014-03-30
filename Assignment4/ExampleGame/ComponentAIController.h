@@ -64,6 +64,7 @@ namespace week2
 
 		void SetCoinTarget(std::string p_sCoin) { m_sCoinTarget = p_sCoin;}
 		const std::string& GetCoinTarget() { return m_sCoinTarget;}
+		AIState GetCurrentState() { return (AIState)m_pStateMachine->GetCurrentStateID();}
 	private:
 		//------------------------------------------------------------------------------
 		// Private members.

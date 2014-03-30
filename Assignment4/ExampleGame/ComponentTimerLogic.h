@@ -33,6 +33,7 @@ namespace week2
 		void SetActive(bool value);
 
 		vector<std::string>* GetCurrentCoinID();
+		void CreateCoin();
 	private:
 		void HandleCoinCollision(BaseEvent *p_Event);
 		void HandleCoinDisappeared(BaseEvent *p_Event);

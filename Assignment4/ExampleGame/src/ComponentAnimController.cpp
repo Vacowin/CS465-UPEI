@@ -13,6 +13,7 @@
 #include "ComponentAnimController.h"
 #include "ComponentRenderableMesh.h"
 #include "GameObject.h"
+#include "Assignment4\ExampleGame\ComponentZombieStun.h"
 
 using namespace week2;
 
@@ -118,6 +119,19 @@ void ComponentAnimController::Update(float p_fDelta)
 {
 	if (m_pCurrentAnim)
 	{
+		// stunned zombie
+		Common::ComponentBase *pComponent = this->GetGameObject()->GetComponent("GOC_ZombieStun");
+		if (pComponent)
+		{
+			ComponentZombieStun* pStunComponent = static_cast<ComponentZombieStun*>(pComponent);
+			if (pStunComponent->GetIsStunned())
+			{
+				p_fDelta /= 2;
+				if (m_pCurrentAnim->m_strAnimName.compare("walk_injured")!=0)
+					this->SetAnim("walk_injured");
+			}
+		}
+
 		m_fAnimFrame += (p_fDelta * static_cast<float>(m_iAnimSpeed));
 		if(m_fAnimFrame >= static_cast<float>(m_pCurrentAnim->m_iEndFrame))
 		{

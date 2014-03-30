@@ -10,6 +10,7 @@
 #include "AIPathfinder.h"
 #include "Assignment4\ExampleGame\src\ComponentRenderableMesh.h"
 #include "windows.h"
+#include "Assignment4\ExampleGame\src\ExampleGame.h"
 
 using namespace week2;
 
@@ -507,4 +508,25 @@ void AIPathfinder::UpdateNodeOccupied(const glm::vec3& p_vPos)
 	}
 	
 	pUpdateNode->bIsOccupied = true;
+}
+
+void AIPathfinder::Update()
+{
+	static bool bLastKeyDown = false;
+	bool bCurrentKeyDown = glfwGetKey('X');
+	if (bCurrentKeyDown && !bLastKeyDown)
+	{
+		this->ToggleDebugRendering(ExampleGame::GetInstance()->GameObjectManager());
+	}
+	bLastKeyDown = bCurrentKeyDown;
+
+
+	Common::GameObject* pZombie1 = ExampleGame::GetInstance()->GameObjectManager()->GetGameObject("zombieCharacter");
+	this->UpdateNodeOccupied(pZombie1->GetTransform().GetTranslation());
+
+	Common::GameObject* pZombie2 = ExampleGame::GetInstance()->GameObjectManager()->GetGameObject("zombieCoin1");
+	this->UpdateNodeOccupied(pZombie2->GetTransform().GetTranslation());
+
+	Common::GameObject* pZombie3 = ExampleGame::GetInstance()->GameObjectManager()->GetGameObject("zombieCoin2");
+	this->UpdateNodeOccupied(pZombie3->GetTransform().GetTranslation());
 }

@@ -11,6 +11,7 @@
 #include "EventCoinSpawned.h"
 #include "EventCoinCollected.h"
 #include "Assignment4\ExampleGame\ComponentRigidBody.h"
+#include "Assignment4\ExampleGame\src\ExampleGame.h"
 
 using namespace week2;
 
@@ -99,20 +100,25 @@ void ComponentTimerLogic::Update(float p_fDelta)
 		m_fTimePassed = 0.0f;
 		if (m_lCoinList.size() < m_iMaxNumCoin)
 		{
-			float randomX = rand()%20 -rand()%40;
-			float randomZ = rand()%20 -rand()%40;;
-	
-			Common::GameObject* pCoin = this->GetGameObject()->GetManager()->CreateGameObject("Assignment4/ExampleGame/data/xml/" + m_sObjectName+".xml");
-			pCoin->GetManager()->SetGameObjectGUID(pCoin, "coin" + std::to_string(m_lNumCoin++));
-			pCoin->GetTransform().Translate(glm::vec3(randomX, 10.0f, randomZ));
-			m_lCoinList.push_back(pCoin);
-
-			ComponentRigidBody* pCoinRigid = static_cast<ComponentRigidBody*>(pCoin->GetComponent("GOC_RigidBody"));
-			pCoinRigid->BindGameObject();
-
-			EventManager::Instance()->QueueEvent(new EventCoinSpawned(pCoin));
+			CreateCoin();
 		}
 	}
+}
+
+void ComponentTimerLogic::CreateCoin()
+{
+	float randomX = rand()%20 -rand()%40;
+	float randomZ = rand()%20 -rand()%40;;
+	
+	Common::GameObject* pCoin = ExampleGame::GetInstance()->GameObjectManager()->CreateGameObject("Assignment4/ExampleGame/data/xml/coin.xml");
+	pCoin->GetManager()->SetGameObjectGUID(pCoin, "coin" + std::to_string(m_lNumCoin++));
+	pCoin->GetTransform().Translate(glm::vec3(randomX, 10.0f, randomZ));
+	m_lCoinList.push_back(pCoin);
+
+	ComponentRigidBody* pCoinRigid = static_cast<ComponentRigidBody*>(pCoin->GetComponent("GOC_RigidBody"));
+	pCoinRigid->BindGameObject();
+
+	EventManager::Instance()->QueueEvent(new EventCoinSpawned(pCoin));
 }
 
 void ComponentTimerLogic::HandleCoinCollision(BaseEvent *p_Event)

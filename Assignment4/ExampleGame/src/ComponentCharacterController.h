@@ -61,6 +61,8 @@ namespace week2
 
 		glm::vec3 m_vFace;
 		bool m_bActive;
+		
+		long double m_numProjectiles;
 	};
 }
 

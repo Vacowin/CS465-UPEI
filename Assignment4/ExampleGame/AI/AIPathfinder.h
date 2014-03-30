@@ -56,6 +56,7 @@ namespace week2
 		static void DestroyInstance();
 		static AIPathfinder* Instance();
 
+		void Update();
 		bool Load(const char* p_strPathfindingData);
 		const PathNode* const GetClosestNode(const glm::vec3& p_vPosition);
 		const PositionList& FindPath(const glm::vec3& p_vStart, const glm::vec3& p_vDestination);

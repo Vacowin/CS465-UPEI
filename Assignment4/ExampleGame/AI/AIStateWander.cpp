@@ -50,7 +50,7 @@ void AIStateWander::Enter()
 	if (pComponent)
 	{
 		ComponentAnimController* pAnimController = static_cast<ComponentAnimController*>(pComponent);
-		pAnimController->SetAnim("walk_injured");
+		pAnimController->SetAnim("walk");
 	}
 
 	// - - - - - - -- - 

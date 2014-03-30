@@ -24,6 +24,8 @@
 	<GOC_AIController>
 	</GOC_AIController>
 
-	
+	<GOC_ZombieStun>
+		<Duration value=3.0f />
+	</GOC_ZombieStun>
 
 </GameObject>
